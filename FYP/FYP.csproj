@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{06BCC406-8775-4393-86D6-646AD743B262}</ProjectGuid>
+    <ProjectGuid>{CADDDEF9-6D27-43DD-83E0-020838E2A9CB}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>FYP</RootNamespace>
-    <AssemblyName>FYP</AssemblyName>
+    <RootNamespace>FYP_10_2_18</RootNamespace>
+    <AssemblyName>FYP-10-2-18</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -53,6 +53,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
