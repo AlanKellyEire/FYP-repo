@@ -47,16 +47,23 @@ namespace FYP_10_2_18
                 var culture = new CultureInfo("en-GB");
                 writeToFile(localDate.ToString(culture));
 
+                ipBase = ipBase.Substring(0, (ipBase.LastIndexOf(".")));
+
                 ipBase = ipBase.Substring(0, (ipBase.LastIndexOf(".") + 1));
                 Trace.WriteLine("\nipBase = " + ipBase + "\n");
-                for (int i = 1; i < 255; i++)
+                Trace.WriteLine("\ntemp = " + ipBase + "\n");
+                for (int c = 1; c < 255; c++)
                 {
-                    string ip = ipBase + i.ToString();
+                    for (int i = 1; i < 255; i++)
+                    {
+                        string ip = ipBase + c.ToString() + i.ToString();
 
-                    Ping p = new Ping();
-                    p.PingCompleted += new PingCompletedEventHandler(pingCompleted);
+                        Ping p = new Ping();
+                        p.PingCompleted += new PingCompletedEventHandler(pingCompleted);
 
-                    p.SendAsync(ip, 100, ip);
+                        p.SendAsync(ip, 25, ip);
+                        p.Dispose();
+                    }
                 }
                 string message = "Network scan is now complete";
                 string caption = "Scan Successful";
@@ -267,6 +274,14 @@ namespace FYP_10_2_18
                 netIp = tbox.Text.Substring(0, (tbox.Text.LastIndexOf(".") + 1));
             }
 
+            IPNetwork ipnetwork = IPNetwork.Parse("2001:0db8::/64");
+
+            Trace.Write($"Network : {ipnetwork.Network}");
+            Console.WriteLine("Netmask : {0}", ipnetwork.Netmask);
+            Console.WriteLine("Broadcast : {0}", ipnetwork.Broadcast);
+            Console.WriteLine("FirstUsable : {0}", ipnetwork.FirstUsable);
+            Console.WriteLine("LastUsable : {0}", ipnetwork.LastUsable);
+            Console.WriteLine("Cidr : {0}", ipnetwork.Cidr);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -285,6 +300,9 @@ namespace FYP_10_2_18
                     textBox1.Text = path + "\\sample.txt";
                 }
             }
+            IPNetwork ipnetwork = IPNetwork.Parse("2001:0db8::/64");
+
+            Trace.Write($"Network : {ipnetwork.Network}");
         }
 
         private void textBox1_TextChanged_1(object sender, EventArgs e)
