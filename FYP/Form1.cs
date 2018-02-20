@@ -25,11 +25,12 @@ namespace FYP_10_2_18
         const bool resolveNames = true;
         String s;
         String path;
-        String netIp = "192.168.0.";
+        String ipBase = "192.168.0.";
+        String sub;
 
-    public Form1()
+        public Form1()
         {
-            InitializeComponent();    
+            InitializeComponent();
         }
 
 
@@ -41,28 +42,52 @@ namespace FYP_10_2_18
                 countdown = new CountdownEvent(1);
                 Stopwatch sw = new Stopwatch();
                 sw.Start();
-                string ipBase = netIp1a.Value.ToString() + "." + netIp1b.Value.ToString() + "." + netIp1c.Value.ToString() + "." + netIp1d.Value.ToString();
+                ipBase = netIp1a.Value.ToString() + "." + netIp1b.Value.ToString() + "." + netIp1c.Value.ToString() + "." + netIp1d.Value.ToString();
+                sub = subnet1a.Value.ToString() + "." + subnet1b.Value.ToString() + "." + subnet1c.Value.ToString() + "." + subnet1d.Value.ToString();
                 Trace.WriteLine("\nipBase = " + ipBase + "\n");
                 DateTime localDate = DateTime.Now;
                 var culture = new CultureInfo("en-GB");
                 writeToFile(localDate.ToString(culture));
-
-                ipBase = ipBase.Substring(0, (ipBase.LastIndexOf(".")));
-
-                ipBase = ipBase.Substring(0, (ipBase.LastIndexOf(".") + 1));
+                
+                
                 Trace.WriteLine("\nipBase = " + ipBase + "\n");
                 Trace.WriteLine("\ntemp = " + ipBase + "\n");
-                for (int c = 1; c < 255; c++)
+                //getSubnet();
+                if (cidr.Value != 24)
                 {
+                    ipBase = ipBase.Substring(0, (ipBase.LastIndexOf(".")));
+                    ipBase = ipBase.Substring(0, (ipBase.LastIndexOf(".") + 1));
+                    Trace.WriteLine("\nipBase = " + ipBase + "\n");
+                    for (int c = 1; c < 255; c++)
+                    {
+
+                        for (int i = 1; i < 255; i++)
+                        {
+                            string ip = ipBase + c.ToString() + "." + i.ToString();
+                            //string ip = ipBase + i.ToString();
+                            Ping p = new Ping();
+                            p.PingCompleted += new PingCompletedEventHandler(pingCompleted);
+                            //Trace.WriteLine("\n IP = " + ip + "\n");
+                            p.SendAsync(ip, 100, ip);
+                            p.Dispose();
+                        }
+                    }
+                }
+                else
+                {
+
+                    ipBase = ipBase.Substring(0, (ipBase.LastIndexOf(".")));
+                    Trace.WriteLine("\nipBase = " + ipBase + "\n");
+
                     for (int i = 1; i < 255; i++)
                     {
-                        string ip = ipBase + c.ToString() + i.ToString();
-
+                        string ip = ipBase + "." + i.ToString();
+                        //string ip = ipBase + i.ToString();
                         Ping p = new Ping();
                         p.PingCompleted += new PingCompletedEventHandler(pingCompleted);
-
-                        p.SendAsync(ip, 25, ip);
-                        p.Dispose();
+                        //Trace.WriteLine("\n IP = " + ip + "\n");
+                        p.SendAsync(ip, 100, ip);
+                        //p.Dispose();
                     }
                 }
                 string message = "Network scan is now complete";
@@ -85,6 +110,7 @@ namespace FYP_10_2_18
 
         public void pingCompleted(object sender, PingCompletedEventArgs e)
         {
+            Ping p = (Ping)sender;
             string ip = (string)e.UserState;
             if (e.Reply != null && e.Reply.Status == IPStatus.Success)
             {
@@ -102,7 +128,8 @@ namespace FYP_10_2_18
                     }
                     catch (SocketException ex)
                     {
-                        name = "?";
+                        name = Get_Mac_Address(ip);
+                        //name = "?";
                     }
                     //Console.WriteLine("{0} ({1}) is up: ({2} ms)", ip, name, e.Reply.RoundtripTime);
                     writeToFile($"Host {upCount} = {ip} ({name}) is up: ({e.Reply.RoundtripTime} ms)");
@@ -118,7 +145,56 @@ namespace FYP_10_2_18
                 //Console.WriteLine("Pinging {0} failed. (Null Reply object?)", ip);
                 writeToFile($"Pinging {ip} failed. (Null Reply object?)");
             }
-            
+            p.Dispose();
+
+        }
+
+        public String getSubnet()
+        {
+            Trace.WriteLine("\nstring c = " + ipBase + "\n");
+            ipBase = "192.168.0.1/" + cidr.Value.ToString();
+            Trace.WriteLine("\nstring c = " + ipBase + "\n");
+            IPNetwork ipnetwork = IPNetwork.Parse(ipBase);
+
+            convertToMask(ipnetwork.Netmask.ToString());
+
+            Console.WriteLine("FirstUsable : {0}", ipnetwork.FirstUsable);
+            Console.WriteLine("LastUsable : {0}", ipnetwork.LastUsable);
+
+            return "sfs";
+
+        }
+
+        public String[] convertToMask(String s)
+        {
+
+            String[] c = new string[4];
+            s = dotAt(s);
+            c[3] = s;
+            s = s.Substring(0, (s.LastIndexOf(".")));
+            c[2] = s;
+            s = s.Substring(0, (s.LastIndexOf(".")));
+            c[1] = s;
+            s = s.Substring(0, (s.LastIndexOf(".")));
+            c[0] = s;
+            Trace.WriteLine("\nstring c = " + c + "\n");
+            foreach (var i in c)
+            {
+                Trace.WriteLine(i.ToString());
+            }
+            return c;
+        }
+
+        public String dotAt(String s)
+        {
+            for(int i = 0; i < s.Length; i++)
+            {
+                if(s[i] == '.')
+                {
+                    return s.Substring(s.Length - (i-1));
+                }
+            }
+            return "Wrong fool";
         }
 
         public void writeToFile(String word)
@@ -237,7 +313,7 @@ namespace FYP_10_2_18
             }
 
         }
-
+        
         private void ValSubnet(TextBox tbox)
         {
 
@@ -267,11 +343,11 @@ namespace FYP_10_2_18
             }
             if (zeros == 1)
             {
-                netIp = tbox.Text.Substring(0, (tbox.Text.LastIndexOf(".") + 1));
+                ipBase = tbox.Text.Substring(0, (tbox.Text.LastIndexOf(".") + 1));
             }
             if (zeros == 2)
             {
-                netIp = tbox.Text.Substring(0, (tbox.Text.LastIndexOf(".") + 1));
+                ipBase = tbox.Text.Substring(0, (tbox.Text.LastIndexOf(".") + 1));
             }
 
             IPNetwork ipnetwork = IPNetwork.Parse("2001:0db8::/64");
@@ -329,6 +405,40 @@ namespace FYP_10_2_18
         {
 
         }
+
+        public String Get_Mac_Address(String ipAddress)
+    {
+        String macAddress = string.Empty;
+        System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
+        pProcess.StartInfo.FileName = "arp";
+        pProcess.StartInfo.Arguments = "-a " + ipAddress;
+        pProcess.StartInfo.UseShellExecute = false;
+        pProcess.StartInfo.RedirectStandardOutput = true;
+        pProcess.StartInfo.CreateNoWindow = true;
+        pProcess.Start();
+        String strOutput = pProcess.StandardOutput.ReadToEnd();
+        String[] substrings = strOutput.Split('-');
+        if (substrings.Length >= 8)
+        {
+            macAddress = substrings[3].Substring(Math.Max(0, substrings[3].Length - 2))
+                     + "-" + substrings[4] + "-" + substrings[5] + "-" + substrings[6]
+                     + "-" + substrings[7] + "-"
+                     + substrings[8].Substring(0, 2);
+            return macAddress;
+        }
+
+        else
+        {
+            return "not found";
+        }
     }
+
+        private void cidr_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
+
     
 }
+

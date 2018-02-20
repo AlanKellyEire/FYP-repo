@@ -47,6 +47,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.cidr = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1a)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1b)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1c)).BeginInit();
@@ -55,6 +56,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.subnet1c)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.subnet1b)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.subnet1a)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cidr)).BeginInit();
             this.SuspendLayout();
             // 
             // scanNet1
@@ -110,7 +112,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(466, 73);
+            this.label5.Location = new System.Drawing.Point(408, 72);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(54, 18);
             this.label5.TabIndex = 17;
@@ -179,7 +181,8 @@
             // 
             // subnet1d
             // 
-            this.subnet1d.Location = new System.Drawing.Point(745, 69);
+            this.subnet1d.Enabled = false;
+            this.subnet1d.Location = new System.Drawing.Point(781, 68);
             this.subnet1d.Maximum = new decimal(new int[] {
             255,
             0,
@@ -192,7 +195,8 @@
             // 
             // subnet1c
             // 
-            this.subnet1c.Location = new System.Drawing.Point(673, 69);
+            this.subnet1c.Enabled = false;
+            this.subnet1c.Location = new System.Drawing.Point(709, 68);
             this.subnet1c.Maximum = new decimal(new int[] {
             255,
             0,
@@ -209,7 +213,8 @@
             // 
             // subnet1b
             // 
-            this.subnet1b.Location = new System.Drawing.Point(601, 69);
+            this.subnet1b.Enabled = false;
+            this.subnet1b.Location = new System.Drawing.Point(637, 68);
             this.subnet1b.Maximum = new decimal(new int[] {
             255,
             0,
@@ -227,7 +232,8 @@
             // 
             // subnet1a
             // 
-            this.subnet1a.Location = new System.Drawing.Point(529, 69);
+            this.subnet1a.Enabled = false;
+            this.subnet1a.Location = new System.Drawing.Point(565, 68);
             this.subnet1a.Maximum = new decimal(new int[] {
             255,
             0,
@@ -245,8 +251,9 @@
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.Enabled = false;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(722, 69);
+            this.label6.Location = new System.Drawing.Point(758, 68);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(17, 25);
             this.label6.TabIndex = 24;
@@ -255,8 +262,9 @@
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.Enabled = false;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(650, 69);
+            this.label7.Location = new System.Drawing.Point(686, 68);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(17, 25);
             this.label7.TabIndex = 23;
@@ -265,8 +273,9 @@
             // label8
             // 
             this.label8.AutoSize = true;
+            this.label8.Enabled = false;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(578, 68);
+            this.label8.Location = new System.Drawing.Point(614, 67);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(17, 25);
             this.label8.TabIndex = 22;
@@ -291,9 +300,28 @@
             this.textBox1.TabIndex = 31;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
             // 
+            // cidr
+            // 
+            this.cidr.Location = new System.Drawing.Point(468, 69);
+            this.cidr.Maximum = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
+            this.cidr.Name = "cidr";
+            this.cidr.Size = new System.Drawing.Size(57, 24);
+            this.cidr.TabIndex = 32;
+            this.cidr.Value = new decimal(new int[] {
+            24,
+            0,
+            0,
+            0});
+            this.cidr.ValueChanged += new System.EventHandler(this.cidr_ValueChanged);
+            // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(1078, 344);
+            this.Controls.Add(this.cidr);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.subnet1d);
@@ -323,6 +351,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.subnet1c)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.subnet1b)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.subnet1a)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cidr)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -348,6 +377,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.NumericUpDown cidr;
     }
 }
 
