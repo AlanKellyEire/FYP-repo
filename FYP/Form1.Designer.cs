@@ -48,6 +48,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.cidr = new System.Windows.Forms.NumericUpDown();
+            this.test = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1a)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1b)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1c)).BeginInit();
@@ -318,9 +319,20 @@
             0});
             this.cidr.ValueChanged += new System.EventHandler(this.cidr_ValueChanged);
             // 
+            // test
+            // 
+            this.test.Location = new System.Drawing.Point(365, 250);
+            this.test.Name = "test";
+            this.test.Size = new System.Drawing.Size(75, 23);
+            this.test.TabIndex = 33;
+            this.test.Text = "test";
+            this.test.UseVisualStyleBackColor = true;
+            this.test.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(1078, 344);
+            this.Controls.Add(this.test);
             this.Controls.Add(this.cidr);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
@@ -378,6 +390,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.NumericUpDown cidr;
+        private System.Windows.Forms.Button test;
     }
 }
 

@@ -25,7 +25,7 @@ namespace FYP_10_2_18
         const bool resolveNames = true;
         String s;
         String path;
-        String ipBase = "192.168.0.";
+        String ipBase;
         String sub;
 
         public Form1()
@@ -36,12 +36,14 @@ namespace FYP_10_2_18
 
         private void ScanNetwork_Click_1(object sender, EventArgs e)
         {
+            AlertClass aC = new AlertClass();
             if (path != null)
             {
                 upCount = 0;
                 countdown = new CountdownEvent(1);
                 Stopwatch sw = new Stopwatch();
                 sw.Start();
+                aC.alert("what a load of crappy crap", "testing");
                 ipBase = netIp1a.Value.ToString() + "." + netIp1b.Value.ToString() + "." + netIp1c.Value.ToString() + "." + netIp1d.Value.ToString();
                 sub = subnet1a.Value.ToString() + "." + subnet1b.Value.ToString() + "." + subnet1c.Value.ToString() + "." + subnet1d.Value.ToString();
                 Trace.WriteLine("\nipBase = " + ipBase + "\n");
@@ -67,8 +69,9 @@ namespace FYP_10_2_18
                             //string ip = ipBase + i.ToString();
                             Ping p = new Ping();
                             p.PingCompleted += new PingCompletedEventHandler(pingCompleted);
+                            countdown.AddCount();
                             //Trace.WriteLine("\n IP = " + ip + "\n");
-                            p.SendAsync(ip, 100, ip);
+                            p.SendAsync(ip, 50, ip);
                             p.Dispose();
                         }
                     }
@@ -90,19 +93,14 @@ namespace FYP_10_2_18
                         //p.Dispose();
                     }
                 }
-                string message = "Network scan is now complete";
-                string caption = "Scan Successful";
-                MessageBoxButtons buttons = MessageBoxButtons.OK;
-                DialogResult result;
-                result = MessageBox.Show(message, caption, buttons);
+                countdown.Signal();
+            countdown.Wait();
+            sw.Stop();
+                aC.alert("Network scan is now complete", "Scan Successful");
             }
             else
             {
-                string message = "Please enter a path to save the text file";
-                string caption = "No Path";
-                MessageBoxButtons buttons = MessageBoxButtons.OK;
-                DialogResult result;
-                result = MessageBox.Show(message, caption, buttons);
+                aC.alert("Please enter a path to save the text file", "No Path");
             }
 
 
@@ -110,7 +108,9 @@ namespace FYP_10_2_18
 
         public void pingCompleted(object sender, PingCompletedEventArgs e)
         {
-            Ping p = (Ping)sender;
+            sender.GetType();
+            Ping p = ((Ping) sender);
+            p.Dispose();
             string ip = (string)e.UserState;
             if (e.Reply != null && e.Reply.Status == IPStatus.Success)
             {
@@ -131,22 +131,22 @@ namespace FYP_10_2_18
                         name = Get_Mac_Address(ip);
                         //name = "?";
                     }
-                    //Console.WriteLine("{0} ({1}) is up: ({2} ms)", ip, name, e.Reply.RoundtripTime);
-                    writeToFile($"Host {upCount} = {ip} ({name}) is up: ({e.Reply.RoundtripTime} ms)");
+                    Console.WriteLine("{0} ({1}) is up: ({2} ms)", ip, name, e.Reply.RoundtripTime);
+                    //writeToFile($"Host {upCount} = {ip} ({name}) is up: ({e.Reply.RoundtripTime} ms)");
                 }
                 else
                 {
-                    //Console.WriteLine("{0} is up: ({1} ms)", ip, e.Reply.RoundtripTime);
-                    writeToFile($"{ip} is up: ({e.Reply.RoundtripTime} ms)");
+                    Console.WriteLine("{0} is up: ({1} ms)", ip, e.Reply.RoundtripTime);
+                    //writeToFile($"{ip} is up: ({e.Reply.RoundtripTime} ms)");
                 }
             }
             else if (e.Reply == null)
             {
-                //Console.WriteLine("Pinging {0} failed. (Null Reply object?)", ip);
-                writeToFile($"Pinging {ip} failed. (Null Reply object?)");
+                Console.WriteLine("Pinging {0} failed. (Null Reply object?)", ip);
+                //writeToFile($"Pinging {ip} failed. (Null Reply object?)");
             }
             p.Dispose();
-
+            countdown.Signal();
         }
 
         public String getSubnet()
@@ -350,14 +350,14 @@ namespace FYP_10_2_18
                 ipBase = tbox.Text.Substring(0, (tbox.Text.LastIndexOf(".") + 1));
             }
 
-            IPNetwork ipnetwork = IPNetwork.Parse("2001:0db8::/64");
+            //IPNetwork ipnetwork = IPNetwork.Parse("2001:0db8::/64");
 
-            Trace.Write($"Network : {ipnetwork.Network}");
-            Console.WriteLine("Netmask : {0}", ipnetwork.Netmask);
-            Console.WriteLine("Broadcast : {0}", ipnetwork.Broadcast);
-            Console.WriteLine("FirstUsable : {0}", ipnetwork.FirstUsable);
-            Console.WriteLine("LastUsable : {0}", ipnetwork.LastUsable);
-            Console.WriteLine("Cidr : {0}", ipnetwork.Cidr);
+            //Trace.Write($"Network : {ipnetwork.Network}");
+            //Console.WriteLine("Netmask : {0}", ipnetwork.Netmask);
+            //Console.WriteLine("Broadcast : {0}", ipnetwork.Broadcast);
+            //Console.WriteLine("FirstUsable : {0}", ipnetwork.FirstUsable);
+            //Console.WriteLine("LastUsable : {0}", ipnetwork.LastUsable);
+            //Console.WriteLine("Cidr : {0}", ipnetwork.Cidr);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -376,9 +376,9 @@ namespace FYP_10_2_18
                     textBox1.Text = path + "\\sample.txt";
                 }
             }
-            IPNetwork ipnetwork = IPNetwork.Parse("2001:0db8::/64");
+            //IPNetwork ipnetwork = IPNetwork.Parse("2001:0db8::/64");
 
-            Trace.Write($"Network : {ipnetwork.Network}");
+            //Trace.Write($"Network : {ipnetwork.Network}");
         }
 
         private void textBox1_TextChanged_1(object sender, EventArgs e)
@@ -436,6 +436,16 @@ namespace FYP_10_2_18
         private void cidr_ValueChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Subnet sub = new Subnet();
+            IPNetwork ipnetwork = IPNetwork.Parse("192.168.0.0/24");
+           
+            Trace.Write($"Network : {ipnetwork.Netmask}");
+
+            sub.convertToMask("192.168.0.1");
         }
     }
 
