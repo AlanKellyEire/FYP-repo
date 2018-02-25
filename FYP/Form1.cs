@@ -47,14 +47,16 @@ namespace FYP_10_2_18
                 //aC.alert("what a load of crappy crap", "testing");
                 ipBase = netIp1a.Value.ToString() + "." + netIp1b.Value.ToString() + "." + netIp1c.Value.ToString() + "." + netIp1d.Value.ToString();
                 sub = subnet1a.Value.ToString() + "." + subnet1b.Value.ToString() + "." + subnet1c.Value.ToString() + "." + subnet1d.Value.ToString();
-                
+
                 //code to print time and date
                 /*Trace.WriteLine("\nipBase = " + ipBase + "\n");
                 DateTime localDate = DateTime.Now;
                 var culture = new CultureInfo("en-GB");
                 writeToFile(localDate.ToString(culture));*/
-                
-                
+                DateTime localDate = DateTime.Now;
+                var culture = new CultureInfo("en-GB");
+                writeToFile("Scan tarted at" + localDate.ToString(culture));
+
                 if (cidr.Value != 24)
                 {
                     ipBase = ipBase.Substring(0, (ipBase.LastIndexOf(".")));
@@ -102,15 +104,13 @@ namespace FYP_10_2_18
                 DialogResult result2 = MessageBox.Show("Network scan is now complete", "Scan Successful", MessageBoxButtons.OK, MessageBoxIcon.Question);
 
 
-                Trace.WriteLine("\nipBase = " + ipBase + "\n");
-                DateTime localDate = DateTime.Now;
-                var culture = new CultureInfo("en-GB");
-                writeToFile(localDate.ToString(culture));
                 for (int i =0; i < list.Count(); i++)
                 {
                     writeToFile(list[i].ToString());
                 }
-                
+                localDate = DateTime.Now;
+
+                writeToFile("Finished at " + localDate.ToString(culture));
             }
             else
             {
@@ -214,7 +214,7 @@ namespace FYP_10_2_18
         public void writeToFile(String word)
         {
             using (System.IO.StreamWriter file =
-            new System.IO.StreamWriter(@path + "/new.txt", true))
+            new System.IO.StreamWriter(@path + "/IpScanLog.txt", true))
             {
                 file.WriteLine(word);
             }
@@ -387,7 +387,7 @@ namespace FYP_10_2_18
                     Trace.Write(fbd.SelectedPath);
                     path = fbd.SelectedPath;
                     Trace.Write(path);
-                    textBox1.Text = path + "\\sample.txt";
+                    textBox1.Text = path + "\\IpScanLog.txt";
                 }
             }
             //IPNetwork ipnetwork = IPNetwork.Parse("2001:0db8::/64");
