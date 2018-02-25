@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.scanNet1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -49,6 +50,12 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.cidr = new System.Windows.Forms.NumericUpDown();
             this.test = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.nodeBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ipDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.macDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1a)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1b)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1c)).BeginInit();
@@ -58,6 +65,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.subnet1b)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.subnet1a)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cidr)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nodeBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // scanNet1
@@ -321,7 +330,7 @@
             // 
             // test
             // 
-            this.test.Location = new System.Drawing.Point(365, 250);
+            this.test.Location = new System.Drawing.Point(927, 70);
             this.test.Name = "test";
             this.test.Size = new System.Drawing.Size(75, 23);
             this.test.TabIndex = 33;
@@ -329,9 +338,57 @@
             this.test.UseVisualStyleBackColor = true;
             this.test.Click += new System.EventHandler(this.button2_Click);
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AutoGenerateColumns = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.idDataGridViewTextBoxColumn,
+            this.nameDataGridViewTextBoxColumn,
+            this.ipDataGridViewTextBoxColumn,
+            this.macDataGridViewTextBoxColumn});
+            this.dataGridView1.DataSource = this.nodeBindingSource;
+            this.dataGridView1.Location = new System.Drawing.Point(65, 245);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(780, 261);
+            this.dataGridView1.TabIndex = 34;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // nodeBindingSource
+            // 
+            this.nodeBindingSource.DataSource = typeof(FYP_10_2_18.Node);
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.Width = 200;
+            // 
+            // ipDataGridViewTextBoxColumn
+            // 
+            this.ipDataGridViewTextBoxColumn.DataPropertyName = "Ip";
+            this.ipDataGridViewTextBoxColumn.HeaderText = "Ip";
+            this.ipDataGridViewTextBoxColumn.Name = "ipDataGridViewTextBoxColumn";
+            this.ipDataGridViewTextBoxColumn.Width = 200;
+            // 
+            // macDataGridViewTextBoxColumn
+            // 
+            this.macDataGridViewTextBoxColumn.DataPropertyName = "Mac";
+            this.macDataGridViewTextBoxColumn.HeaderText = "Mac";
+            this.macDataGridViewTextBoxColumn.Name = "macDataGridViewTextBoxColumn";
+            this.macDataGridViewTextBoxColumn.Width = 200;
+            // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(1078, 344);
+            this.ClientSize = new System.Drawing.Size(1078, 588);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.test);
             this.Controls.Add(this.cidr);
             this.Controls.Add(this.textBox1);
@@ -364,6 +421,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.subnet1b)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.subnet1a)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cidr)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nodeBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -391,6 +450,13 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.NumericUpDown cidr;
         private System.Windows.Forms.Button test;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.BindingSource nodeBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ipDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn macDataGridViewTextBoxColumn;
     }
 }
 

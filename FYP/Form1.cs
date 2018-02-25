@@ -19,6 +19,7 @@ namespace FYP_10_2_18
 {
     public partial class Form1 : Form
     {
+        List<Node> list = new List<Node>();
         static CountdownEvent countdown;
         static int upCount = 0;
         static object lockObj = new object();
@@ -27,7 +28,7 @@ namespace FYP_10_2_18
         String path;
         String ipBase;
         String sub;
-
+        
         public Form1()
         {
             InitializeComponent();
@@ -39,22 +40,21 @@ namespace FYP_10_2_18
             AlertClass aC = new AlertClass();
             if (path != null)
             {
-                upCount = 0;
+                upCount = 1;
                 countdown = new CountdownEvent(1);
                 Stopwatch sw = new Stopwatch();
                 sw.Start();
-                aC.alert("what a load of crappy crap", "testing");
+                //aC.alert("what a load of crappy crap", "testing");
                 ipBase = netIp1a.Value.ToString() + "." + netIp1b.Value.ToString() + "." + netIp1c.Value.ToString() + "." + netIp1d.Value.ToString();
                 sub = subnet1a.Value.ToString() + "." + subnet1b.Value.ToString() + "." + subnet1c.Value.ToString() + "." + subnet1d.Value.ToString();
-                Trace.WriteLine("\nipBase = " + ipBase + "\n");
+                
+                //code to print time and date
+                /*Trace.WriteLine("\nipBase = " + ipBase + "\n");
                 DateTime localDate = DateTime.Now;
                 var culture = new CultureInfo("en-GB");
-                writeToFile(localDate.ToString(culture));
+                writeToFile(localDate.ToString(culture));*/
                 
                 
-                Trace.WriteLine("\nipBase = " + ipBase + "\n");
-                Trace.WriteLine("\ntemp = " + ipBase + "\n");
-                //getSubnet();
                 if (cidr.Value != 24)
                 {
                     ipBase = ipBase.Substring(0, (ipBase.LastIndexOf(".")));
@@ -62,14 +62,14 @@ namespace FYP_10_2_18
                     Trace.WriteLine("\nipBase = " + ipBase + "\n");
                     for (int c = 1; c < 255; c++)
                     {
-
+                        System.Threading.Thread.Sleep(25);
                         for (int i = 1; i < 255; i++)
                         {
                             string ip = ipBase + c.ToString() + "." + i.ToString();
                             //string ip = ipBase + i.ToString();
                             Ping p = new Ping();
                             p.PingCompleted += new PingCompletedEventHandler(pingCompleted);
-                            countdown.AddCount();
+                            //countdown.AddCount();
                             //Trace.WriteLine("\n IP = " + ip + "\n");
                             p.SendAsync(ip, 50, ip);
                             p.Dispose();
@@ -80,7 +80,7 @@ namespace FYP_10_2_18
                 {
 
                     ipBase = ipBase.Substring(0, (ipBase.LastIndexOf(".")));
-                    Trace.WriteLine("\nipBase = " + ipBase + "\n");
+                    Trace.WriteLine("\n entered /24 ipBase = " + ipBase + "\n");
 
                     for (int i = 1; i < 255; i++)
                     {
@@ -88,39 +88,47 @@ namespace FYP_10_2_18
                         //string ip = ipBase + i.ToString();
                         Ping p = new Ping();
                         p.PingCompleted += new PingCompletedEventHandler(pingCompleted);
+                        //countdown.AddCount();
                         //Trace.WriteLine("\n IP = " + ip + "\n");
-                        p.SendAsync(ip, 100, ip);
-                        //p.Dispose();
+                        p.SendAsync(ip, 50, ip);
+                        p.Dispose();
                     }
                 }
-                countdown.Signal();
-            countdown.Wait();
-            sw.Stop();
-                aC.alert("Network scan is now complete", "Scan Successful");
+                //countdown.Signal();
+                //countdown.Wait();
+                sw.Stop();
+                TimeSpan span = new TimeSpan(sw.ElapsedTicks);
+                writeToFile($"Took {sw.ElapsedMilliseconds} milliseconds. {upCount} hosts active."); 
+                DialogResult result2 = MessageBox.Show("Network scan is now complete", "Scan Successful", MessageBoxButtons.OK, MessageBoxIcon.Question);
+
+
+                Trace.WriteLine("\nipBase = " + ipBase + "\n");
+                DateTime localDate = DateTime.Now;
+                var culture = new CultureInfo("en-GB");
+                writeToFile(localDate.ToString(culture));
+                for (int i =0; i < list.Count(); i++)
+                {
+                    writeToFile(list[i].ToString());
+                }
+                
             }
             else
             {
                 aC.alert("Please enter a path to save the text file", "No Path");
             }
 
-
+            dataGridView1.DataSource = list;
         }
 
         public void pingCompleted(object sender, PingCompletedEventArgs e)
         {
-            sender.GetType();
-            Ping p = ((Ping) sender);
-            p.Dispose();
             string ip = (string)e.UserState;
             if (e.Reply != null && e.Reply.Status == IPStatus.Success)
             {
-                lock (lockObj)
-                {
-                    upCount++;
-                }
                 if (resolveNames)
                 {
                     string name;
+                    string mac;
                     try
                     {
                         IPHostEntry hostEntry = Dns.GetHostEntry(ip);
@@ -128,25 +136,31 @@ namespace FYP_10_2_18
                     }
                     catch (SocketException ex)
                     {
-                        name = Get_Mac_Address(ip);
-                        //name = "?";
+                        name = "?";
                     }
-                    Console.WriteLine("{0} ({1}) is up: ({2} ms)", ip, name, e.Reply.RoundtripTime);
+                    mac = Get_Mac_Address(ip);
+                    Node node = new Node(upCount, name, ip, mac);
+                    list.Add(node);
+                    Trace.WriteLine($"Host {upCount} = {ip} ({name}) is up: ({e.Reply.RoundtripTime} ms)");
+                    //Console.WriteLine("{0} ({1}) is up: ({2} ms)", ip, name, e.Reply.RoundtripTime);
                     //writeToFile($"Host {upCount} = {ip} ({name}) is up: ({e.Reply.RoundtripTime} ms)");
                 }
                 else
                 {
-                    Console.WriteLine("{0} is up: ({1} ms)", ip, e.Reply.RoundtripTime);
+                    //Console.WriteLine("{0} is up: ({1} ms)", ip, e.Reply.RoundtripTime);
                     //writeToFile($"{ip} is up: ({e.Reply.RoundtripTime} ms)");
+                }
+                lock (lockObj)
+                {
+                    upCount++;
                 }
             }
             else if (e.Reply == null)
             {
-                Console.WriteLine("Pinging {0} failed. (Null Reply object?)", ip);
+                //Console.WriteLine("Pinging {0} failed. (Null Reply object?)", ip);
                 //writeToFile($"Pinging {ip} failed. (Null Reply object?)");
             }
-            p.Dispose();
-            countdown.Signal();
+            //countdown.Signal();
         }
 
         public String getSubnet()
@@ -200,7 +214,7 @@ namespace FYP_10_2_18
         public void writeToFile(String word)
         {
             using (System.IO.StreamWriter file =
-            new System.IO.StreamWriter(@path + "/sample.txt", true))
+            new System.IO.StreamWriter(@path + "/new.txt", true))
             {
                 file.WriteLine(word);
             }
@@ -213,7 +227,7 @@ namespace FYP_10_2_18
 
         private void network1_TextChanged(object sender, EventArgs e)
         {
-            //netIp = network1.Text;
+           
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -446,6 +460,16 @@ namespace FYP_10_2_18
             Trace.Write($"Network : {ipnetwork.Netmask}");
 
             sub.convertToMask("192.168.0.1");
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 
