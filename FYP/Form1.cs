@@ -264,16 +264,7 @@ namespace FYP_10_2_18
             return "not found";
         }
     }
-
-        private void cidr_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+        
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
