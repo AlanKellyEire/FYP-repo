@@ -21,8 +21,9 @@ namespace FYP_10_2_18
             this.Mac = mac;
         }
 
-        public string Name { get => hostname; set => hostname = value; }
+
         public int Id { get => id; set => id = value; }
+        public string Name { get => hostname; set => hostname = value; }
         public string Ip { get => ip; set => ip = value; }
         public string Mac { get => mac; set => mac = value; }
 

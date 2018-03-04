@@ -14,110 +14,130 @@ using System.Net;
 using System.Threading;
 using System.Net.Sockets;
 using System.Globalization;
+using System.Collections.ObjectModel;
 
 namespace FYP_10_2_18
 {
     public partial class Form1 : Form
     {
-        List<Node> list = new List<Node>();
+        ObservableCollection<Node> list = new ObservableCollection<Node>();
         static CountdownEvent countdown;
         static int upCount = 0;
         static object lockObj = new object();
         const bool resolveNames = true;
-        String s;
-        String path;
+        private bool scanSecondNet = false;
+        private bool scanThirdNet = false;
+
+
+        String path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        
+        String filename = "IpScanLog.txt";
         String ipBase;
         String sub;
-        
+        ReadAndWrite rw;
+
+
         public Form1()
         {
             InitializeComponent();
+            filePath.Text = path + "\\IpScanLog.txt";
         }
 
 
         private void ScanNetwork_Click_1(object sender, EventArgs e)
         {
             AlertClass aC = new AlertClass();
-            if (path != null)
-            {
+            rw = new ReadAndWrite(path, filename);
+
                 upCount = 1;
-                countdown = new CountdownEvent(1);
-                Stopwatch sw = new Stopwatch();
-                sw.Start();
                 //aC.alert("what a load of crappy crap", "testing");
                 ipBase = netIp1a.Value.ToString() + "." + netIp1b.Value.ToString() + "." + netIp1c.Value.ToString() + "." + netIp1d.Value.ToString();
                 sub = subnet1a.Value.ToString() + "." + subnet1b.Value.ToString() + "." + subnet1c.Value.ToString() + "." + subnet1d.Value.ToString();
-
-                //code to print time and date
-                /*Trace.WriteLine("\nipBase = " + ipBase + "\n");
-                DateTime localDate = DateTime.Now;
-                var culture = new CultureInfo("en-GB");
-                writeToFile(localDate.ToString(culture));*/
-                DateTime localDate = DateTime.Now;
-                var culture = new CultureInfo("en-GB");
-                writeToFile("Scan tarted at" + localDate.ToString(culture));
-
-                if (cidr.Value != 24)
+            
+            //writing starttime to file;
+            rw.writeTime();
+            scanNetwork(ipBase, cidr1.Text);
+                if (scanSecondNet)
                 {
-                    ipBase = ipBase.Substring(0, (ipBase.LastIndexOf(".")));
-                    ipBase = ipBase.Substring(0, (ipBase.LastIndexOf(".") + 1));
-                    Trace.WriteLine("\nipBase = " + ipBase + "\n");
-                    for (int c = 1; c < 255; c++)
-                    {
-                        System.Threading.Thread.Sleep(25);
-                        for (int i = 1; i < 255; i++)
-                        {
-                            string ip = ipBase + c.ToString() + "." + i.ToString();
-                            //string ip = ipBase + i.ToString();
-                            Ping p = new Ping();
-                            p.PingCompleted += new PingCompletedEventHandler(pingCompleted);
-                            //countdown.AddCount();
-                            //Trace.WriteLine("\n IP = " + ip + "\n");
-                            p.SendAsync(ip, 50, ip);
-                            p.Dispose();
-                        }
-                    }
-                }
-                else
+                ipBase = netIp2a.Value.ToString() + "." + netIp2b.Value.ToString() + "." + netIp2c.Value.ToString() + "." + netIp2d.Value.ToString();
+                scanNetwork(ipBase, cidr2.Text);
+            }
+            if (scanThirdNet)
+            {
+                ipBase = netIp3a.Value.ToString() + "." + netIp3b.Value.ToString() + "." + netIp3c.Value.ToString() + "." + netIp3d.Value.ToString();
+                scanNetwork(ipBase, cidr3.Text);
+            }
+            else
                 {
-
-                    ipBase = ipBase.Substring(0, (ipBase.LastIndexOf(".")));
-                    Trace.WriteLine("\n entered /24 ipBase = " + ipBase + "\n");
-
-                    for (int i = 1; i < 255; i++)
-                    {
-                        string ip = ipBase + "." + i.ToString();
-                        //string ip = ipBase + i.ToString();
-                        Ping p = new Ping();
-                        p.PingCompleted += new PingCompletedEventHandler(pingCompleted);
-                        //countdown.AddCount();
-                        //Trace.WriteLine("\n IP = " + ip + "\n");
-                        p.SendAsync(ip, 50, ip);
-                        p.Dispose();
-                    }
+                ipScan24(ipBase);
                 }
-                //countdown.Signal();
-                //countdown.Wait();
-                sw.Stop();
-                TimeSpan span = new TimeSpan(sw.ElapsedTicks);
-                writeToFile($"Took {sw.ElapsedMilliseconds} milliseconds. {upCount} hosts active."); 
+                
                 DialogResult result2 = MessageBox.Show("Network scan is now complete", "Scan Successful", MessageBoxButtons.OK, MessageBoxIcon.Question);
 
+                //write list to file
+                rw.writeList(list, path, filename);
+                //writing finish time to file
+                rw.writeTime();
+            
 
-                for (int i =0; i < list.Count(); i++)
+            //this.dataGridView1.ItemsSource = list;
+            dataGridView1.DataSource = list;
+        }
+
+        public void ipScan24(String ipNet)
+        {
+            ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")));
+            //Trace.WriteLine("\n entered /24 ipBase = " + ipBase + "\n");
+
+            for (int i = 1; i < 255; i++)
+            {
+                string ip = ipNet + "." + i.ToString();
+                //string ip = ipBase + i.ToString();
+                Ping p = new Ping();
+                p.PingCompleted += new PingCompletedEventHandler(pingCompleted);
+                //countdown.AddCount();
+                //Trace.WriteLine("\n IP = " + ip + "\n");
+                p.SendAsync(ip, 50, ip);
+                p.Dispose();
+            }
+        }
+
+        public void ipScan16(String ipNet)
+        {
+            ipNet = ipNet.Substring(0, (ipBase.LastIndexOf(".")));
+            ipNet = ipBase.Substring(0, (ipBase.LastIndexOf(".") + 1));
+            //Trace.WriteLine("\nipBase = " + ipBase + "\n");
+            for (int c = 1; c < 255; c++)
+            {
+                System.Threading.Thread.Sleep(25);
+                for (int i = 1; i < 255; i++)
                 {
-                    writeToFile(list[i].ToString());
+                    string ip = ipBase + c.ToString() + "." + i.ToString();
+                    //string ip = ipBase + i.ToString();
+                    Ping p = new Ping();
+                    p.PingCompleted += new PingCompletedEventHandler(pingCompleted);
+                    //countdown.AddCount();
+                    //Trace.WriteLine("\n IP = " + ip + "\n");
+                    p.SendAsync(ip, 50, ip);
+                    p.Dispose();
                 }
-                localDate = DateTime.Now;
+            }
+        }
 
-                writeToFile("Finished at " + localDate.ToString(culture));
+        public void scanNetwork(String ipNet, String cidr)
+        {
+            if (cidr != "/24")
+            {
+                Trace.WriteLine("\n/16 IP = \n");
+                Trace.WriteLine("\n IP = " + ipNet + cidr + "\n");
+                ipScan16(ipNet);
             }
             else
             {
-                aC.alert("Please enter a path to save the text file", "No Path");
+                Trace.WriteLine("\n/24 IP = \n");
+                Trace.WriteLine("\n IP = " + ipNet + cidr + "\n");
+                ipScan24(ipNet);
             }
-
-            dataGridView1.DataSource = list;
         }
 
         public void pingCompleted(object sender, PingCompletedEventArgs e)
@@ -155,225 +175,47 @@ namespace FYP_10_2_18
                     upCount++;
                 }
             }
-            else if (e.Reply == null)
+        }
+
+        private void active_Scan_button(object sender, EventArgs e)
+        {
+            if (sender == netIp1a || sender == netIp1b || sender == netIp1c || sender == netIp1d || cidr1 == sender)
             {
-                //Console.WriteLine("Pinging {0} failed. (Null Reply object?)", ip);
-                //writeToFile($"Pinging {ip} failed. (Null Reply object?)");
+                
+                scanNet1.Enabled = true;
+                enable_2nd_Network();
             }
-            //countdown.Signal();
-        }
-
-        public String getSubnet()
-        {
-            Trace.WriteLine("\nstring c = " + ipBase + "\n");
-            ipBase = "192.168.0.1/" + cidr.Value.ToString();
-            Trace.WriteLine("\nstring c = " + ipBase + "\n");
-            IPNetwork ipnetwork = IPNetwork.Parse(ipBase);
-
-            convertToMask(ipnetwork.Netmask.ToString());
-
-            Console.WriteLine("FirstUsable : {0}", ipnetwork.FirstUsable);
-            Console.WriteLine("LastUsable : {0}", ipnetwork.LastUsable);
-
-            return "sfs";
-
-        }
-
-        public String[] convertToMask(String s)
-        {
-
-            String[] c = new string[4];
-            s = dotAt(s);
-            c[3] = s;
-            s = s.Substring(0, (s.LastIndexOf(".")));
-            c[2] = s;
-            s = s.Substring(0, (s.LastIndexOf(".")));
-            c[1] = s;
-            s = s.Substring(0, (s.LastIndexOf(".")));
-            c[0] = s;
-            Trace.WriteLine("\nstring c = " + c + "\n");
-            foreach (var i in c)
-            {
-                Trace.WriteLine(i.ToString());
-            }
-            return c;
-        }
-
-        public String dotAt(String s)
-        {
-            for(int i = 0; i < s.Length; i++)
-            {
-                if(s[i] == '.')
+            else if(sender == netIp2a || sender == netIp2b || sender == netIp2c || sender == netIp2d || cidr2 == sender)
                 {
-                    return s.Substring(s.Length - (i-1));
+                    scanSecondNet = true;
+                    enable_3rd_Network();
                 }
-            }
-            return "Wrong fool";
-        }
-
-        public void writeToFile(String word)
-        {
-            using (System.IO.StreamWriter file =
-            new System.IO.StreamWriter(@path + "/IpScanLog.txt", true))
+            else
             {
-                file.WriteLine(word);
+                scanThirdNet = true;
             }
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void enable_2nd_Network()
         {
+            netIp2a.Enabled = true;
+            netIp2b.Enabled = true;
+            netIp2c.Enabled = true;
+            netIp2d.Enabled = true;
+            cidr2.Enabled = true;
 
         }
 
-        private void network1_TextChanged(object sender, EventArgs e)
+        private void enable_3rd_Network()
         {
-           
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
+            netIp3a.Enabled = true;
+            netIp3b.Enabled = true;
+            netIp3c.Enabled = true;
+            netIp3d.Enabled = true;
+            cidr3.Enabled = true;
 
         }
-
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox5_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox6_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox7_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void network2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void network3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void network4_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-        private void ValIp(TextBox tbox)
-        {
-
-            // Checks the value of the text.
-            int count = tbox.Text.Count(f => f == '.');
-            if (count != 3)
-            {
-
-                // Initializes the variables to pass to the MessageBox.Show method.
-
-                string message = "you have not enetered a correct IP address. Please reenter IP address";
-                string caption = "Error Detected in Input";
-                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-                DialogResult result;
-
-                // Displays the MessageBox.
-
-                result = MessageBox.Show(message, caption, buttons);
-
-                if (result == System.Windows.Forms.DialogResult.No)
-                {
-
-                    // Closes the parent form.
-                    this.Close();
-
-                }
-
-            }
-
-        }
-        
-        private void ValSubnet(TextBox tbox)
-        {
-
-            // Checks the value of the text.
-            int count = tbox.Text.Count(f => f == '.');
-            int zeros = tbox.Text.Count(f => f == '0');
-            if (count != 3)
-            {
-
-                // Initializes the variables to pass to the MessageBox.Show method.
-
-                string message = "you have not enetered a correct subnet address. Please reenter Subnet";
-                string caption = "Error Detected in Input";
-                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-                DialogResult result;
-
-                // Displays the MessageBox.
-                result = MessageBox.Show(message, caption, buttons);
-
-                if (result == System.Windows.Forms.DialogResult.No)
-                {
-                    // Closes the parent form.
-                    this.Close();
-
-                }
-
-            }
-            if (zeros == 1)
-            {
-                ipBase = tbox.Text.Substring(0, (tbox.Text.LastIndexOf(".") + 1));
-            }
-            if (zeros == 2)
-            {
-                ipBase = tbox.Text.Substring(0, (tbox.Text.LastIndexOf(".") + 1));
-            }
-
-            //IPNetwork ipnetwork = IPNetwork.Parse("2001:0db8::/64");
-
-            //Trace.Write($"Network : {ipnetwork.Network}");
-            //Console.WriteLine("Netmask : {0}", ipnetwork.Netmask);
-            //Console.WriteLine("Broadcast : {0}", ipnetwork.Broadcast);
-            //Console.WriteLine("FirstUsable : {0}", ipnetwork.FirstUsable);
-            //Console.WriteLine("LastUsable : {0}", ipnetwork.LastUsable);
-            //Console.WriteLine("Cidr : {0}", ipnetwork.Cidr);
-        }
-
+       
         private void button1_Click(object sender, EventArgs e)
         {
             using (var fbd = new FolderBrowserDialog())
@@ -387,37 +229,13 @@ namespace FYP_10_2_18
                     Trace.Write(fbd.SelectedPath);
                     path = fbd.SelectedPath;
                     Trace.Write(path);
-                    textBox1.Text = path + "\\IpScanLog.txt";
+                    filePath.Text = path + "\\IpScanLog.txt";
+                    rw.Path = path;
                 }
             }
             //IPNetwork ipnetwork = IPNetwork.Parse("2001:0db8::/64");
 
             //Trace.Write($"Network : {ipnetwork.Network}");
-        }
-
-        private void textBox1_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void netIp1b_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void netIp1d_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void subnet1b_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void subnet1d_ValueChanged(object sender, EventArgs e)
-        {
-
         }
 
         public String Get_Mac_Address(String ipAddress)
@@ -452,24 +270,17 @@ namespace FYP_10_2_18
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Subnet sub = new Subnet();
-            IPNetwork ipnetwork = IPNetwork.Parse("192.168.0.0/24");
-           
-            Trace.Write($"Network : {ipnetwork.Netmask}");
-
-            sub.convertToMask("192.168.0.1");
-        }
-
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if(cidr1.ValueMember.ToString() != "/24")
+            {
+                subnet1c.Value = 0;
+            }
         }
     }
 

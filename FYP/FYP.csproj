@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="AlertClass.cs" />
     <Compile Include="Node.cs" />
+    <Compile Include="ReadAndWrite.cs" />
     <Compile Include="Subnet.cs" />
     <Compile Include="Validation.cs" />
     <Compile Include="Form1.cs">
