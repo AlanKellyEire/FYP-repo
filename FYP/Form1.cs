@@ -15,6 +15,7 @@ using System.Threading;
 using System.Net.Sockets;
 using System.Globalization;
 using System.Collections.ObjectModel;
+using Finisar.SQLite;
 
 namespace FYP_10_2_18
 {
@@ -42,7 +43,6 @@ namespace FYP_10_2_18
             InitializeComponent();
             filePath.Text = path + "\\IpScanLog.txt";
         }
-
 
         private void ScanNetwork_Click_1(object sender, EventArgs e)
         {
