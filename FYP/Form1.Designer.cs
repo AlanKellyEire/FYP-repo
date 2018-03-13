@@ -83,6 +83,9 @@
             this.label23 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.button2 = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.netIp1a)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1b)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1c)).BeginInit();
@@ -366,6 +369,7 @@
             // cidr2
             // 
             this.cidr2.DisplayMember = "/16, /24";
+            this.cidr2.Enabled = false;
             this.cidr2.FormattingEnabled = true;
             this.cidr2.Items.AddRange(new object[] {
             "/24",
@@ -479,6 +483,7 @@
             // 
             // netIp2d
             // 
+            this.netIp2d.Enabled = false;
             this.netIp2d.Location = new System.Drawing.Point(340, 139);
             this.netIp2d.Maximum = new decimal(new int[] {
             255,
@@ -492,6 +497,7 @@
             // 
             // netIp2c
             // 
+            this.netIp2c.Enabled = false;
             this.netIp2c.Location = new System.Drawing.Point(268, 140);
             this.netIp2c.Maximum = new decimal(new int[] {
             255,
@@ -505,6 +511,7 @@
             // 
             // netIp2b
             // 
+            this.netIp2b.Enabled = false;
             this.netIp2b.Location = new System.Drawing.Point(196, 140);
             this.netIp2b.Maximum = new decimal(new int[] {
             255,
@@ -524,16 +531,6 @@
             // netIp2a
             // 
             this.netIp2a.Enabled = false;
-            this.netIp3a.Enabled = false;
-            this.netIp2b.Enabled = false;
-            this.netIp2c.Enabled = false;
-            this.netIp2d.Enabled = false;
-
-            this.netIp3b.Enabled = false;
-            this.netIp3c.Enabled = false;
-            this.netIp3d.Enabled = false;
-            this.cidr2.Enabled = false;
-            this.cidr3.Enabled = false;
             this.netIp2a.Location = new System.Drawing.Point(124, 140);
             this.netIp2a.Maximum = new decimal(new int[] {
             255,
@@ -601,6 +598,7 @@
             // cidr3
             // 
             this.cidr3.DisplayMember = "/16, /24";
+            this.cidr3.Enabled = false;
             this.cidr3.FormattingEnabled = true;
             this.cidr3.Items.AddRange(new object[] {
             "/24",
@@ -714,6 +712,7 @@
             // 
             // netIp3d
             // 
+            this.netIp3d.Enabled = false;
             this.netIp3d.Location = new System.Drawing.Point(340, 214);
             this.netIp3d.Maximum = new decimal(new int[] {
             255,
@@ -727,6 +726,7 @@
             // 
             // netIp3c
             // 
+            this.netIp3c.Enabled = false;
             this.netIp3c.Location = new System.Drawing.Point(268, 215);
             this.netIp3c.Maximum = new decimal(new int[] {
             255,
@@ -740,6 +740,7 @@
             // 
             // netIp3b
             // 
+            this.netIp3b.Enabled = false;
             this.netIp3b.Location = new System.Drawing.Point(196, 215);
             this.netIp3b.Maximum = new decimal(new int[] {
             255,
@@ -758,6 +759,7 @@
             // 
             // netIp3a
             // 
+            this.netIp3a.Enabled = false;
             this.netIp3a.Location = new System.Drawing.Point(124, 215);
             this.netIp3a.Maximum = new decimal(new int[] {
             255,
@@ -830,9 +832,31 @@
             this.dataGridView1.Size = new System.Drawing.Size(1054, 429);
             this.dataGridView1.TabIndex = 72;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(846, 315);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(162, 23);
+            this.button2.TabIndex = 73;
+            this.button2.Text = "Populate From DB";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.pop_but_Click);
+            // 
+            // listView1
+            // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.listView1.Location = new System.Drawing.Point(510, 265);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(297, 97);
+            this.listView1.TabIndex = 74;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(1078, 809);
+            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.cidr3);
             this.Controls.Add(this.numericUpDown9);
@@ -982,6 +1006,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ipDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn macDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
     }
 }
 

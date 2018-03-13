@@ -25,5 +25,6 @@ namespace FYP_10_2_18
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<NodesTable> NodesTables { get; set; }
     }
 }

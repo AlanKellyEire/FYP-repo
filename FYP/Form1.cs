@@ -273,6 +273,21 @@ namespace FYP_10_2_18
                 subnet1c.Value = 0;
             }
         }
+
+        private void pop_but_Click(object sender, EventArgs e)
+        {
+            List<string> dblist = new List<string>();
+            using (var db = new mainEntities())
+            {
+                dblist = (from g in db.NodesTables select g.Hostname).ToList();
+                db.Dispose();
+            }
+            foreach(string str in dblist)
+            {
+                listView1.Items.Add(str);
+            }
+        }
+       
     }
 
     
