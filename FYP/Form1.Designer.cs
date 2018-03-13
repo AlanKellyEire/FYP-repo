@@ -85,7 +85,9 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button2 = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.hostname = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.add_DB_text = new System.Windows.Forms.TextBox();
+            this.add_toDB = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1a)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1b)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1c)).BeginInit();
@@ -829,7 +831,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 368);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(1054, 429);
+            this.dataGridView1.Size = new System.Drawing.Size(436, 429);
             this.dataGridView1.TabIndex = 72;
             // 
             // button2
@@ -840,21 +842,40 @@
             this.button2.TabIndex = 73;
             this.button2.Text = "Populate From DB";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.pop_but_Click);
+            this.button2.Click += new System.EventHandler(this.populate_but_Click);
             // 
             // listView1
             // 
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
-            this.listView1.Location = new System.Drawing.Point(510, 265);
+            this.hostname});
+            this.listView1.Location = new System.Drawing.Point(709, 386);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(297, 97);
+            this.listView1.Size = new System.Drawing.Size(131, 252);
             this.listView1.TabIndex = 74;
             this.listView1.UseCompatibleStateImageBehavior = false;
+            // 
+            // add_DB_text
+            // 
+            this.add_DB_text.Location = new System.Drawing.Point(876, 386);
+            this.add_DB_text.Name = "add_DB_text";
+            this.add_DB_text.Size = new System.Drawing.Size(100, 24);
+            this.add_DB_text.TabIndex = 75;
+            // 
+            // add_toDB
+            // 
+            this.add_toDB.Location = new System.Drawing.Point(876, 437);
+            this.add_toDB.Name = "add_toDB";
+            this.add_toDB.Size = new System.Drawing.Size(117, 23);
+            this.add_toDB.TabIndex = 76;
+            this.add_toDB.Text = "add to DB";
+            this.add_toDB.UseVisualStyleBackColor = true;
+            this.add_toDB.Click += new System.EventHandler(this.addDB_but_Click);
             // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(1078, 809);
+            this.Controls.Add(this.add_toDB);
+            this.Controls.Add(this.add_DB_text);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.dataGridView1);
@@ -1008,7 +1029,9 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader hostname;
+        private System.Windows.Forms.TextBox add_DB_text;
+        private System.Windows.Forms.Button add_toDB;
     }
 }
 

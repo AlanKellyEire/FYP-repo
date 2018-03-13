@@ -12,7 +12,7 @@ namespace FYP_10_2_18
     using System;
     using System.Collections.Generic;
     
-    public partial class NodesTable
+    public partial class NodeRow
     {
         public long Id { get; set; }
         public string Hostname { get; set; }

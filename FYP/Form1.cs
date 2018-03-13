@@ -31,7 +31,7 @@ namespace FYP_10_2_18
 
 
         String path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-        
+
         String filename = "IpScanLog.txt";
         String ipBase;
         String sub;
@@ -49,16 +49,16 @@ namespace FYP_10_2_18
             AlertClass aC = new AlertClass();
             rw = new ReadAndWrite(path, filename);
 
-                upCount = 1;
-                //aC.alert("what a load of crappy crap", "testing");
-                ipBase = netIp1a.Value.ToString() + "." + netIp1b.Value.ToString() + "." + netIp1c.Value.ToString() + "." + netIp1d.Value.ToString();
-                sub = subnet1a.Value.ToString() + "." + subnet1b.Value.ToString() + "." + subnet1c.Value.ToString() + "." + subnet1d.Value.ToString();
-            
+            upCount = 1;
+            //aC.alert("what a load of crappy crap", "testing");
+            ipBase = netIp1a.Value.ToString() + "." + netIp1b.Value.ToString() + "." + netIp1c.Value.ToString() + "." + netIp1d.Value.ToString();
+            sub = subnet1a.Value.ToString() + "." + subnet1b.Value.ToString() + "." + subnet1c.Value.ToString() + "." + subnet1d.Value.ToString();
+
             //writing starttime to file;
             rw.writeTime();
             scanNetwork(ipBase, cidr1.Text);
-                if (scanSecondNet)
-                {
+            if (scanSecondNet)
+            {
                 ipBase = netIp2a.Value.ToString() + "." + netIp2b.Value.ToString() + "." + netIp2c.Value.ToString() + "." + netIp2d.Value.ToString();
                 scanNetwork(ipBase, cidr2.Text);
             }
@@ -68,17 +68,17 @@ namespace FYP_10_2_18
                 scanNetwork(ipBase, cidr3.Text);
             }
             else
-                {
+            {
                 ipScan24(ipBase);
-                }
-                
-                DialogResult result2 = MessageBox.Show("Network scan is now complete", "Scan Successful", MessageBoxButtons.OK, MessageBoxIcon.Question);
+            }
 
-                //write list to file
-                rw.writeList(list, path, filename);
-                //writing finish time to file
-                rw.writeTime();
-            
+            DialogResult result2 = MessageBox.Show("Network scan is now complete", "Scan Successful", MessageBoxButtons.OK, MessageBoxIcon.Question);
+
+            //write list to file
+            rw.writeList(list, path, filename);
+            //writing finish time to file
+            rw.writeTime();
+
 
             //this.dataGridView1.ItemsSource = list;
             dataGridView1.DataSource = list;
@@ -181,15 +181,15 @@ namespace FYP_10_2_18
         {
             if (sender == netIp1a || sender == netIp1b || sender == netIp1c || sender == netIp1d || cidr1 == sender)
             {
-                
+
                 scanNet1.Enabled = true;
                 enable_2nd_Network();
             }
-            else if(sender == netIp2a || sender == netIp2b || sender == netIp2c || sender == netIp2d || cidr2 == sender)
-                {
-                    scanSecondNet = true;
-                    enable_3rd_Network();
-                }
+            else if (sender == netIp2a || sender == netIp2b || sender == netIp2c || sender == netIp2d || cidr2 == sender)
+            {
+                scanSecondNet = true;
+                enable_3rd_Network();
+            }
             else
             {
                 scanThirdNet = true;
@@ -215,7 +215,7 @@ namespace FYP_10_2_18
             cidr3.Enabled = true;
 
         }
-       
+
         private void button1_Click(object sender, EventArgs e)
         {
             using (var fbd = new FolderBrowserDialog())
@@ -239,55 +239,96 @@ namespace FYP_10_2_18
         }
 
         public String Get_Mac_Address(String ipAddress)
-    {
-        String macAddress = string.Empty;
-        System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
-        pProcess.StartInfo.FileName = "arp";
-        pProcess.StartInfo.Arguments = "-a " + ipAddress;
-        pProcess.StartInfo.UseShellExecute = false;
-        pProcess.StartInfo.RedirectStandardOutput = true;
-        pProcess.StartInfo.CreateNoWindow = true;
-        pProcess.Start();
-        String strOutput = pProcess.StandardOutput.ReadToEnd();
-        String[] substrings = strOutput.Split('-');
-        if (substrings.Length >= 8)
         {
-            macAddress = substrings[3].Substring(Math.Max(0, substrings[3].Length - 2))
-                     + "-" + substrings[4] + "-" + substrings[5] + "-" + substrings[6]
-                     + "-" + substrings[7] + "-"
-                     + substrings[8].Substring(0, 2);
-            return macAddress;
+            String macAddress = string.Empty;
+            System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
+            pProcess.StartInfo.FileName = "arp";
+            pProcess.StartInfo.Arguments = "-a " + ipAddress;
+            pProcess.StartInfo.UseShellExecute = false;
+            pProcess.StartInfo.RedirectStandardOutput = true;
+            pProcess.StartInfo.CreateNoWindow = true;
+            pProcess.Start();
+            String strOutput = pProcess.StandardOutput.ReadToEnd();
+            String[] substrings = strOutput.Split('-');
+            if (substrings.Length >= 8)
+            {
+                macAddress = substrings[3].Substring(Math.Max(0, substrings[3].Length - 2))
+                         + "-" + substrings[4] + "-" + substrings[5] + "-" + substrings[6]
+                         + "-" + substrings[7] + "-"
+                         + substrings[8].Substring(0, 2);
+                return macAddress;
+            }
+
+            else
+            {
+                return "not found";
+            }
         }
 
-        else
-        {
-            return "not found";
-        }
-    }
-        
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(cidr1.ValueMember.ToString() != "/24")
+            if (cidr1.ValueMember.ToString() != "/24")
             {
                 subnet1c.Value = 0;
             }
         }
 
-        private void pop_but_Click(object sender, EventArgs e)
+        private void populate_but_Click(object sender, EventArgs e)
         {
             List<string> dblist = new List<string>();
-            using (var db = new mainEntities())
+            using (var db = new myDatabaseEntities())
             {
-                dblist = (from g in db.NodesTables select g.Hostname).ToList();
+                dblist = (from g in db.NodeRows select g.Hostname).ToList();
                 db.Dispose();
             }
-            foreach(string str in dblist)
+            foreach (string str in dblist)
             {
                 listView1.Items.Add(str);
             }
         }
-       
+
+        private void get_db_data(string s)
+        {
+            DataTable dt = new DataTable();
+            string datasource = "Data Source =C:\\Users\\Grim\\source\\repos\\FYP\\nodesDB.db;";
+
+            using (SQLiteConnection conn = new SQLiteConnection(datasource))
+            {
+                string sql = $"SELECT * From NodeRow(s);";
+                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, conn);
+                da.Fill(dt);
+                conn.Close();
+            }
+
+            //List<Node> nodeList = new List<Node>();
+            //while (reader.Read())
+            //{
+            //    //Create Human Object from Sql Reader
+            //    Node n = new Node(reader.getString(0), reader.getInt(1));
+            //    //Add the object to collection
+            //    nodeList.Add(n);
+            //}
+        }
+
+        private void addDB_but_Click(object sender, EventArgs e)
+        {
+            using (var db = new myDatabaseEntities())
+            {
+                //got to use the class that the database creates in the DatabaseSqlite.edmx>DatabaseSqlite.tt>NodesTable
+                NodeRow newNodeTable = new NodeRow
+                {
+                    Id = db.NodeRows.Count() + 1,
+                    Hostname = add_DB_text.Text,
+                    Ip = "44",
+                    Mac = "mac"
+                };
+               
+                db.NodeRows.Add(newNodeTable);
+                db.SaveChanges();
+                db.Dispose();
+            }
+        }
     }
 
     

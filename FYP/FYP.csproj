@@ -87,24 +87,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlertClass.cs" />
-    <Compile Include="DatabaseSqlite.Context.cs">
+    <Compile Include="myDatabase.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DatabaseSqlite.Context.tt</DependentUpon>
+      <DependentUpon>myDatabase.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseSqlite.cs">
+    <Compile Include="myDatabase.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DatabaseSqlite.tt</DependentUpon>
+      <DependentUpon>myDatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseSqlite.Designer.cs">
+    <Compile Include="myDatabase.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DatabaseSqlite.edmx</DependentUpon>
+      <DependentUpon>myDatabase.edmx</DependentUpon>
     </Compile>
     <Compile Include="Node.cs" />
-    <Compile Include="NodesTable.cs">
-      <DependentUpon>DatabaseSqlite.tt</DependentUpon>
+    <Compile Include="NodeRow.cs">
+      <DependentUpon>myDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="ReadAndWrite.cs" />
     <Compile Include="Subnet.cs" />
@@ -130,12 +130,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EntityDeploy Include="DatabaseSqlite.edmx">
+    <EntityDeploy Include="myDatabase.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DatabaseSqlite.Designer.cs</LastGenOutput>
+      <LastGenOutput>myDatabase.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="DatabaseSqlite.edmx.diagram">
-      <DependentUpon>DatabaseSqlite.edmx</DependentUpon>
+    <None Include="myDatabase.edmx.diagram">
+      <DependentUpon>myDatabase.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Node.datasource" />
@@ -168,15 +168,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DatabaseSqlite.Context.tt">
+    <Content Include="myDatabase.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DatabaseSqlite.edmx</DependentUpon>
-      <LastGenOutput>DatabaseSqlite.Context.cs</LastGenOutput>
+      <DependentUpon>myDatabase.edmx</DependentUpon>
+      <LastGenOutput>myDatabase.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DatabaseSqlite.tt">
+    <Content Include="myDatabase.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DatabaseSqlite.edmx</DependentUpon>
-      <LastGenOutput>DatabaseSqlite.cs</LastGenOutput>
+      <DependentUpon>myDatabase.edmx</DependentUpon>
+      <LastGenOutput>myDatabase.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

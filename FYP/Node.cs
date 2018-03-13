@@ -8,7 +8,7 @@ namespace FYP_10_2_18
 {
     class Node
     {
-        private int id;
+        private long id;
         private string hostname;
         private string ip;
         private string mac;
@@ -21,9 +21,12 @@ namespace FYP_10_2_18
             this.Mac = mac;
         }
 
+        public Node()
+        {
+        }
 
-        public int Id { get => id; set => id = value; }
-        public string Name { get => hostname; set => hostname = value; }
+        public long Id { get => id; set => id = value; }
+        public string Hostname { get => hostname; set => hostname = value; }
         public string Ip { get => ip; set => ip = value; }
         public string Mac { get => mac; set => mac = value; }
 

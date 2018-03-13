@@ -13,10 +13,10 @@ namespace FYP_10_2_18
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class mainEntities : DbContext
+    public partial class myDatabaseEntities : DbContext
     {
-        public mainEntities()
-            : base("name=mainEntities")
+        public myDatabaseEntities()
+            : base("name=myDatabaseEntities")
         {
         }
     
@@ -25,6 +25,6 @@ namespace FYP_10_2_18
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<NodesTable> NodesTables { get; set; }
+        public virtual DbSet<NodeRow> NodeRows { get; set; }
     }
 }
