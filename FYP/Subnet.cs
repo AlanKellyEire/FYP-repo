@@ -24,12 +24,12 @@ namespace FYP_10_2_18
             Trace.WriteLine("\nstring c = " + ip + "\n");
             ip = "192.168.0.1/" + cidr.Value.ToString();
             Trace.WriteLine("\nstring c = " + ip + "\n");
-            //IPNetwork ipnetwork = System.Net.IPNetwork.Parse(ip);
+            IPNetwork ipnetwork = System.Net.IPNetwork.Parse(ip);
 
-           // convertToMask(ipnetwork.Netmask.ToString());
+            convertToMask(ipnetwork.Netmask.ToString());
 
-          ////  Console.WriteLine("FirstUsable : {0}", ipnetwork.FirstUsable);
-         //   Console.WriteLine("LastUsable : {0}", ipnetwork.LastUsable);
+            Console.WriteLine("FirstUsable : {0}", ipnetwork.FirstUsable);
+            Console.WriteLine("LastUsable : {0}", ipnetwork.LastUsable);
 
             return "sfs";
 
