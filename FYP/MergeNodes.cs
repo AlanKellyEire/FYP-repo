@@ -18,11 +18,27 @@ namespace FYP_10_2_18
 
             for (int i = 0; i < arrayList.Count; i++)
             {
-                if (!exists(arrayList[i].Hostname.ToLower().ToString(), temp, i, 1))
+                bool name = exists(arrayList[i].Hostname.ToLower().ToString(), temp, i, 1);
+                //bool ip = exists(arrayList[i].Ip.ToLower().ToString(), temp, i, 2);
+                if (!name)
                 {
+                    temp.Add(arrayList[i]); 
+                }
+                else
+                {
+                    //if (!exists(arrayList[i].Ip.ToLower().ToString(), temp, i, 2))
+                    //{
+                    //    temp.Add(arrayList[i]);
+                    //}
                     if (!exists(arrayList[i].Ip.ToLower().ToString(), temp, i, 2))
                     {
-                        temp.Add(arrayList[i]);
+                        for (int c = 0; i < arrayList.Count; i++)
+                        {
+                            if (i != c)
+                            {
+                                temp[1].Ip_sec = arrayList[i].Ip.ToLower().ToString();
+                            }
+                        }
                     }
                 }
             }
