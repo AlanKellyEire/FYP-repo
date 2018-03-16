@@ -87,25 +87,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlertClass.cs" />
-    <Compile Include="myDatabase.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>myDatabase.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="myDatabase.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>myDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="myDatabase.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>myDatabase.edmx</DependentUpon>
+    <Compile Include="DatabaseIO.cs" />
+    <Compile Include="MergeNodes.cs" />
+    <Compile Include="MyCheckBox.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Node.cs" />
-    <Compile Include="NodeRow.cs">
-      <DependentUpon>myDatabase.tt</DependentUpon>
-    </Compile>
     <Compile Include="ReadAndWrite.cs" />
     <Compile Include="Subnet.cs" />
     <Compile Include="Validation.cs" />
@@ -120,6 +107,9 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MyCheckBox.resx">
+      <DependentUpon>MyCheckBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -130,13 +120,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EntityDeploy Include="myDatabase.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>myDatabase.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="myDatabase.edmx.diagram">
-      <DependentUpon>myDatabase.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Node.datasource" />
     <None Include="Properties\Settings.settings">
@@ -166,18 +149,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="myDatabase.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>myDatabase.edmx</DependentUpon>
-      <LastGenOutput>myDatabase.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="myDatabase.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>myDatabase.edmx</DependentUpon>
-      <LastGenOutput>myDatabase.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.108.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.108.0\build\net46\System.Data.SQLite.Core.targets')" />

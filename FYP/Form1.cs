@@ -1,21 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.NetworkInformation;
 using System.Diagnostics;
 using System.Net;
 using System.Threading;
 using System.Net.Sockets;
-using System.Globalization;
 using System.Collections.ObjectModel;
-using Finisar.SQLite;
+//using Finisar.SQLite;
+using System.Data.SQLite;
 
 namespace FYP_10_2_18
 {
@@ -26,8 +20,6 @@ namespace FYP_10_2_18
         static int upCount = 0;
         static object lockObj = new object();
         const bool resolveNames = true;
-        private bool scanSecondNet = false;
-        private bool scanThirdNet = false;
 
 
         String path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -46,42 +38,46 @@ namespace FYP_10_2_18
 
         private void ScanNetwork_Click_1(object sender, EventArgs e)
         {
-            AlertClass aC = new AlertClass();
-            rw = new ReadAndWrite(path, filename);
+           
+                //AlertClass aC = new AlertClass();
+                rw = new ReadAndWrite(path, filename);
 
-            upCount = 1;
-            //aC.alert("what a load of crappy crap", "testing");
-            ipBase = netIp1a.Value.ToString() + "." + netIp1b.Value.ToString() + "." + netIp1c.Value.ToString() + "." + netIp1d.Value.ToString();
-            sub = subnet1a.Value.ToString() + "." + subnet1b.Value.ToString() + "." + subnet1c.Value.ToString() + "." + subnet1d.Value.ToString();
+                upCount = 1;
+                ipBase = netIp1a.Value.ToString() + "." + netIp1b.Value.ToString() + "." + netIp1c.Value.ToString() + "." + netIp1d.Value.ToString();
+                sub = subnet1a.Value.ToString() + "." + subnet1b.Value.ToString() + "." + subnet1c.Value.ToString() + "." + subnet1d.Value.ToString();
 
-            //writing starttime to file;
-            rw.writeTime();
-            scanNetwork(ipBase, cidr1.Text);
-            if (scanSecondNet)
-            {
-                ipBase = netIp2a.Value.ToString() + "." + netIp2b.Value.ToString() + "." + netIp2c.Value.ToString() + "." + netIp2d.Value.ToString();
-                scanNetwork(ipBase, cidr2.Text);
-            }
-            if (scanThirdNet)
-            {
-                ipBase = netIp3a.Value.ToString() + "." + netIp3b.Value.ToString() + "." + netIp3c.Value.ToString() + "." + netIp3d.Value.ToString();
-                scanNetwork(ipBase, cidr3.Text);
-            }
-            else
-            {
-                ipScan24(ipBase);
-            }
-
-            DialogResult result2 = MessageBox.Show("Network scan is now complete", "Scan Successful", MessageBoxButtons.OK, MessageBoxIcon.Question);
-
-            //write list to file
-            rw.writeList(list, path, filename);
-            //writing finish time to file
-            rw.writeTime();
+                //writing starttime to file;
+                rw.writeTime();
+                //scanNetwork(ipBase, cidr1.Text);
+                if (En_IP_Net_1.Checked)
+                {
+                    ipBase = netIp1a.Value.ToString() + "." + netIp1b.Value.ToString() + "." + netIp1c.Value.ToString() + "." + netIp1d.Value.ToString();
+                    scanNetwork(ipBase, cidr1.Text);
+                }
+                if (En_IP_Net_2.Checked)
+                {
+                    ipBase = netIp2a.Value.ToString() + "." + netIp2b.Value.ToString() + "." + netIp2c.Value.ToString() + "." + netIp2d.Value.ToString();
+                    scanNetwork(ipBase, cidr2.Text);
+                }
+                if (En_IP_Net_3.Checked)
+                {
+                    ipBase = netIp3a.Value.ToString() + "." + netIp3b.Value.ToString() + "." + netIp3c.Value.ToString() + "." + netIp3d.Value.ToString();
+                    scanNetwork(ipBase, cidr3.Text);
+                }
 
 
-            //this.dataGridView1.ItemsSource = list;
-            dataGridView1.DataSource = list;
+                DialogResult result2 = MessageBox.Show("Network scan is now complete", "Scan Successful", MessageBoxButtons.OK, MessageBoxIcon.Question);
+
+                //write list to file
+                rw.writeList(list, path, filename);
+                //writing finish time to file
+                rw.writeTime();
+
+
+                //this.dataGridView1.ItemsSource = list;
+                dataGridView1.DataSource = list;
+            dataGridView1.Refresh();
+
         }
 
         public void ipScan24(String ipNet)
@@ -177,42 +173,77 @@ namespace FYP_10_2_18
             }
         }
 
-        private void active_Scan_button(object sender, EventArgs e)
-        {
-            if (sender == netIp1a || sender == netIp1b || sender == netIp1c || sender == netIp1d || cidr1 == sender)
-            {
+        //private void active_Scan_button(object sender, EventArgs e)
+        //{
+        //    if (sender == netIp1a || sender == netIp1b || sender == netIp1c || sender == netIp1d || cidr1 == sender)
+        //    {
+        //        scanNet1.Enabled = true;
+        //        enable_2nd_Network(sender, e);
+        //    }
+        //    else if (sender == netIp2a || sender == netIp2b || sender == netIp2c || sender == netIp2d || cidr2 == sender)
+        //    {
+        //        scanSecondNet = true;
+        //        enable_3rd_Network(sender, e);
+        //    }
+        //    else
+        //    {
+        //        scanThirdNet = true;
+        //    }
+        //}
 
-                scanNet1.Enabled = true;
-                enable_2nd_Network();
-            }
-            else if (sender == netIp2a || sender == netIp2b || sender == netIp2c || sender == netIp2d || cidr2 == sender)
+        private void enable_2nd_Network(object sender, EventArgs e)
+        {
+            Boolean b = true;
+            if (sender == En_IP_Net_2 && En_IP_Net_2.Checked == false)
             {
-                scanSecondNet = true;
-                enable_3rd_Network();
+                b = false;
             }
-            else
+            netIp2a.Enabled = b;
+            netIp2b.Enabled = b;
+            netIp2c.Enabled = b;
+            netIp2d.Enabled = b;
+            cidr2.Enabled = b;
+            if (!En_IP_Net_3.Checked && !En_IP_Net_1.Checked)
             {
-                scanThirdNet = true;
+                scanNet1.Enabled = b;
             }
+
         }
 
-        private void enable_2nd_Network()
+        private void enable_3rd_Network(object sender, EventArgs e)
         {
-            netIp2a.Enabled = true;
-            netIp2b.Enabled = true;
-            netIp2c.Enabled = true;
-            netIp2d.Enabled = true;
-            cidr2.Enabled = true;
+            Boolean b = true;
+            if (sender == En_IP_Net_3 && En_IP_Net_3.Checked == false)
+            {
+                b = false;
+            }
+            netIp3a.Enabled = b;
+            netIp3b.Enabled = b;
+            netIp3c.Enabled = b;
+            netIp3d.Enabled = b;
+            cidr3.Enabled = b;
+            if (!En_IP_Net_2.Checked && !En_IP_Net_1.Checked)
+            {
+                scanNet1.Enabled = b;
+            }
 
         }
 
-        private void enable_3rd_Network()
+        private void enable_1st_Network(object sender, EventArgs e)
         {
-            netIp3a.Enabled = true;
-            netIp3b.Enabled = true;
-            netIp3c.Enabled = true;
-            netIp3d.Enabled = true;
-            cidr3.Enabled = true;
+            Boolean b = true;
+            if(sender == En_IP_Net_1 && En_IP_Net_1.Checked == false){
+                b = false;
+                }
+            netIp1a.Enabled = b;
+            netIp1b.Enabled = b;
+            netIp1c.Enabled = b;
+            netIp1d.Enabled = b;
+            cidr1.Enabled = b;
+            if(!En_IP_Net_2.Checked && !En_IP_Net_3.Checked)
+            {
+                scanNet1.Enabled = b;
+            }
 
         }
 
@@ -265,7 +296,6 @@ namespace FYP_10_2_18
             }
         }
 
-
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cidr1.ValueMember.ToString() != "/24")
@@ -274,63 +304,46 @@ namespace FYP_10_2_18
             }
         }
 
-        private void populate_but_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-            List<string> dblist = new List<string>();
-            using (var db = new myDatabaseEntities())
-            {
-                dblist = (from g in db.NodeRows select g.Hostname).ToList();
-                db.Dispose();
-            }
-            foreach (string str in dblist)
-            {
-                listView1.Items.Add(str);
-            }
+            DatabaseIO db = new DatabaseIO();
+
+            list = db.get_rows();
+            dataGridView1.DataSource = list;
+            dataGridView1.Refresh();
         }
 
-        private void get_db_data(string s)
+        private void add_toDB_Click(object sender, EventArgs e)
         {
-            DataTable dt = new DataTable();
-            string datasource = "Data Source =C:\\Users\\Grim\\source\\repos\\FYP\\nodesDB.db;";
-
-            using (SQLiteConnection conn = new SQLiteConnection(datasource))
-            {
-                string sql = $"SELECT * From NodeRow(s);";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, conn);
-                da.Fill(dt);
-                conn.Close();
-            }
-
-            //List<Node> nodeList = new List<Node>();
-            //while (reader.Read())
-            //{
-            //    //Create Human Object from Sql Reader
-            //    Node n = new Node(reader.getString(0), reader.getInt(1));
-            //    //Add the object to collection
-            //    nodeList.Add(n);
-            //}
+            DatabaseIO db = new DatabaseIO();
+            db.write_Node_To_DB(list);
+            
         }
 
-        private void addDB_but_Click(object sender, EventArgs e)
+        private void delete_rows(object sender, EventArgs e)
         {
-            using (var db = new myDatabaseEntities())
-            {
-                //got to use the class that the database creates in the DatabaseSqlite.edmx>DatabaseSqlite.tt>NodesTable
-                NodeRow newNodeTable = new NodeRow
-                {
-                    Id = db.NodeRows.Count() + 1,
-                    Hostname = add_DB_text.Text,
-                    Ip = "44",
-                    Mac = "mac"
-                };
-               
-                db.NodeRows.Add(newNodeTable);
-                db.SaveChanges();
-                db.Dispose();
-            }
+            DatabaseIO db = new DatabaseIO();
+
+            db.delete_rows_DB();
+            
+        }
+
+        public void merge_nodes()
+        {
+            MergeNodes mN = new MergeNodes();
+
+            list = mN.merge_duplicates(list);
+
+            dataGridView1.EndEdit();
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            merge_nodes();
         }
     }
 
-    
+
 }
 
