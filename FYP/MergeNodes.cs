@@ -32,11 +32,19 @@ namespace FYP_10_2_18
                     //}
                     if (!exists(arrayList[i].Ip.ToLower().ToString(), temp, i, 2))
                     {
-                        for (int c = 0; i < arrayList.Count; i++)
+                        for (int c = 0; c < temp.Count; c++)
                         {
-                            if (i != c)
+                            if (temp[c].Hostname.ToLower() == arrayList[i].Hostname.ToLower())
                             {
-                                temp[1].Ip_sec = arrayList[i].Ip.ToLower().ToString();
+                                temp[c].Ip_sec = arrayList[i].Ip.ToLower().ToString();
+                                //Node n = new Node();
+                                //n.Id = 456;
+                                //n.Ip = "dfgjkldfghjk";
+                                //n.Hostname = "hhhhhh";
+                                //n.Mac = "mmmmmmmmmmmmm";
+                                //n.Ip_sec = "second";
+                                //n.Ip_third = "third";
+                                //temp.Add(n);
                             }
                         }
                     }

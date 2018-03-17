@@ -36,11 +36,13 @@ namespace FYP_10_2_18
                 n.Hostname = reader["Hostname"].ToString();
                 n.Ip = reader["Ip"].ToString();
                 n.Mac = reader["Mac"].ToString();
-
-
+                n.Ip_sec = reader["Ip_Sec"].ToString();
+                n.Mac_sec = reader["Mac_Sec"].ToString();
+                n.Ip_third = reader["Ip_Third"].ToString();
+                n.Mac_third = reader["Mac_Third"].ToString();
                 nodeList.Add(n);
 
-                Trace.Write("ID: " + reader["Id"] + "\tHostname: " + reader["Hostname"] + "\n");
+                Trace.Write("ID: " + reader["Id"] + "\tHostname: " + reader["Hostname"] + "secondary ip = " + reader["Ip_Sec"] + "\n");
             }
 
             for (int i = 0; i < nodeList.Count(); i++)
@@ -84,7 +86,7 @@ namespace FYP_10_2_18
 
             for (int i = 0; i < l.Count(); i++)
             {
-                string sql = "insert into " + NODE_TABLE + " (hostname, ip, mac) values('" + l[i].Hostname + "', '" + l[i].Ip + "', '" + l[i].Mac +"')" ;
+                string sql = "insert into " + NODE_TABLE + " (hostname, ip, mac, Ip_Sec, Mac_Sec, Ip_Third, Mac_Third) values('" + l[i].Hostname + "', '" + l[i].Ip + "', '" + l[i].Mac + "', '" + "', '" + l[i].Ip_sec + "', '" + l[i].Mac_sec + "', '" + l[i].Ip_third + "', '" + l[i].Mac_third + "')" ;
                 SQLiteCommand command = new SQLiteCommand(sql, dbconn);
                 command.ExecuteNonQuery();
             }
