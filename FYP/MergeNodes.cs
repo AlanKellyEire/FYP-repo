@@ -30,6 +30,8 @@ namespace FYP_10_2_18
                     //{
                     //    temp.Add(arrayList[i]);
                     //}
+
+                    //todo get the mac address of the controllers the next day at work.
                     if (!exists(arrayList[i].Ip.ToLower().ToString(), temp, i, 2))
                     {
                         for (int c = 0; c < temp.Count; c++)

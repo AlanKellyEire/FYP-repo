@@ -86,7 +86,7 @@ namespace FYP_10_2_18
 
             for (int i = 0; i < l.Count(); i++)
             {
-                string sql = "insert into " + NODE_TABLE + " (hostname, ip, mac, Ip_Sec, Mac_Sec, Ip_Third, Mac_Third) values('" + l[i].Hostname + "', '" + l[i].Ip + "', '" + l[i].Mac + "', '" + "', '" + l[i].Ip_sec + "', '" + l[i].Mac_sec + "', '" + l[i].Ip_third + "', '" + l[i].Mac_third + "')" ;
+                string sql = "insert into " + NODE_TABLE + " (hostname, ip, mac, Ip_Sec, Mac_Sec, Ip_Third, Mac_Third) values('" + l[i].Hostname + "', '" + l[i].Ip + "', '" + l[i].Mac + "', '" + l[i].Ip_sec + "', '" + l[i].Mac_sec + "', '" + l[i].Ip_third + "', '" + l[i].Mac_third + "')" ;
                 SQLiteCommand command = new SQLiteCommand(sql, dbconn);
                 command.ExecuteNonQuery();
             }
