@@ -127,7 +127,7 @@
             this.scanNet1.TabIndex = 1;
             this.scanNet1.Text = "Scan Networks";
             this.scanNet1.UseVisualStyleBackColor = true;
-            this.scanNet1.Click += new System.EventHandler(this.ScanNetwork_Click_1);
+            this.scanNet1.Click += new System.EventHandler(this.ScanNetworkClick);
             // 
             // label1
             // 
@@ -870,7 +870,7 @@
             this.add_toDB.TabIndex = 76;
             this.add_toDB.Text = "add to DB";
             this.add_toDB.UseVisualStyleBackColor = true;
-            this.add_toDB.Click += new System.EventHandler(this.add_toDB_Click);
+            this.add_toDB.Click += new System.EventHandler(this.AddToDBClick);
             // 
             // button3
             // 
@@ -880,7 +880,7 @@
             this.button3.TabIndex = 77;
             this.button3.Text = "button3";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.delete_rows);
+            this.button3.Click += new System.EventHandler(this.DeleteRows);
             // 
             // En_IP_Net_1
             // 

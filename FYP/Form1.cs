@@ -36,7 +36,7 @@ namespace FYP_10_2_18
             filePath.Text = path + "\\IpScanLog.txt";
         }
 
-        private void ScanNetwork_Click_1(object sender, EventArgs e)
+        private void ScanNetworkClick(object sender, EventArgs e)
         {
            
                 //AlertClass aC = new AlertClass();
@@ -52,17 +52,17 @@ namespace FYP_10_2_18
                 if (En_IP_Net_1.Checked)
                 {
                     ipBase = netIp1a.Value.ToString() + "." + netIp1b.Value.ToString() + "." + netIp1c.Value.ToString() + "." + netIp1d.Value.ToString();
-                    scanNetwork(ipBase, cidr1.Text);
+                    ScanNetwork(ipBase, cidr1.Text);
                 }
                 if (En_IP_Net_2.Checked)
                 {
                     ipBase = netIp2a.Value.ToString() + "." + netIp2b.Value.ToString() + "." + netIp2c.Value.ToString() + "." + netIp2d.Value.ToString();
-                    scanNetwork(ipBase, cidr2.Text);
+                    ScanNetwork(ipBase, cidr2.Text);
                 }
                 if (En_IP_Net_3.Checked)
                 {
                     ipBase = netIp3a.Value.ToString() + "." + netIp3b.Value.ToString() + "." + netIp3c.Value.ToString() + "." + netIp3d.Value.ToString();
-                    scanNetwork(ipBase, cidr3.Text);
+                    ScanNetwork(ipBase, cidr3.Text);
                 }
 
 
@@ -80,7 +80,7 @@ namespace FYP_10_2_18
 
         }
 
-        public void ipScan24(String ipNet)
+        public void IpScan24(String ipNet)
         {
             ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")));
             //Trace.WriteLine("\n entered /24 ipBase = " + ipBase + "\n");
@@ -98,7 +98,7 @@ namespace FYP_10_2_18
             }
         }
 
-        public void ipScan16(String ipNet)
+        public void IpScan16(String ipNet)
         {
             ipNet = ipNet.Substring(0, (ipBase.LastIndexOf(".")));
             ipNet = ipBase.Substring(0, (ipBase.LastIndexOf(".") + 1));
@@ -120,19 +120,19 @@ namespace FYP_10_2_18
             }
         }
 
-        public void scanNetwork(String ipNet, String cidr)
+        public void ScanNetwork(String ipNet, String cidr)
         {
             if (cidr != "/24")
             {
                 Trace.WriteLine("\n/16 IP = \n");
                 Trace.WriteLine("\n IP = " + ipNet + cidr + "\n");
-                ipScan16(ipNet);
+                IpScan16(ipNet);
             }
             else
             {
                 Trace.WriteLine("\n/24 IP = \n");
                 Trace.WriteLine("\n IP = " + ipNet + cidr + "\n");
-                ipScan24(ipNet);
+                IpScan24(ipNet);
             }
         }
 
@@ -154,7 +154,7 @@ namespace FYP_10_2_18
                     {
                         name = "?";
                     }
-                    mac = Get_Mac_Address(ip);
+                    mac = GetMacAddress(ip);
                     Node node = new Node(upCount, name, ip, mac);
                     list.Add(node);
                     Trace.WriteLine($"Host {upCount} = {ip} ({name}) is up: ({e.Reply.RoundtripTime} ms)");
@@ -269,7 +269,7 @@ namespace FYP_10_2_18
             //Trace.Write($"Network : {ipnetwork.Network}");
         }
 
-        public String Get_Mac_Address(String ipAddress)
+        public String GetMacAddress(String ipAddress)
         {
             String macAddress = string.Empty;
             System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
@@ -308,31 +308,31 @@ namespace FYP_10_2_18
         {
             DatabaseIO db = new DatabaseIO();
 
-            list = db.get_rows();
+            list = db.GetRows();
             dataGridView1.DataSource = list;
             dataGridView1.Refresh();
         }
 
-        private void add_toDB_Click(object sender, EventArgs e)
+        private void AddToDBClick(object sender, EventArgs e)
         {
             DatabaseIO db = new DatabaseIO();
-            db.write_Node_To_DB(list);
+            db.WriteNodeToDB(list);
             
         }
 
-        private void delete_rows(object sender, EventArgs e)
+        private void DeleteRows(object sender, EventArgs e)
         {
             DatabaseIO db = new DatabaseIO();
 
-            db.delete_rows_DB();
+            db.DeleteRowsDB();
             
         }
 
-        public void merge_nodes()
+        public void MergeNodes()
         {
             MergeNodes mN = new MergeNodes();
 
-            list = mN.merge_duplicates(list);
+            list = mN.MergeDuplicates(list);
 
             dataGridView1.EndEdit();
 
@@ -340,7 +340,7 @@ namespace FYP_10_2_18
 
         private void button4_Click(object sender, EventArgs e)
         {
-            merge_nodes();
+            MergeNodes();
         }
     }
 
