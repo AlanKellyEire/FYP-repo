@@ -12,14 +12,14 @@ namespace FYP_10_2_18
     class DatabaseIO
     {
         private SQLiteConnection dbconn;
-        private const string DATASOURCE = "Data Source=C:\\Users\\Grim\\source\\repos\\FYP\\nodesDB.db;";
-        private const string NODE_TABLE = "NodeRow";
-        private const string ERR_TABLE = "ErrorsTable";
+        private const string DataSource = "Data Source=C:\\Users\\Grim\\source\\repos\\FYP\\nodesDB.db;";
+        private const string NodeTable = "NodeRow";
+        private const string ErrorTable = "ErrorsTable";
         private ObservableCollection<Node> nodeList = new ObservableCollection<Node>();
 
-        private void populate_list_from_DB()
+        private void PopulateListFromDB()
         {
-            dbconn = new SQLiteConnection(DATASOURCE);
+            dbconn = new SQLiteConnection(DataSource);
             dbconn.Open();
 
             string sql = "SELECT * From NodeRow";
@@ -36,25 +36,27 @@ namespace FYP_10_2_18
                 n.Hostname = reader["Hostname"].ToString();
                 n.Ip = reader["Ip"].ToString();
                 n.Mac = reader["Mac"].ToString();
-                n.Ip_sec = reader["Ip_Sec"].ToString();
-                n.Mac_sec = reader["Mac_Sec"].ToString();
-                n.Ip_third = reader["Ip_Third"].ToString();
-                n.Mac_third = reader["Mac_Third"].ToString();
+                n.IpSecondary = reader["Ip_Sec"].ToString();
+                n.MacSecondary = reader["Mac_Sec"].ToString();
+                n.IpThird = reader["Ip_Third"].ToString();
+                n.MacThird = reader["Mac_Third"].ToString();
+                n.IpFourth = reader["Ip_Fourth"].ToString();
+                n.MacFourth = reader["Mac_Fourth"].ToString();
                 nodeList.Add(n);
 
-                Trace.Write("ID: " + reader["Id"] + "\tHostname: " + reader["Hostname"] + "secondary ip = " + reader["Ip_Sec"] + "\n");
+                //Trace.Write("ID: " + reader["Id"] + "\tHostname: " + reader["Hostname"] + "secondary ip = " + reader["Ip_Sec"] + "\n");
             }
 
-            for (int i = 0; i < nodeList.Count(); i++)
-            {
+            //for (int i = 0; i < nodeList.Count(); i++)
+            //{
 
-                Trace.Write("printed list " + i +
-                nodeList[i].ToString());
-            }
+            //    Trace.Write("printed list " + i +
+            //    nodeList[i].ToString());
+            //}
             dbconn.Close();
         }
 
-        public void print_to_trace()
+        public void PrintToTrace()
         {
             if(nodeList.Count() != 0)
             {
@@ -67,26 +69,26 @@ namespace FYP_10_2_18
             }
         }
 
-        public ObservableCollection<Node> get_rows()
+        public ObservableCollection<Node> GetRows()
         {
-            populate_list_from_DB();
+            PopulateListFromDB();
             return nodeList;
         }
 
-        public void update_list(ObservableCollection<Node> l)
+        public void UpdateList(ObservableCollection<Node> l)
         {
             nodeList = l;
         }
 
-        public void write_Node_To_DB(ObservableCollection<Node> l)
+        public void WriteNodeToDB(ObservableCollection<Node> l)
         {
-            delete_rows_DB();
-            dbconn = new SQLiteConnection(DATASOURCE);
+            DeleteRowsDB();
+            dbconn = new SQLiteConnection(DataSource);
             dbconn.Open();
 
             for (int i = 0; i < l.Count(); i++)
             {
-                string sql = "insert into " + NODE_TABLE + " (hostname, ip, mac, Ip_Sec, Mac_Sec, Ip_Third, Mac_Third) values('" + l[i].Hostname + "', '" + l[i].Ip + "', '" + l[i].Mac + "', '" + l[i].Ip_sec + "', '" + l[i].Mac_sec + "', '" + l[i].Ip_third + "', '" + l[i].Mac_third + "')" ;
+                string sql = "insert into " + NodeTable + " (hostname, ip, mac, Ip_Sec, Mac_Sec, Ip_Third, Mac_Third, Ip_Fourth, Mac_Fourth) values('" + l[i].Hostname + "', '" + l[i].Ip + "', '" + l[i].Mac + "', '" + l[i].IpSecondary + "', '" + l[i].MacSecondary + "', '" + l[i].IpThird + "', '" + l[i].MacThird + "', '" + l[i].IpFourth + "', '" + l[i].MacFourth + "')" ;
                 SQLiteCommand command = new SQLiteCommand(sql, dbconn);
                 command.ExecuteNonQuery();
             }
@@ -94,11 +96,11 @@ namespace FYP_10_2_18
             dbconn.Close();
         }
 
-        public void delete_rows_DB()
+        public void DeleteRowsDB()
         {
-            dbconn = new SQLiteConnection(DATASOURCE);
+            dbconn = new SQLiteConnection(DataSource);
             dbconn.Open();
-            string sql = "delete from " + NODE_TABLE;
+            string sql = "delete from " + NodeTable;
             SQLiteCommand command = new SQLiteCommand(sql, dbconn);
             command.ExecuteNonQuery();
             dbconn.Close();

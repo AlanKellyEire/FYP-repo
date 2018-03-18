@@ -1,0 +1,14 @@
+-- Script Date: 18-Mar-18 12:46 PM  - ErikEJ.SqlCeScripting version 3.5.2.75
+CREATE TABLE [NodeRow] (
+  [Id] INTEGER  NOT NULL
+, [Hostname] text NOT NULL
+, [Ip] text NOT NULL
+, [Mac] text NOT NULL
+, [Ip_Sec] text NULL
+, [Mac_Sec] text NULL
+, [Ip_Third] text NULL
+, [Mac_Third] text NULL
+, [Ip_Fourth] text NULL
+, [Mac_Fourth] text NULL
+, CONSTRAINT [sqlite_master_PK_NodeRow] PRIMARY KEY ([Id])
+);

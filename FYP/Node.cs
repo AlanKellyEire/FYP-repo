@@ -12,10 +12,12 @@ namespace FYP_10_2_18
         private string hostname;
         private string ip;
         private string mac;
-        private string ip_sec;
-        private string mac_sec;
-        private string ip_third;
-        private string mac_third;
+        private string ipSecondary;
+        private string macSecondary;
+        private string ipThird;
+        private string macThird;
+        private string ipFourth;
+        private string macFourth;
 
         public Node(int id, string name, string ip, string mac)
         {
@@ -33,10 +35,12 @@ namespace FYP_10_2_18
         public string Hostname { get => hostname; set => hostname = value; }
         public string Ip { get => ip; set => ip = value; }
         public string Mac { get => mac; set => mac = value; }
-        public string Ip_sec { get => ip_sec; set => ip_sec = value; }
-        public string Mac_sec { get => mac_sec; set => mac_sec = value; }
-        public string Ip_third { get => ip_third; set => ip_third = value; }
-        public string Mac_third { get => mac_third; set => mac_third = value; }
+        public string IpSecondary { get => ipSecondary; set => ipSecondary = value; }
+        public string MacSecondary { get => macSecondary; set => macSecondary = value; }
+        public string IpThird { get => ipThird; set => ipThird = value; }
+        public string MacThird { get => macThird; set => macThird = value; }
+        public string IpFourth { get => ipFourth; set => ipFourth = value; }
+        public string MacFourth { get => macFourth; set => macFourth = value; }
 
         public override string ToString()
         {
