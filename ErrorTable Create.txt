@@ -1,8 +1,10 @@
-CREATE TABLE ErrorTable (
-    id INTEGER PRIMARY KEY NOT NULL,
-    NodeId INTEGER NOT NULL,
-    Hostname VARCHAR(64) NOT NULL,
-    Error VARCHAR(64) NOT NULL,
-    Comment VARCHAR(64),
-    sqltime TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+-- Script Date: 18-Mar-18 2:38 PM  - ErikEJ.SqlCeScripting version 3.5.2.75
+CREATE TABLE [ErrorsTable] (
+  [id] INTEGER  NOT NULL
+, [NodeId] bigint  NOT NULL
+, [Hostname] text NOT NULL
+, [Error] text NOT NULL
+, [Comment] text NULL
+, [Timestamp] datetime DEFAULT CURRENT_TIMESTAMP NULL
+, CONSTRAINT [sqlite_master_PK_ErrorsTable] PRIMARY KEY ([id])
 );

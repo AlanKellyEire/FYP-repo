@@ -91,6 +91,8 @@
             this.En_IP_Net_2 = new System.Windows.Forms.CheckBox();
             this.En_IP_Net_3 = new System.Windows.Forms.CheckBox();
             this.merge_dup = new System.Windows.Forms.Button();
+            this.monitor = new System.Windows.Forms.Button();
+            this.Show = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1a)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1b)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1c)).BeginInit();
@@ -925,9 +927,31 @@
             this.merge_dup.UseVisualStyleBackColor = true;
             this.merge_dup.Click += new System.EventHandler(this.button4_Click);
             // 
+            // monitor
+            // 
+            this.monitor.Location = new System.Drawing.Point(962, 105);
+            this.monitor.Name = "monitor";
+            this.monitor.Size = new System.Drawing.Size(75, 23);
+            this.monitor.TabIndex = 82;
+            this.monitor.Text = "Monitor";
+            this.monitor.UseVisualStyleBackColor = true;
+            this.monitor.Click += new System.EventHandler(this.button_click);
+            // 
+            // Show
+            // 
+            this.Show.Location = new System.Drawing.Point(961, 593);
+            this.Show.Name = "Show";
+            this.Show.Size = new System.Drawing.Size(75, 23);
+            this.Show.TabIndex = 83;
+            this.Show.Text = "Show";
+            this.Show.UseVisualStyleBackColor = true;
+            this.Show.Click += new System.EventHandler(this.Show_Click);
+            // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(1078, 811);
+            this.Controls.Add(this.Show);
+            this.Controls.Add(this.monitor);
             this.Controls.Add(this.merge_dup);
             this.Controls.Add(this.En_IP_Net_3);
             this.Controls.Add(this.En_IP_Net_2);
@@ -1087,6 +1111,8 @@
         private System.Windows.Forms.CheckBox En_IP_Net_2;
         private System.Windows.Forms.CheckBox En_IP_Net_3;
         private System.Windows.Forms.Button merge_dup;
+        private System.Windows.Forms.Button monitor;
+        private System.Windows.Forms.Button Show;
     }
 }
 

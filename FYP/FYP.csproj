@@ -88,7 +88,14 @@
   <ItemGroup>
     <Compile Include="AlertClass.cs" />
     <Compile Include="DatabaseIO.cs" />
+    <Compile Include="Error.cs" />
     <Compile Include="MergeNodes.cs" />
+    <Compile Include="Monitor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Monitor.Designer.cs">
+      <DependentUpon>Monitor.cs</DependentUpon>
+    </Compile>
     <Compile Include="MyCheckBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -107,6 +114,9 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Monitor.resx">
+      <DependentUpon>Monitor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MyCheckBox.resx">
       <DependentUpon>MyCheckBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -121,6 +131,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\Error.datasource" />
     <None Include="Properties\DataSources\Node.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

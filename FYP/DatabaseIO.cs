@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SQLite;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -94,6 +95,50 @@ namespace FYP_10_2_18
             }
                 
             dbconn.Close();
+        }
+
+        public void WriteErrorToDB(Node n)
+        {
+            //DeleteRowsDB();
+            dbconn = new SQLiteConnection(DataSource);
+            dbconn.Open();
+            DateTime localDate = DateTime.Now;
+            var culture = new CultureInfo("en-GB");
+           
+                string sql = "insert into " + ErrorTable + " (NodeId, Hostname, Error) values('" + n.Id + "', '" + n.Hostname + "', 'Ping Failed')";
+                SQLiteCommand command = new SQLiteCommand(sql, dbconn);
+                command.ExecuteNonQuery();
+            
+
+            dbconn.Close();
+        }
+
+        public void PopulateErrorListFromDB(ObservableCollection<Error> errorList)
+        {
+            dbconn = new SQLiteConnection(DataSource);
+            dbconn.Open();
+
+            string sql = "SELECT * From ErrorsTable";
+
+            SQLiteCommand command = new SQLiteCommand(sql, dbconn);
+            SQLiteDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Error e = new Error();
+                long id;
+                id = (long)reader["Id"];
+                e.Id = id;
+                id = (long)reader["NodeId"];
+                e.NodeId = id;
+                e.Hostname = reader["Hostname"].ToString();
+                e.ErrorType = reader["Error"].ToString();
+                e.Comment = reader["Comment"].ToString();
+                e.Timestamp = reader["Timestamp"].ToString();
+                errorList.Add(e);
+            }
+            dbconn.Close();
+            
         }
 
         public void DeleteRowsDB()

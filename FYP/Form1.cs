@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.IO;
 using System.Windows.Forms;
 using System.Net.NetworkInformation;
@@ -8,14 +7,13 @@ using System.Net;
 using System.Threading;
 using System.Net.Sockets;
 using System.Collections.ObjectModel;
-//using Finisar.SQLite;
-using System.Data.SQLite;
+using System.Collections.Generic;
 
 namespace FYP_10_2_18
 {
     public partial class Form1 : Form
     {
-        ObservableCollection<Node> list = new ObservableCollection<Node>();
+        private ObservableCollection<Node> list = new ObservableCollection<Node>();
         static CountdownEvent countdown;
         static int upCount = 0;
         static object lockObj = new object();
@@ -29,6 +27,7 @@ namespace FYP_10_2_18
         String sub;
         ReadAndWrite rw;
 
+        internal ObservableCollection<Node> List { get => list; set => list = value; }
 
         public Form1()
         {
@@ -69,13 +68,13 @@ namespace FYP_10_2_18
                 DialogResult result2 = MessageBox.Show("Network scan is now complete", "Scan Successful", MessageBoxButtons.OK, MessageBoxIcon.Question);
 
                 //write list to file
-                rw.writeList(list, path, filename);
+                rw.writeList(List, path, filename);
                 //writing finish time to file
                 rw.writeTime();
 
 
                 //this.dataGridView1.ItemsSource = list;
-                dataGridView1.DataSource = list;
+                dataGridView1.DataSource = List;
             dataGridView1.Refresh();
 
         }
@@ -156,7 +155,7 @@ namespace FYP_10_2_18
                     }
                     mac = GetMacAddress(ip);
                     Node node = new Node(upCount, name, ip, mac);
-                    list.Add(node);
+                    List.Add(node);
                     Trace.WriteLine($"Host {upCount} = {ip} ({name}) is up: ({e.Reply.RoundtripTime} ms)");
                     //Console.WriteLine("{0} ({1}) is up: ({2} ms)", ip, name, e.Reply.RoundtripTime);
                     //writeToFile($"Host {upCount} = {ip} ({name}) is up: ({e.Reply.RoundtripTime} ms)");
@@ -308,15 +307,15 @@ namespace FYP_10_2_18
         {
             DatabaseIO db = new DatabaseIO();
 
-            list = db.GetRows();
-            dataGridView1.DataSource = list;
+            List = db.GetRows();
+            dataGridView1.DataSource = List;
             dataGridView1.Refresh();
         }
 
         private void AddToDBClick(object sender, EventArgs e)
         {
             DatabaseIO db = new DatabaseIO();
-            db.WriteNodeToDB(list);
+            db.WriteNodeToDB(List);
             
         }
 
@@ -328,11 +327,19 @@ namespace FYP_10_2_18
             
         }
 
+        private void addError(Node n)
+        {
+            DatabaseIO db = new DatabaseIO();
+
+            db.WriteErrorToDB(n);
+
+        }
+
         public void MergeNodes()
         {
             MergeNodes mN = new MergeNodes();
 
-            list = mN.MergeDuplicates(list);
+            List = mN.MergeDuplicates(List);
 
             dataGridView1.EndEdit();
 
@@ -341,6 +348,38 @@ namespace FYP_10_2_18
         private void button4_Click(object sender, EventArgs e)
         {
             MergeNodes();
+        }
+
+        private async void button_click(object sender, EventArgs e)
+        {
+
+            //byte[] buffer = Encoding.ASCII.GetBytes(".");
+            //PingOptions options = new PingOptions(50, true);
+            //AutoResetEvent reset = new AutoResetEvent(false);
+            Ping ping = new Ping();
+            //ping.PingCompleted += new PingCompletedEventHandler(ping_Complete);
+
+            foreach (Node n in List)
+            {
+                var reply = await ping.SendPingAsync(n.Ip);
+                if (reply.Status == IPStatus.Success)
+                {
+
+                    Trace.Write(n + " (OK)\n");
+                }
+                else
+                {
+                    Trace.Write(n + " (FAILED)\n");
+                    addError(n);
+                }
+            }
+        }
+
+        private void Show_Click(object sender, EventArgs e)
+        {
+            Monitor mn = new Monitor();
+            
+            mn.Show();
         }
     }
 
