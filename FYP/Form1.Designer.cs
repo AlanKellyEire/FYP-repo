@@ -67,9 +67,9 @@
             this.label16 = new System.Windows.Forms.Label();
             this.cidr3 = new System.Windows.Forms.ComboBox();
             this.numericUpDown9 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown10 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown11 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown12 = new System.Windows.Forms.NumericUpDown();
+            this.subnet3c = new System.Windows.Forms.NumericUpDown();
+            this.subnet3b = new System.Windows.Forms.NumericUpDown();
+            this.subnet3a = new System.Windows.Forms.NumericUpDown();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
@@ -110,9 +110,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.netIp2b)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp2a)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.subnet3c)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.subnet3b)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.subnet3a)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp3d)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp3c)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp3b)).BeginInit();
@@ -373,13 +373,14 @@
             this.cidr1.FormattingEnabled = true;
             this.cidr1.Items.AddRange(new object[] {
             "/24",
-            "/16"});
+            "/16",
+            "/15"});
             this.cidr1.Location = new System.Drawing.Point(541, 65);
             this.cidr1.Name = "cidr1";
             this.cidr1.Size = new System.Drawing.Size(70, 26);
             this.cidr1.TabIndex = 35;
             this.cidr1.Text = "/24";
-            this.cidr1.SelectedIndexChanged += new System.EventHandler(this.enable_1st_Network);
+            this.cidr1.SelectedIndexChanged += new System.EventHandler(this.change_SubnetMask);
             // 
             // cidr2
             // 
@@ -388,13 +389,14 @@
             this.cidr2.FormattingEnabled = true;
             this.cidr2.Items.AddRange(new object[] {
             "/24",
-            "/16"});
+            "/16",
+            "/15"});
             this.cidr2.Location = new System.Drawing.Point(541, 135);
             this.cidr2.Name = "cidr2";
             this.cidr2.Size = new System.Drawing.Size(70, 26);
             this.cidr2.TabIndex = 53;
             this.cidr2.Text = "/24";
-            this.cidr2.SelectedIndexChanged += new System.EventHandler(this.enable_2nd_Network);
+            this.cidr2.SelectedIndexChanged += new System.EventHandler(this.change_SubnetMask);
             // 
             // subnet2d
             // 
@@ -617,13 +619,14 @@
             this.cidr3.FormattingEnabled = true;
             this.cidr3.Items.AddRange(new object[] {
             "/24",
-            "/16"});
+            "/16",
+            "/15"});
             this.cidr3.Location = new System.Drawing.Point(541, 210);
             this.cidr3.Name = "cidr3";
             this.cidr3.Size = new System.Drawing.Size(70, 26);
             this.cidr3.TabIndex = 71;
             this.cidr3.Text = "/24";
-            this.cidr3.SelectedIndexChanged += new System.EventHandler(this.enable_3rd_Network);
+            this.cidr3.SelectedIndexChanged += new System.EventHandler(this.change_SubnetMask);
             // 
             // numericUpDown9
             // 
@@ -638,55 +641,55 @@
             this.numericUpDown9.Size = new System.Drawing.Size(43, 24);
             this.numericUpDown9.TabIndex = 70;
             // 
-            // numericUpDown10
+            // subnet3c
             // 
-            this.numericUpDown10.Enabled = false;
-            this.numericUpDown10.Location = new System.Drawing.Point(782, 211);
-            this.numericUpDown10.Maximum = new decimal(new int[] {
+            this.subnet3c.Enabled = false;
+            this.subnet3c.Location = new System.Drawing.Point(782, 211);
+            this.subnet3c.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
-            this.numericUpDown10.Name = "numericUpDown10";
-            this.numericUpDown10.Size = new System.Drawing.Size(43, 24);
-            this.numericUpDown10.TabIndex = 69;
-            this.numericUpDown10.Value = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            // 
-            // numericUpDown11
-            // 
-            this.numericUpDown11.Enabled = false;
-            this.numericUpDown11.Location = new System.Drawing.Point(710, 211);
-            this.numericUpDown11.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericUpDown11.Name = "numericUpDown11";
-            this.numericUpDown11.Size = new System.Drawing.Size(43, 24);
-            this.numericUpDown11.TabIndex = 68;
-            this.numericUpDown11.Value = new decimal(new int[] {
+            this.subnet3c.Name = "subnet3c";
+            this.subnet3c.Size = new System.Drawing.Size(43, 24);
+            this.subnet3c.TabIndex = 69;
+            this.subnet3c.Value = new decimal(new int[] {
             255,
             0,
             0,
             0});
             // 
-            // numericUpDown12
+            // subnet3b
             // 
-            this.numericUpDown12.Enabled = false;
-            this.numericUpDown12.Location = new System.Drawing.Point(638, 211);
-            this.numericUpDown12.Maximum = new decimal(new int[] {
+            this.subnet3b.Enabled = false;
+            this.subnet3b.Location = new System.Drawing.Point(710, 211);
+            this.subnet3b.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
-            this.numericUpDown12.Name = "numericUpDown12";
-            this.numericUpDown12.Size = new System.Drawing.Size(43, 24);
-            this.numericUpDown12.TabIndex = 67;
-            this.numericUpDown12.Value = new decimal(new int[] {
+            this.subnet3b.Name = "subnet3b";
+            this.subnet3b.Size = new System.Drawing.Size(43, 24);
+            this.subnet3b.TabIndex = 68;
+            this.subnet3b.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            // 
+            // subnet3a
+            // 
+            this.subnet3a.Enabled = false;
+            this.subnet3a.Location = new System.Drawing.Point(638, 211);
+            this.subnet3a.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.subnet3a.Name = "subnet3a";
+            this.subnet3a.Size = new System.Drawing.Size(43, 24);
+            this.subnet3a.TabIndex = 67;
+            this.subnet3a.Value = new decimal(new int[] {
             255,
             0,
             0,
@@ -844,12 +847,12 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 323);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(836, 476);
+            this.dataGridView1.Size = new System.Drawing.Size(1215, 476);
             this.dataGridView1.TabIndex = 72;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(875, 323);
+            this.button2.Location = new System.Drawing.Point(1259, 338);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(162, 23);
             this.button2.TabIndex = 73;
@@ -859,14 +862,14 @@
             // 
             // add_DB_text
             // 
-            this.add_DB_text.Location = new System.Drawing.Point(897, 432);
+            this.add_DB_text.Location = new System.Drawing.Point(1281, 447);
             this.add_DB_text.Name = "add_DB_text";
             this.add_DB_text.Size = new System.Drawing.Size(100, 24);
             this.add_DB_text.TabIndex = 75;
             // 
             // add_toDB
             // 
-            this.add_toDB.Location = new System.Drawing.Point(897, 483);
+            this.add_toDB.Location = new System.Drawing.Point(1281, 498);
             this.add_toDB.Name = "add_toDB";
             this.add_toDB.Size = new System.Drawing.Size(117, 23);
             this.add_toDB.TabIndex = 76;
@@ -876,7 +879,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(919, 558);
+            this.button3.Location = new System.Drawing.Point(1303, 573);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 77;
@@ -939,7 +942,7 @@
             // 
             // Show
             // 
-            this.Show.Location = new System.Drawing.Point(961, 593);
+            this.Show.Location = new System.Drawing.Point(1345, 608);
             this.Show.Name = "Show";
             this.Show.Size = new System.Drawing.Size(75, 23);
             this.Show.TabIndex = 83;
@@ -949,7 +952,7 @@
             // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(1078, 811);
+            this.ClientSize = new System.Drawing.Size(1470, 811);
             this.Controls.Add(this.Show);
             this.Controls.Add(this.monitor);
             this.Controls.Add(this.merge_dup);
@@ -963,9 +966,9 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.cidr3);
             this.Controls.Add(this.numericUpDown9);
-            this.Controls.Add(this.numericUpDown10);
-            this.Controls.Add(this.numericUpDown11);
-            this.Controls.Add(this.numericUpDown12);
+            this.Controls.Add(this.subnet3c);
+            this.Controls.Add(this.subnet3b);
+            this.Controls.Add(this.subnet3a);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.label19);
@@ -1034,9 +1037,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.netIp2b)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp2a)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.subnet3c)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.subnet3b)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.subnet3a)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp3d)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp3c)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp3b)).EndInit();
@@ -1087,9 +1090,9 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.ComboBox cidr3;
         private System.Windows.Forms.NumericUpDown numericUpDown9;
-        private System.Windows.Forms.NumericUpDown numericUpDown10;
-        private System.Windows.Forms.NumericUpDown numericUpDown11;
-        private System.Windows.Forms.NumericUpDown numericUpDown12;
+        private System.Windows.Forms.NumericUpDown subnet3c;
+        private System.Windows.Forms.NumericUpDown subnet3b;
+        private System.Windows.Forms.NumericUpDown subnet3a;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;

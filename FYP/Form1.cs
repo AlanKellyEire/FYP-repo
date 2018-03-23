@@ -51,17 +51,17 @@ namespace FYP_10_2_18
                 if (En_IP_Net_1.Checked)
                 {
                     ipBase = netIp1a.Value.ToString() + "." + netIp1b.Value.ToString() + "." + netIp1c.Value.ToString() + "." + netIp1d.Value.ToString();
-                    ScanNetwork(ipBase, cidr1.Text);
+                    ScanNetwork(ipBase, cidr1.Text, Int32.Parse(netIp1b.Value.ToString()));
                 }
                 if (En_IP_Net_2.Checked)
                 {
                     ipBase = netIp2a.Value.ToString() + "." + netIp2b.Value.ToString() + "." + netIp2c.Value.ToString() + "." + netIp2d.Value.ToString();
-                    ScanNetwork(ipBase, cidr2.Text);
+                    ScanNetwork(ipBase, cidr2.Text, Int32.Parse(netIp2b.Value.ToString()));
                 }
                 if (En_IP_Net_3.Checked)
                 {
                     ipBase = netIp3a.Value.ToString() + "." + netIp3b.Value.ToString() + "." + netIp3c.Value.ToString() + "." + netIp3d.Value.ToString();
-                    ScanNetwork(ipBase, cidr3.Text);
+                    ScanNetwork(ipBase, cidr3.Text, Int32.Parse(netIp3b.Value.ToString()));
                 }
 
 
@@ -84,6 +84,7 @@ namespace FYP_10_2_18
             ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")));
             //Trace.WriteLine("\n entered /24 ipBase = " + ipBase + "\n");
 
+            rw.writeToFile("\nipBase = " + ipBase + "\n");
             for (int i = 1; i < 255; i++)
             {
                 string ip = ipNet + "." + i.ToString();
@@ -97,41 +98,91 @@ namespace FYP_10_2_18
             }
         }
 
-        public void IpScan16(String ipNet)
+        public void IpScan15(String ipNet)
         {
-            ipNet = ipNet.Substring(0, (ipBase.LastIndexOf(".")));
-            ipNet = ipBase.Substring(0, (ipBase.LastIndexOf(".") + 1));
+            ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")));
+            //ipNet = ipNet.Substring(0, (ipBase.LastIndexOf(".")));
+            ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")+1));
             //Trace.WriteLine("\nipBase = " + ipBase + "\n");
+            //rw.writeToFile("\n = " + ipNet + "\n");
             for (int c = 1; c < 255; c++)
             {
                 System.Threading.Thread.Sleep(25);
                 for (int i = 1; i < 255; i++)
                 {
-                    string ip = ipBase + c.ToString() + "." + i.ToString();
+                    
+                    string ip = ipNet + c.ToString() + "." + i.ToString();
+                    //rw.writeToFile("\nasdfcgvhipnet = " + ip + "\n");
                     //string ip = ipBase + i.ToString();
                     Ping p = new Ping();
                     p.PingCompleted += new PingCompletedEventHandler(pingCompleted);
                     //countdown.AddCount();
-                    //Trace.WriteLine("\n IP = " + ip + "\n");
+                    Trace.WriteLine("\n IP = " + ip + "\n");
                     p.SendAsync(ip, 50, ip);
                     p.Dispose();
                 }
             }
         }
 
-        public void ScanNetwork(String ipNet, String cidr)
+        public void IpScan16(String ipNet)
         {
-            if (cidr != "/24")
+            //ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")));
+            ////ipNet = ipNet.Substring(0, (ipBase.LastIndexOf(".")));
+            //ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")));
+            //ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")+1));
+            ////Trace.WriteLine("\nipBase = " + ipBase + "\n");
+            //rw.writeToFile("\ntest    === = = = " + ipNet + "\n");
+            
+            for (int c = 1; c < 255; c++)
             {
-                Trace.WriteLine("\n/16 IP = \n");
-                Trace.WriteLine("\n IP = " + ipNet + cidr + "\n");
-                IpScan16(ipNet);
+                System.Threading.Thread.Sleep(25);
+                for (int i = 1; i < 255; i++)
+                {
+
+                    string ip = ipNet + c.ToString() + "." + i.ToString();
+                    //rw.writeToFile("\nasdfcgvhipnet = " + ip + "\n");
+                    //string ip = ipBase + i.ToString();
+                    Ping p = new Ping();
+                    p.PingCompleted += new PingCompletedEventHandler(pingCompleted);
+                    //countdown.AddCount();
+                    Trace.WriteLine("\n IP = " + ip + "\n");
+                    p.SendAsync(ip, 50, ip);
+                    p.Dispose();
+                }
             }
-            else
+        }
+
+        public void ScanNetwork(String ipNet, String cidr, int secOct)
+        {
+            if (cidr == "/24")
             {
                 Trace.WriteLine("\n/24 IP = \n");
                 Trace.WriteLine("\n IP = " + ipNet + cidr + "\n");
                 IpScan24(ipNet);
+            }
+            else if (cidr == "/15")
+            {
+                ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")));
+                //ipNet = ipNet.Substring(0, (ipBase.LastIndexOf(".")));
+                ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")));
+                ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".") + 1));
+                ipNet += secOct + ".";
+                rw.writeToFile("\ntest    === = = = " + ipNet + "\n");
+                IpScan16(ipNet);
+                ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")));
+                ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".") + 1));
+                ipNet += (secOct+1) + ".";
+                rw.writeToFile("\ntest    === = = = " + ipNet + "\n");
+                IpScan16(ipNet);
+            }
+            else
+            {
+                ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")));
+                //ipNet = ipNet.Substring(0, (ipBase.LastIndexOf(".")));
+                ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")));
+                ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".") + 1));
+                ipNet += secOct + ".";
+                IpScan16(ipNet);
             }
         }
 
@@ -244,6 +295,77 @@ namespace FYP_10_2_18
                 scanNet1.Enabled = b;
             }
 
+        }
+
+        private void change_SubnetMask(object sender, EventArgs e)
+        {
+            if (sender == cidr1)
+            {
+                if (cidr1.Text == "/24")
+                {
+                    TwoFoursubnet(subnet1a, subnet1b, subnet1c);
+                }
+                else if (cidr1.Text == "/16")
+                {
+                    OneSixsubnet(subnet1a, subnet1b, subnet1c);
+                }
+                else
+                {
+                    OneFivesubnet(subnet1a, subnet1b, subnet1c);
+                }
+
+            }
+            else if (sender == cidr2)
+            {
+                if (cidr2.Text == "/24")
+                {
+                    TwoFoursubnet(subnet2a, subnet2b, subnet2c);
+                }
+                else if (cidr2.Text == "/16")
+                {
+                    OneSixsubnet(subnet2a, subnet2b, subnet2c);
+                }
+                else
+                {
+                    OneFivesubnet(subnet2a, subnet2b, subnet2c);
+                }
+            }
+            else
+            {
+                if (cidr3.Text == "/24")
+                {
+                    TwoFoursubnet(subnet3a, subnet3b, subnet3c);
+                }
+                else if (cidr3.Text == "/16")
+                {
+                    OneSixsubnet(subnet3a, subnet3b, subnet3c);
+                }
+                else
+                {
+                    OneFivesubnet(subnet3a, subnet3b, subnet3c);
+                }
+            }
+        }
+
+        private void TwoFoursubnet(NumericUpDown oct1, NumericUpDown oct2, NumericUpDown oct3)
+        {
+            oct1.Value = 255;
+            oct2.Value = 255;
+            oct3.Value = 255;
+        }
+
+        private void OneSixsubnet(NumericUpDown oct1, NumericUpDown oct2, NumericUpDown oct3)
+        {
+            oct1.Value = 255;
+            oct2.Value = 255;
+            oct3.Value = 0;
+        }
+
+        private void OneFivesubnet(NumericUpDown oct1, NumericUpDown oct2, NumericUpDown oct3)
+        {
+            oct1.Value = 255;
+            oct2.Value = 254;
+            oct3.Value = 0;
         }
 
         private void button1_Click(object sender, EventArgs e)
