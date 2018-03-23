@@ -13,13 +13,20 @@ namespace FYP_10_2_18
     class DatabaseIO
     {
         private SQLiteConnection dbconn;
-        private const string DataSource = "Data Source=C:\\Users\\Grim\\source\\repos\\FYP\\nodesDB.db;";
+        //private const string DataSource = "Data Source=C:\\Users\\Grim\\source\\repos\\FYP\\nodesDB.db;";
+        //private const string DataSource = "Data Source=C:\\Users\\Grim\\source\\repos\\FYP\\nodesDB.db;";
+        //string DataSource = "Data Source=" + System.Reflection.Assembly.GetEntryAssembly().Location;
+        string DataSource = "Data Source=.\\nodesDB.db;";
+
         private const string NodeTable = "NodeRow";
         private const string ErrorTable = "ErrorsTable";
         private ObservableCollection<Node> nodeList = new ObservableCollection<Node>();
 
         private void PopulateListFromDB()
         {
+            //DataSource += ".\\nodesDB.db;";
+            Trace.Write("path == " + DataSource + "\n\n\n\n\n");
+            
             dbconn = new SQLiteConnection(DataSource);
             dbconn.Open();
 
