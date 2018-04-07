@@ -922,7 +922,7 @@
             // 
             // merge_dup
             // 
-            this.merge_dup.Location = new System.Drawing.Point(897, 12);
+            this.merge_dup.Location = new System.Drawing.Point(1233, 39);
             this.merge_dup.Name = "merge_dup";
             this.merge_dup.Size = new System.Drawing.Size(75, 23);
             this.merge_dup.TabIndex = 81;
@@ -932,7 +932,7 @@
             // 
             // monitor
             // 
-            this.monitor.Location = new System.Drawing.Point(962, 105);
+            this.monitor.Location = new System.Drawing.Point(1233, 212);
             this.monitor.Name = "monitor";
             this.monitor.Size = new System.Drawing.Size(75, 23);
             this.monitor.TabIndex = 82;
