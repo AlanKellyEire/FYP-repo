@@ -16,5 +16,10 @@ namespace FYP_10_2_18
         {
             InitializeComponent();
         }
+
+        private void cancelBut_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
