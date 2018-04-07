@@ -82,17 +82,12 @@
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button2 = new System.Windows.Forms.Button();
-            this.add_DB_text = new System.Windows.Forms.TextBox();
-            this.add_toDB = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.En_IP_Net_1 = new System.Windows.Forms.CheckBox();
             this.En_IP_Net_2 = new System.Windows.Forms.CheckBox();
             this.En_IP_Net_3 = new System.Windows.Forms.CheckBox();
-            this.merge_dup = new System.Windows.Forms.Button();
             this.monitor = new System.Windows.Forms.Button();
-            this.Show = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1a)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1b)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1c)).BeginInit();
@@ -842,51 +837,6 @@
             this.label24.TabIndex = 55;
             this.label24.Text = ".";
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 323);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(1215, 476);
-            this.dataGridView1.TabIndex = 72;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(1259, 338);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(162, 23);
-            this.button2.TabIndex = 73;
-            this.button2.Text = "Populate From DB";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // add_DB_text
-            // 
-            this.add_DB_text.Location = new System.Drawing.Point(1281, 447);
-            this.add_DB_text.Name = "add_DB_text";
-            this.add_DB_text.Size = new System.Drawing.Size(100, 24);
-            this.add_DB_text.TabIndex = 75;
-            // 
-            // add_toDB
-            // 
-            this.add_toDB.Location = new System.Drawing.Point(1281, 498);
-            this.add_toDB.Name = "add_toDB";
-            this.add_toDB.Size = new System.Drawing.Size(117, 23);
-            this.add_toDB.TabIndex = 76;
-            this.add_toDB.Text = "add to DB";
-            this.add_toDB.UseVisualStyleBackColor = true;
-            this.add_toDB.Click += new System.EventHandler(this.AddToDBClick);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(1303, 573);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 77;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.DeleteRows);
-            // 
             // En_IP_Net_1
             // 
             this.En_IP_Net_1.AutoSize = true;
@@ -920,16 +870,6 @@
             this.En_IP_Net_3.UseVisualStyleBackColor = true;
             this.En_IP_Net_3.CheckedChanged += new System.EventHandler(this.enable_3rd_Network);
             // 
-            // merge_dup
-            // 
-            this.merge_dup.Location = new System.Drawing.Point(1233, 39);
-            this.merge_dup.Name = "merge_dup";
-            this.merge_dup.Size = new System.Drawing.Size(75, 23);
-            this.merge_dup.TabIndex = 81;
-            this.merge_dup.Text = "merge";
-            this.merge_dup.UseVisualStyleBackColor = true;
-            this.merge_dup.Click += new System.EventHandler(this.button4_Click);
-            // 
             // monitor
             // 
             this.monitor.Location = new System.Drawing.Point(1233, 212);
@@ -940,29 +880,32 @@
             this.monitor.UseVisualStyleBackColor = true;
             this.monitor.Click += new System.EventHandler(this.button_click);
             // 
-            // Show
+            // dataGridView1
             // 
-            this.Show.Location = new System.Drawing.Point(1345, 608);
-            this.Show.Name = "Show";
-            this.Show.Size = new System.Drawing.Size(75, 23);
-            this.Show.TabIndex = 83;
-            this.Show.Text = "Show";
-            this.Show.UseVisualStyleBackColor = true;
-            this.Show.Click += new System.EventHandler(this.Show_Click);
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(12, 323);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(1215, 476);
+            this.dataGridView1.TabIndex = 72;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(1233, 65);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 83;
+            this.button2.Text = "Monitor";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.Show_Click);
             // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(1470, 811);
-            this.Controls.Add(this.Show);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.monitor);
-            this.Controls.Add(this.merge_dup);
             this.Controls.Add(this.En_IP_Net_3);
             this.Controls.Add(this.En_IP_Net_2);
             this.Controls.Add(this.En_IP_Net_1);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.add_toDB);
-            this.Controls.Add(this.add_DB_text);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.cidr3);
             this.Controls.Add(this.numericUpDown9);
@@ -1105,17 +1048,12 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox add_DB_text;
-        private System.Windows.Forms.Button add_toDB;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.CheckBox En_IP_Net_1;
         private System.Windows.Forms.CheckBox En_IP_Net_2;
         private System.Windows.Forms.CheckBox En_IP_Net_3;
-        private System.Windows.Forms.Button merge_dup;
         private System.Windows.Forms.Button monitor;
-        private System.Windows.Forms.Button Show;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button button2;
     }
 }
 

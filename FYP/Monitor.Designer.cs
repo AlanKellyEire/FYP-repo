@@ -104,7 +104,7 @@
             this.loadFromDBToolStripMenuItem,
             this.deleteDBToolStripMenuItem});
             this.loadFromDatabaseToolStripMenuItem.Name = "loadFromDatabaseToolStripMenuItem";
-            this.loadFromDatabaseToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.loadFromDatabaseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadFromDatabaseToolStripMenuItem.Text = "Database";
             // 
             // loadFromDBToolStripMenuItem
@@ -112,17 +112,19 @@
             this.loadFromDBToolStripMenuItem.Name = "loadFromDBToolStripMenuItem";
             this.loadFromDBToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.loadFromDBToolStripMenuItem.Text = "Load From DB";
+            this.loadFromDBToolStripMenuItem.Click += new System.EventHandler(this.loadFromDBToolStripMenuItem_Click);
             // 
             // deleteDBToolStripMenuItem
             // 
             this.deleteDBToolStripMenuItem.Name = "deleteDBToolStripMenuItem";
             this.deleteDBToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.deleteDBToolStripMenuItem.Text = "Delete DB";
+            this.deleteDBToolStripMenuItem.Click += new System.EventHandler(this.deleteDBToolStripMenuItem_Click);
             // 
             // scanNetworkToolStripMenuItem
             // 
             this.scanNetworkToolStripMenuItem.Name = "scanNetworkToolStripMenuItem";
-            this.scanNetworkToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.scanNetworkToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.scanNetworkToolStripMenuItem.Text = "Scan Network";
             // 
             // optionsToolStripMenuItem
@@ -134,7 +136,7 @@
             this.notifactionsToolStripMenuItem,
             this.thresholdsToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
             // notifcationsSettingsToolStripMenuItem
@@ -142,6 +144,7 @@
             this.notifcationsSettingsToolStripMenuItem.Name = "notifcationsSettingsToolStripMenuItem";
             this.notifcationsSettingsToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.notifcationsSettingsToolStripMenuItem.Text = "Monitoring Settings";
+            this.notifcationsSettingsToolStripMenuItem.Click += new System.EventHandler(this.notifcationsSettingsToolStripMenuItem_Click);
             // 
             // emailToolStripMenuItem
             // 
@@ -170,7 +173,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // editToolStripMenuItem

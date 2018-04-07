@@ -43,6 +43,25 @@ namespace FYP_10_2_18
             alertsBox.Refresh();
         }
 
+        private void loadFromDBToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PopulateNodesList();
+            PopulateErrorList();
+        }
 
+        private void deleteDBToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DatabaseIO db = new DatabaseIO();
+
+            db.DeleteRowsDB();
+            db.DeleteErrorsDB();
+        }
+
+        private void notifcationsSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Options opt = new Options();
+
+            opt.Show();
+        }
     }
 }

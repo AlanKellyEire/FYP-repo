@@ -158,6 +158,16 @@ namespace FYP_10_2_18
             dbconn.Close();
         }
 
+        public void DeleteErrorsDB()
+        {
+            dbconn = new SQLiteConnection(DataSource);
+            dbconn.Open();
+            string sql = "delete from " + ErrorTable;
+            SQLiteCommand command = new SQLiteCommand(sql, dbconn);
+            command.ExecuteNonQuery();
+            dbconn.Close();
+        }
+
         //private void populate_db_Click(object sender, EventArgs e)
         //{
         //    List<string> dblist = new List<string>();
