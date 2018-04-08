@@ -85,7 +85,6 @@
             this.En_IP_Net_1 = new System.Windows.Forms.CheckBox();
             this.En_IP_Net_2 = new System.Windows.Forms.CheckBox();
             this.En_IP_Net_3 = new System.Windows.Forms.CheckBox();
-            this.monitor = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1a)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1b)).BeginInit();
@@ -869,15 +868,6 @@
             this.En_IP_Net_3.UseVisualStyleBackColor = true;
             this.En_IP_Net_3.CheckedChanged += new System.EventHandler(this.enable_3rd_Network);
             // 
-            // monitor
-            // 
-            this.monitor.Location = new System.Drawing.Point(1233, 212);
-            this.monitor.Name = "monitor";
-            this.monitor.Size = new System.Drawing.Size(75, 23);
-            this.monitor.TabIndex = 82;
-            this.monitor.Text = "Monitor";
-            this.monitor.UseVisualStyleBackColor = true;
-            // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -889,7 +879,6 @@
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(1470, 811);
-            this.Controls.Add(this.monitor);
             this.Controls.Add(this.En_IP_Net_3);
             this.Controls.Add(this.En_IP_Net_2);
             this.Controls.Add(this.En_IP_Net_1);
@@ -950,6 +939,7 @@
             this.Controls.Add(this.scanNet1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "Form1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.netIp1a)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1b)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1c)).EndInit();
@@ -1038,7 +1028,6 @@
         private System.Windows.Forms.CheckBox En_IP_Net_1;
         private System.Windows.Forms.CheckBox En_IP_Net_2;
         private System.Windows.Forms.CheckBox En_IP_Net_3;
-        private System.Windows.Forms.Button monitor;
         private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

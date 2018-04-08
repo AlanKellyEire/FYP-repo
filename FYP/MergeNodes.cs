@@ -21,7 +21,7 @@ namespace FYP_10_2_18
             {
                 //Trace.Write(i);
                 bool name = ExistsHostname(arrayList[i].Hostname.ToLower().ToString(), temp, i);
-                Trace.Write(i + " node ip ="+ arrayList[i].Ip.ToLower().ToString() + "\n");
+                Trace.Write(i + " node ip =" + arrayList[i].Ip.ToLower().ToString() + "\n");
 
                 if (!name)
                 {
@@ -29,18 +29,19 @@ namespace FYP_10_2_18
                 }
                 else
                 {
-                   
+
                     if (!ExistsIp(arrayList[i].Ip.ToLower().ToString(), temp, i))
                     {
                         bool b = false;
                         for (int c = 0; c < temp.Count; c++)
                         {
+                            b = false;
                             ////test to see if the hostname of the current node is the same as the node in the new list.
                             if (temp[c].Hostname.ToLower() == arrayList[i].Hostname.ToLower())
                             {
                                 if (!IsController(arrayList[i]))
                                 {
-                                    b = true;
+                                    //b = true;
                                     //tests if the new node to be added has an ip that is already in another node.
                                     if (!arrayList[i].Ip.ToLower().ToString().Equals(temp[c].Ip.ToLower().ToString()) && !arrayList[i].Ip.ToLower().ToString().Equals(temp[c].IpSecondary.ToLower().ToString()) && !arrayList[i].Ip.ToLower().ToString().Equals(temp[c].IpThird.ToLower().ToString()) && !arrayList[i].Ip.ToLower().ToString().Equals(temp[c].IpFourth.ToLower().ToString()))
                                     {
@@ -48,54 +49,55 @@ namespace FYP_10_2_18
                                         {
                                             temp[c].IpSecondary = arrayList[i].Ip.ToLower().ToString();
                                             temp[c].MacSecondary = arrayList[i].Mac.ToLower().ToString();
-                                            
+
                                         }
                                         else if (string.IsNullOrEmpty(temp[c].IpThird))
                                         {
                                             temp[c].IpThird = arrayList[i].Ip.ToLower().ToString();
                                             temp[c].MacThird = arrayList[i].Mac.ToLower().ToString();
-                                        
-                                    }
+
+                                        }
                                         else if (string.IsNullOrEmpty(temp[c].IpFourth))
                                         {
                                             temp[c].IpFourth = arrayList[i].Ip.ToLower().ToString();
                                             temp[c].MacFourth = arrayList[i].Mac.ToLower().ToString();
-                                        
-                                    }
+
+                                        }
                                         else
                                         {
                                             DialogResult result2 = MessageBox.Show("Node " + temp[c].Hostname + " is full", "Scan Successful", MessageBoxButtons.OK, MessageBoxIcon.Question);
-                                        
-                                    }
+
+                                        }
                                     }
                                 }
                                 else
                                 {
-                                //if (!ExistsIp(arrayList[i].Ip.ToLower().ToString(), temp, i) && !ExistsIp(arrayList[i].IpSecondary.ToLower().ToString(), temp, i))
-                                //{
-                                        string ipOfTemp;
-                                        string ipOfCurrent;
-                                        ipOfTemp = temp[c].Ip.ToLower().ToString();
-                                        ipOfTemp = ipOfTemp.Substring(ipOfTemp.LastIndexOf(".") + 1);
-                                        ipOfCurrent = arrayList[i].Ip.ToLower().ToString();
-                                        ipOfCurrent = ipOfCurrent.Substring(ipOfCurrent.LastIndexOf(".") + 1);
+                                    //if (!ExistsIp(arrayList[i].Ip.ToLower().ToString(), temp, i) && !ExistsIp(arrayList[i].IpSecondary.ToLower().ToString(), temp, i))
+                                    //{
+                                    string ipOfTemp;
+                                    string ipOfCurrent;
+                                    ipOfTemp = temp[c].Ip.ToLower().ToString();
+                                    ipOfTemp = ipOfTemp.Substring(ipOfTemp.LastIndexOf(".") + 1);
+                                    ipOfCurrent = arrayList[i].Ip.ToLower().ToString();
+                                    ipOfCurrent = ipOfCurrent.Substring(ipOfCurrent.LastIndexOf(".") + 1);
+                                    Trace.Write("ip =" + ipOfTemp + " == " + ipOfCurrent + "\n");
+                                    Trace.Write("is it true??? == " + ipOfTemp.Equals(ipOfCurrent) + "\n");
+                                    if (ipOfTemp == ipOfCurrent)
+                                    {
                                         Trace.Write("ip =" + ipOfTemp + " == " + ipOfCurrent + "\n");
-                                        Trace.Write("is it true??? == " + ipOfTemp.Equals(ipOfCurrent) + "\n");
-                                        if (ipOfTemp == ipOfCurrent)
+                                        //ipNet.Substring(0, (ipNet.LastIndexOf(".")));
+                                        if (string.IsNullOrEmpty(temp[c].IpSecondary))
                                         {
-                                            Trace.Write("ip =" + ipOfTemp + " == " + ipOfCurrent + "\n");
-                                            //ipNet.Substring(0, (ipNet.LastIndexOf(".")));
-                                            if (string.IsNullOrEmpty(temp[c].IpSecondary))
-                                            {
-                                                b = true;
-                                                temp[c].IpSecondary = arrayList[i].Ip.ToLower().ToString();
-                                                temp[c].MacSecondary = arrayList[i].Mac.ToLower().ToString();
-                                            }
+                                            b = true;
+                                            temp[c].IpSecondary = arrayList[i].Ip.ToLower().ToString();
+                                            temp[c].MacSecondary = arrayList[i].Mac.ToLower().ToString();
                                         }
+                                    }
                                 }
-}
+                            }
                         }
-                        if (!b) {
+                        if (!b)
+                        {
                             temp.Add(arrayList[i]);
                         }
                     }
@@ -145,7 +147,7 @@ namespace FYP_10_2_18
         {
             if (currentNode.Mac.ToLower().StartsWith("00-22-e5") || currentNode.Mac.ToLower().StartsWith("00-80-74"))
             {
-                
+
                 //ipOfCurrent = ipOfTemp.Substring(index, last);
                 return true;
             }

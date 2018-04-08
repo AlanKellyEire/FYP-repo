@@ -59,6 +59,29 @@ namespace FYP_10_2_18
                 b = true;
             }
             set.LogSettings.LogType = b;
+
+            set.Emails[0] = emailRepTextbox1.Text.ToString();
+            set.Emails[1] = emailRepTextbox2.Text.ToString();
+            set.Emails[2] = emailRepTextbox3.Text.ToString();
+            set.Emails[3] = emailRepTextbox4.Text.ToString();
+            set.Emails[4] = emailRepTextbox5.Text.ToString();
+
+            if (loggerEnableRB.Enabled) {
+                set.LoggerEnabled = true;
+            }
+            else
+            {
+                set.LoggerEnabled = false;
+            }
+
+            if (emailRB.Enabled)
+            {
+                set.EmailEnabled = true;
+            }
+            else
+            {
+                set.EmailEnabled = false;
+            }
         }
     }
 }

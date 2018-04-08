@@ -433,23 +433,23 @@ namespace FYP_10_2_18
         //    }
         //}
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            DatabaseIO db = new DatabaseIO();
+        //private void button2_Click(object sender, EventArgs e)
+        //{
+        //    DatabaseIO db = new DatabaseIO();
 
-            List = db.GetRows();
-            dataGridView1.DataSource = List;
-            dataGridView1.Refresh();
-        }
+        //    List = db.GetRows();
+        //    dataGridView1.DataSource = List;
+        //    dataGridView1.Refresh();
+        //}
 
-        private void AddToDBClick(object sender, EventArgs e)
+        private void AddToDB()
         {
             DatabaseIO db = new DatabaseIO();
             db.WriteNodeToDB(List);
             
         }
 
-        private void DeleteRows(object sender, EventArgs e)
+        private void DeleteRows()
         {
             DatabaseIO db = new DatabaseIO();
 
@@ -457,13 +457,13 @@ namespace FYP_10_2_18
             
         }
 
-        private void addError(Node n)
-        {
-            DatabaseIO db = new DatabaseIO();
+        //private void addError(Node n)
+        //{
+        //    DatabaseIO db = new DatabaseIO();
 
-            db.WriteErrorToDB(n);
+        //    db.WriteErrorToDB(n);
 
-        }
+        //}
 
         public void MergeNodes()
         {
@@ -475,9 +475,18 @@ namespace FYP_10_2_18
 
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        //private void button4_Click(object sender, EventArgs e)
+        //{
+        //    MergeNodes();
+        //}
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+
             MergeNodes();
+            DeleteRows();
+            AddToDB();
+            Trace.Write("fdghjkl;kjfdjkljfdsfgkjl;jgfdgjkljhdfghkjljfdghjklkjhfdghkjl;");
         }
 
 

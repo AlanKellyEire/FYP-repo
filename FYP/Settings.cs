@@ -22,6 +22,8 @@ namespace FYP_10_2_18
 
         public int PingInterval { get => pingInterval; set => pingInterval = value; }
         public string[] Emails { get => emails; set => emails = value; }
+        public bool LoggerEnabled { get => loggerEnabled; set => loggerEnabled = value; }
+        public bool EmailEnabled { get => emailEnabled; set => emailEnabled = value; }
         internal Logger LogSettings { get => logSettings; set => logSettings = value; }
         internal EmailServer ServerSettings { get => serverSettings; set => serverSettings = value; }
     }

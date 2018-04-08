@@ -47,7 +47,7 @@
             this.subjectTextbox = new System.Windows.Forms.TextBox();
             this.subjectLabel = new System.Windows.Forms.Label();
             this.emailTab = new System.Windows.Forms.TabPage();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.emailRB = new System.Windows.Forms.RadioButton();
             this.label5 = new System.Windows.Forms.Label();
             this.emailRepTextbox5 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -288,7 +288,7 @@
             // 
             // emailTab
             // 
-            this.emailTab.Controls.Add(this.radioButton1);
+            this.emailTab.Controls.Add(this.emailRB);
             this.emailTab.Controls.Add(this.label5);
             this.emailTab.Controls.Add(this.emailRepTextbox5);
             this.emailTab.Controls.Add(this.label4);
@@ -308,16 +308,16 @@
             this.emailTab.Text = "Email";
             this.emailTab.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // emailRB
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(370, 32);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(57, 17);
-            this.radioButton1.TabIndex = 17;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "enable";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.emailRB.AutoSize = true;
+            this.emailRB.Location = new System.Drawing.Point(370, 32);
+            this.emailRB.Name = "emailRB";
+            this.emailRB.Size = new System.Drawing.Size(57, 17);
+            this.emailRB.TabIndex = 17;
+            this.emailRB.TabStop = true;
+            this.emailRB.Text = "enable";
+            this.emailRB.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
@@ -584,7 +584,7 @@
         private System.Windows.Forms.Label emailRepLB1;
         private System.Windows.Forms.TextBox emailRepTextbox5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton emailRB;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox usernameTextbox;
         private System.Windows.Forms.Label usernameLabel;
