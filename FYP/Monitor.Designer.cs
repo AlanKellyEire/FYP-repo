@@ -38,11 +38,11 @@
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mergeRemoveNodesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.AlertsLabel = new System.Windows.Forms.Label();
-            this.timeLabel = new System.Windows.Forms.Label();
             this.nodesBox = new System.Windows.Forms.DataGridView();
             this.idDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.hostnameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -63,6 +63,7 @@
             this.commentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timestampDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.errorBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nodesBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nodeBindingSource)).BeginInit();
@@ -78,7 +79,7 @@
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(991, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -99,7 +100,7 @@
             this.loadFromDBToolStripMenuItem,
             this.deleteDBToolStripMenuItem});
             this.loadFromDatabaseToolStripMenuItem.Name = "loadFromDatabaseToolStripMenuItem";
-            this.loadFromDatabaseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadFromDatabaseToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.loadFromDatabaseToolStripMenuItem.Text = "Database";
             // 
             // loadFromDBToolStripMenuItem
@@ -119,29 +120,38 @@
             // scanNetworkToolStripMenuItem
             // 
             this.scanNetworkToolStripMenuItem.Name = "scanNetworkToolStripMenuItem";
-            this.scanNetworkToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.scanNetworkToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.scanNetworkToolStripMenuItem.Text = "Scan Network";
             this.scanNetworkToolStripMenuItem.Click += new System.EventHandler(this.scanNetworkToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.optionsToolStripMenuItem.Text = "Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mergeRemoveNodesToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
+            // 
+            // mergeRemoveNodesToolStripMenuItem
+            // 
+            this.mergeRemoveNodesToolStripMenuItem.Name = "mergeRemoveNodesToolStripMenuItem";
+            this.mergeRemoveNodesToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.mergeRemoveNodesToolStripMenuItem.Text = "Merge/Remove Nodes";
+            this.mergeRemoveNodesToolStripMenuItem.Click += new System.EventHandler(this.mergeRemoveNodesToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -173,15 +183,6 @@
             this.AlertsLabel.TabIndex = 2;
             this.AlertsLabel.Text = "Alerts";
             // 
-            // timeLabel
-            // 
-            this.timeLabel.AutoSize = true;
-            this.timeLabel.Location = new System.Drawing.Point(722, 28);
-            this.timeLabel.Name = "timeLabel";
-            this.timeLabel.Size = new System.Drawing.Size(26, 13);
-            this.timeLabel.TabIndex = 3;
-            this.timeLabel.Text = "time";
-            // 
             // nodesBox
             // 
             this.nodesBox.AutoGenerateColumns = false;
@@ -198,9 +199,10 @@
             this.ipFourthDataGridViewTextBoxColumn,
             this.macFourthDataGridViewTextBoxColumn});
             this.nodesBox.DataSource = this.nodeBindingSource;
-            this.nodesBox.Location = new System.Drawing.Point(12, 200);
+            this.nodesBox.Location = new System.Drawing.Point(12, 229);
             this.nodesBox.Name = "nodesBox";
-            this.nodesBox.Size = new System.Drawing.Size(564, 246);
+            this.nodesBox.RowHeadersVisible = false;
+            this.nodesBox.Size = new System.Drawing.Size(967, 246);
             this.nodesBox.TabIndex = 4;
             // 
             // idDataGridViewTextBoxColumn1
@@ -285,7 +287,8 @@
             this.alertsBox.DataSource = this.errorBindingSource;
             this.alertsBox.Location = new System.Drawing.Point(12, 44);
             this.alertsBox.Name = "alertsBox";
-            this.alertsBox.Size = new System.Drawing.Size(776, 150);
+            this.alertsBox.RowHeadersVisible = false;
+            this.alertsBox.Size = new System.Drawing.Size(565, 150);
             this.alertsBox.TabIndex = 1;
             // 
             // idDataGridViewTextBoxColumn
@@ -332,13 +335,24 @@
             // 
             this.errorBindingSource.DataSource = typeof(FYP_10_2_18.Error);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.DarkRed;
+            this.label1.Location = new System.Drawing.Point(12, 206);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(60, 20);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Nodes";
+            // 
             // Monitor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(991, 478);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.nodesBox);
-            this.Controls.Add(this.timeLabel);
             this.Controls.Add(this.AlertsLabel);
             this.Controls.Add(this.alertsBox);
             this.Controls.Add(this.menuStrip1);
@@ -371,7 +385,6 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem1;
         private System.Windows.Forms.Label AlertsLabel;
-        private System.Windows.Forms.Label timeLabel;
         private System.Windows.Forms.DataGridView nodesBox;
         private System.Windows.Forms.DataGridView alertsBox;
         private System.Windows.Forms.BindingSource nodeBindingSource;
@@ -392,5 +405,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn errorTypeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn commentDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn timestampDataGridViewTextBoxColumn;
+        private System.Windows.Forms.ToolStripMenuItem mergeRemoveNodesToolStripMenuItem;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace FYP_10_2_18
 {
+    [Serializable()]
     class Logger
     {
-        private string path;
-        private string filename;
+        private string path = "";
+        private string filename = "";
         private Boolean logType;
 
         public Logger(string pathToFile, string logFileName, Boolean loggingType)

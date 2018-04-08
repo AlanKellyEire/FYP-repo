@@ -47,7 +47,7 @@
             this.subjectTextbox = new System.Windows.Forms.TextBox();
             this.subjectLabel = new System.Windows.Forms.Label();
             this.emailTab = new System.Windows.Forms.TabPage();
-            this.emailRB = new System.Windows.Forms.RadioButton();
+            this.emailEnableCheck = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.emailRepTextbox5 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -60,6 +60,7 @@
             this.emailRepTextbox1 = new System.Windows.Forms.TextBox();
             this.emailRepLB1 = new System.Windows.Forms.Label();
             this.loggerTab = new System.Windows.Forms.TabPage();
+            this.loggerEnableCheck = new System.Windows.Forms.CheckBox();
             this.errorsLogTypeRB = new System.Windows.Forms.RadioButton();
             this.allLogTypeRB = new System.Windows.Forms.RadioButton();
             this.logTypeLabel = new System.Windows.Forms.Label();
@@ -67,7 +68,6 @@
             this.logFileNameLabel = new System.Windows.Forms.Label();
             this.logPathTextbox = new System.Windows.Forms.TextBox();
             this.logPathLabel = new System.Windows.Forms.Label();
-            this.loggerEnableRB = new System.Windows.Forms.RadioButton();
             this.loggerEnLabel = new System.Windows.Forms.Label();
             this.thresholdTab = new System.Windows.Forms.TabPage();
             this.cancelBut = new System.Windows.Forms.Button();
@@ -288,7 +288,7 @@
             // 
             // emailTab
             // 
-            this.emailTab.Controls.Add(this.emailRB);
+            this.emailTab.Controls.Add(this.emailEnableCheck);
             this.emailTab.Controls.Add(this.label5);
             this.emailTab.Controls.Add(this.emailRepTextbox5);
             this.emailTab.Controls.Add(this.label4);
@@ -308,16 +308,15 @@
             this.emailTab.Text = "Email";
             this.emailTab.UseVisualStyleBackColor = true;
             // 
-            // emailRB
+            // emailEnableCheck
             // 
-            this.emailRB.AutoSize = true;
-            this.emailRB.Location = new System.Drawing.Point(370, 32);
-            this.emailRB.Name = "emailRB";
-            this.emailRB.Size = new System.Drawing.Size(57, 17);
-            this.emailRB.TabIndex = 17;
-            this.emailRB.TabStop = true;
-            this.emailRB.Text = "enable";
-            this.emailRB.UseVisualStyleBackColor = true;
+            this.emailEnableCheck.AutoSize = true;
+            this.emailEnableCheck.Location = new System.Drawing.Point(362, 32);
+            this.emailEnableCheck.Name = "emailEnableCheck";
+            this.emailEnableCheck.Size = new System.Drawing.Size(65, 17);
+            this.emailEnableCheck.TabIndex = 17;
+            this.emailEnableCheck.Text = "Enabled";
+            this.emailEnableCheck.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
@@ -410,6 +409,7 @@
             // 
             // loggerTab
             // 
+            this.loggerTab.Controls.Add(this.loggerEnableCheck);
             this.loggerTab.Controls.Add(this.errorsLogTypeRB);
             this.loggerTab.Controls.Add(this.allLogTypeRB);
             this.loggerTab.Controls.Add(this.logTypeLabel);
@@ -417,7 +417,6 @@
             this.loggerTab.Controls.Add(this.logFileNameLabel);
             this.loggerTab.Controls.Add(this.logPathTextbox);
             this.loggerTab.Controls.Add(this.logPathLabel);
-            this.loggerTab.Controls.Add(this.loggerEnableRB);
             this.loggerTab.Controls.Add(this.loggerEnLabel);
             this.loggerTab.Location = new System.Drawing.Point(4, 22);
             this.loggerTab.Name = "loggerTab";
@@ -425,6 +424,16 @@
             this.loggerTab.TabIndex = 2;
             this.loggerTab.Text = "Logger";
             this.loggerTab.UseVisualStyleBackColor = true;
+            // 
+            // loggerEnableCheck
+            // 
+            this.loggerEnableCheck.AutoSize = true;
+            this.loggerEnableCheck.Location = new System.Drawing.Point(353, 41);
+            this.loggerEnableCheck.Name = "loggerEnableCheck";
+            this.loggerEnableCheck.Size = new System.Drawing.Size(65, 17);
+            this.loggerEnableCheck.TabIndex = 28;
+            this.loggerEnableCheck.Text = "Enabled";
+            this.loggerEnableCheck.UseVisualStyleBackColor = true;
             // 
             // errorsLogTypeRB
             // 
@@ -488,17 +497,6 @@
             this.logPathLabel.Size = new System.Drawing.Size(81, 13);
             this.logPathLabel.TabIndex = 20;
             this.logPathLabel.Text = "Path to Log File";
-            // 
-            // loggerEnableRB
-            // 
-            this.loggerEnableRB.AutoSize = true;
-            this.loggerEnableRB.Location = new System.Drawing.Point(361, 41);
-            this.loggerEnableRB.Name = "loggerEnableRB";
-            this.loggerEnableRB.Size = new System.Drawing.Size(57, 17);
-            this.loggerEnableRB.TabIndex = 19;
-            this.loggerEnableRB.TabStop = true;
-            this.loggerEnableRB.Text = "enable";
-            this.loggerEnableRB.UseVisualStyleBackColor = true;
             // 
             // loggerEnLabel
             // 
@@ -584,7 +582,6 @@
         private System.Windows.Forms.Label emailRepLB1;
         private System.Windows.Forms.TextBox emailRepTextbox5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.RadioButton emailRB;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox usernameTextbox;
         private System.Windows.Forms.Label usernameLabel;
@@ -599,7 +596,6 @@
         private System.Windows.Forms.Label passwordLabel;
         private System.Windows.Forms.ComboBox tlsSslCombobox;
         private System.Windows.Forms.Button testEmailButton;
-        private System.Windows.Forms.RadioButton loggerEnableRB;
         private System.Windows.Forms.Label loggerEnLabel;
         private System.Windows.Forms.TextBox logFileNameTextbox;
         private System.Windows.Forms.Label logFileNameLabel;
@@ -609,5 +605,8 @@
         private System.Windows.Forms.RadioButton allLogTypeRB;
         private System.Windows.Forms.Label logTypeLabel;
         private System.Windows.Forms.NumericUpDown pingIntNumField;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox emailEnableCheck;
+        private System.Windows.Forms.CheckBox loggerEnableCheck;
     }
 }

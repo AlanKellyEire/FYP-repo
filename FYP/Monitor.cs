@@ -46,10 +46,12 @@ namespace FYP_10_2_18
             alertsBox.Refresh();
         }
 
-        private void loadFromDBToolStripMenuItem_Click(object sender, EventArgs e)
+        public void loadFromDBToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PopulateNodesList();
             PopulateErrorList();
+            nodesBox.Refresh();
+            alertsBox.Refresh();
         }
 
         private void deleteDBToolStripMenuItem_Click(object sender, EventArgs e)
@@ -58,11 +60,19 @@ namespace FYP_10_2_18
 
             db.DeleteRowsDB();
             db.DeleteErrorsDB();
+
+            PopulateNodesList();
+            PopulateErrorList();
+
+            nodesBox.Refresh();
+            alertsBox.Refresh();
+
+
         }
 
         private void scanNetworkToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form1 scanner = new Form1();
+            Form1 scanner = new Form1(this);
 
             scanner.Show();
         }
@@ -82,8 +92,7 @@ namespace FYP_10_2_18
         private void Defeat()
         {
             //MessageBox.Show("Goodbye");
-            DialogResult result = MessageBox.Show("Do you want to save the data before exiting?", "Warning",
-MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+            DialogResult result = MessageBox.Show("Do you want to save the data before exiting?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
             if (result == DialogResult.Yes)
             {
                 //code for Yes
@@ -129,5 +138,31 @@ MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
             db.WriteErrorToDB(n);
 
         }
+
+        private void AddToDB()
+        {
+            DatabaseIO db = new DatabaseIO();
+            db.WriteNodeToDB(NodeList);
+
+        }
+
+        private void mergeRemoveNodesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MergeNodes();
+        }
+
+        public void MergeNodes()
+        {
+            MergeNodes mN = new MergeNodes();
+
+            NodeList = mN.MergeDuplicates(NodeList);
+
+            nodesBox.EndEdit();
+            AddToDB();
+            nodesBox.Refresh();
+            PopulateNodesList();
+            PopulateErrorList();
+        }
+
     }
 }

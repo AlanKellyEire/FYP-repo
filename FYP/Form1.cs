@@ -18,6 +18,7 @@ namespace FYP_10_2_18
         static int upCount = 0;
         static object lockObj = new object();
         const bool resolveNames = true;
+        private Monitor sender;
 
 
         String path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -29,10 +30,11 @@ namespace FYP_10_2_18
 
         internal ObservableCollection<Node> List { get => list; set => list = value; }
 
-        public Form1()
+        public Form1(Monitor send)
         {
             InitializeComponent();
             filePath.Text = path + "\\IpScanLog.txt";
+            this.sender = send;
         }
 
         //scan network button click
@@ -486,7 +488,7 @@ namespace FYP_10_2_18
             MergeNodes();
             DeleteRows();
             AddToDB();
-            Trace.Write("fdghjkl;kjfdjkljfdsfgkjl;jgfdgjkljhdfghkjljfdghjklkjhfdghkjl;");
+            this.sender.PopulateNodesList();
         }
 
 

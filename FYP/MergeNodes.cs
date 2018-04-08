@@ -35,15 +35,30 @@ namespace FYP_10_2_18
                         bool b = false;
                         for (int c = 0; c < temp.Count; c++)
                         {
-                            b = false;
+                            //b = false;
                             ////test to see if the hostname of the current node is the same as the node in the new list.
                             if (temp[c].Hostname.ToLower() == arrayList[i].Hostname.ToLower())
                             {
                                 if (!IsController(arrayList[i]))
                                 {
-                                    //b = true;
+                                    b = true;
                                     //tests if the new node to be added has an ip that is already in another node.
-                                    if (!arrayList[i].Ip.ToLower().ToString().Equals(temp[c].Ip.ToLower().ToString()) && !arrayList[i].Ip.ToLower().ToString().Equals(temp[c].IpSecondary.ToLower().ToString()) && !arrayList[i].Ip.ToLower().ToString().Equals(temp[c].IpThird.ToLower().ToString()) && !arrayList[i].Ip.ToLower().ToString().Equals(temp[c].IpFourth.ToLower().ToString()))
+                                    Boolean secIP = true;
+                                    Boolean thirdIP = true;
+                                    Boolean fouthIP = true;
+                                    if (temp[c].IpSecondary != null)
+                                    {
+                                        secIP = !arrayList[i].Ip.ToLower().ToString().Equals(temp[c].IpSecondary.ToLower().ToString());
+                                    }
+                                    if (temp[c].IpThird != null)
+                                    {
+                                        thirdIP = !arrayList[i].Ip.ToLower().ToString().Equals(temp[c].IpThird.ToLower().ToString());
+                                    }
+                                    if (temp[c].IpFourth != null)
+                                    {
+                                        fouthIP = !arrayList[i].Ip.ToLower().ToString().Equals(temp[c].IpFourth.ToLower().ToString());
+                                    }
+                                    if (!arrayList[i].Ip.ToLower().ToString().Equals(temp[c].Ip.ToLower().ToString()) && secIP && thirdIP && fouthIP)
                                     {
                                         if (string.IsNullOrEmpty(temp[c].IpSecondary))
                                         {
@@ -72,8 +87,6 @@ namespace FYP_10_2_18
                                 }
                                 else
                                 {
-                                    //if (!ExistsIp(arrayList[i].Ip.ToLower().ToString(), temp, i) && !ExistsIp(arrayList[i].IpSecondary.ToLower().ToString(), temp, i))
-                                    //{
                                     string ipOfTemp;
                                     string ipOfCurrent;
                                     ipOfTemp = temp[c].Ip.ToLower().ToString();
