@@ -35,10 +35,9 @@ namespace FYP_10_2_18
             filePath.Text = path + "\\IpScanLog.txt";
         }
 
+        //scan network button click
         private void ScanNetworkClick(object sender, EventArgs e)
         {
-           
-                //AlertClass aC = new AlertClass();
                 rw = new ReadAndWrite(path, filename);
 
                 upCount = 1;
@@ -47,7 +46,7 @@ namespace FYP_10_2_18
 
                 //writing starttime to file;
                 rw.writeTime();
-                //scanNetwork(ipBase, cidr1.Text);
+                //testing what networks are selected to scan
                 if (En_IP_Net_1.Checked)
                 {
                     ipBase = netIp1a.Value.ToString() + "." + netIp1b.Value.ToString() + "." + netIp1c.Value.ToString() + "." + netIp1d.Value.ToString();
@@ -64,7 +63,7 @@ namespace FYP_10_2_18
                     ScanNetwork(ipBase, cidr3.Text, Int32.Parse(netIp3b.Value.ToString()));
                 }
 
-
+                //prompt window telling user that scan is complete
                 DialogResult result2 = MessageBox.Show("Network scan is now complete", "Scan Successful", MessageBoxButtons.OK, MessageBoxIcon.Question);
 
                 //write list to file
@@ -75,110 +74,106 @@ namespace FYP_10_2_18
 
                 //this.dataGridView1.ItemsSource = list;
                 dataGridView1.DataSource = List;
-            dataGridView1.Refresh();
+                //refreshes datagridview so it can be updated with recently added nodes
+                dataGridView1.Refresh();
 
         }
 
+        //function to scan a /24 network
         public void IpScan24(String ipNet)
         {
+            //gets the first 24 bits of the ip address
             ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")));
-            //Trace.WriteLine("\n entered /24 ipBase = " + ipBase + "\n");
 
+            //loops thruogh all the ip addresses in the range
             rw.writeToFile("\nipBase = " + ipBase + "\n");
             for (int i = 1; i < 255; i++)
             {
                 string ip = ipNet + "." + i.ToString();
-                //string ip = ipBase + i.ToString();
+
                 Ping p = new Ping();
                 p.PingCompleted += new PingCompletedEventHandler(pingCompleted);
-                //countdown.AddCount();
-                //Trace.WriteLine("\n IP = " + ip + "\n");
+                
+                //sends ping
                 p.SendAsync(ip, 50, ip);
                 p.Dispose();
             }
         }
 
-        public void IpScan15(String ipNet)
-        {
-            ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")));
-            //ipNet = ipNet.Substring(0, (ipBase.LastIndexOf(".")));
-            ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")+1));
-            //Trace.WriteLine("\nipBase = " + ipBase + "\n");
-            //rw.writeToFile("\n = " + ipNet + "\n");
-            for (int c = 1; c < 255; c++)
-            {
-                System.Threading.Thread.Sleep(25);
-                for (int i = 1; i < 255; i++)
-                {
-                    
-                    string ip = ipNet + c.ToString() + "." + i.ToString();
-                    //rw.writeToFile("\nasdfcgvhipnet = " + ip + "\n");
-                    //string ip = ipBase + i.ToString();
-                    Ping p = new Ping();
-                    p.PingCompleted += new PingCompletedEventHandler(pingCompleted);
-                    //countdown.AddCount();
-                    Trace.WriteLine("\n IP = " + ip + "\n");
-                    p.SendAsync(ip, 50, ip);
-                    p.Dispose();
-                }
-            }
-        }
+        ////function to scan a /15 network
+        //public void IpScan15(String ipNet)
+        //{
+        //    //gets the first 15 bits of the ip address
+        //    ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")));
+        //    ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")+1));
 
+        //    for (int c = 1; c < 255; c++)
+        //    {
+        //        //waits 25ms before each network scan to prevent out of memory exception
+        //        System.Threading.Thread.Sleep(25);
+        //        for (int i = 1; i < 255; i++)
+        //        {
+                    
+        //            string ip = ipNet + c.ToString() + "." + i.ToString();
+        //            Ping p = new Ping();
+        //            p.PingCompleted += new PingCompletedEventHandler(pingCompleted);
+
+        //            p.SendAsync(ip, 50, ip);
+        //            p.Dispose();
+        //        }
+        //    }
+        //}
+
+        //function to scan a /16 network also used to scan a /15 network
         public void IpScan16(String ipNet)
         {
-            //ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")));
-            ////ipNet = ipNet.Substring(0, (ipBase.LastIndexOf(".")));
-            //ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")));
-            //ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")+1));
-            ////Trace.WriteLine("\nipBase = " + ipBase + "\n");
-            //rw.writeToFile("\ntest    === = = = " + ipNet + "\n");
             
             for (int c = 1; c < 255; c++)
             {
+                //waits 25ms before each network scan to prevent out of memory exception
                 System.Threading.Thread.Sleep(25);
                 for (int i = 1; i < 255; i++)
                 {
 
                     string ip = ipNet + c.ToString() + "." + i.ToString();
-                    //rw.writeToFile("\nasdfcgvhipnet = " + ip + "\n");
-                    //string ip = ipBase + i.ToString();
                     Ping p = new Ping();
                     p.PingCompleted += new PingCompletedEventHandler(pingCompleted);
-                    //countdown.AddCount();
-                    Trace.WriteLine("\n IP = " + ip + "\n");
                     p.SendAsync(ip, 50, ip);
                     p.Dispose();
                 }
             }
         }
 
+        //function used to identify the network type.
         public void ScanNetwork(String ipNet, String cidr, int secOct)
         {
+            //uses the cidr notation to identy what network size it is and scans it
             if (cidr == "/24")
             {
-                Trace.WriteLine("\n/24 IP = \n");
-                Trace.WriteLine("\n IP = " + ipNet + cidr + "\n");
                 IpScan24(ipNet);
             }
             else if (cidr == "/15")
             {
+                //used to scan a /15 address
+                //gets the first 15 bits of the IP address
                 ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")));
-                //ipNet = ipNet.Substring(0, (ipBase.LastIndexOf(".")));
                 ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")));
                 ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".") + 1));
                 ipNet += secOct + ".";
                 rw.writeToFile("\ntest    === = = = " + ipNet + "\n");
+                //scans the first /16 address in teh /15 address
                 IpScan16(ipNet);
                 ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")));
                 ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".") + 1));
                 ipNet += (secOct+1) + ".";
                 rw.writeToFile("\ntest    === = = = " + ipNet + "\n");
+                //scans the first /16 address in teh /15 address
                 IpScan16(ipNet);
             }
             else
             {
+                //scans a single /16 address
                 ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")));
-                //ipNet = ipNet.Substring(0, (ipBase.LastIndexOf(".")));
                 ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".")));
                 ipNet = ipNet.Substring(0, (ipNet.LastIndexOf(".") + 1));
                 ipNet += secOct + ".";
@@ -186,6 +181,7 @@ namespace FYP_10_2_18
             }
         }
 
+        //function used to test if Node is active
         public void pingCompleted(object sender, PingCompletedEventArgs e)
         {
             string ip = (string)e.UserState;
@@ -202,22 +198,26 @@ namespace FYP_10_2_18
                     }
                     catch (SocketException ex)
                     {
+                        //if node has no domain name it gives it the name ?
                         name = "?";
                     }
+                    //calls mac address resolution function to get mac address of Node
                     mac = GetMacAddress(ip);
+                    //creates and adds node to the nodes list
                     Node node = new Node(upCount, name, ip, mac);
                     List.Add(node);
+                    //writes host details to log file
                     Trace.WriteLine($"Host {upCount} = {ip} ({name}) is up: ({e.Reply.RoundtripTime} ms)");
-                    //Console.WriteLine("{0} ({1}) is up: ({2} ms)", ip, name, e.Reply.RoundtripTime);
-                    //writeToFile($"Host {upCount} = {ip} ({name}) is up: ({e.Reply.RoundtripTime} ms)");
                 }
                 else
                 {
                     //Console.WriteLine("{0} is up: ({1} ms)", ip, e.Reply.RoundtripTime);
                     //writeToFile($"{ip} is up: ({e.Reply.RoundtripTime} ms)");
                 }
+                //mutual exculsion code
                 lock (lockObj)
                 {
+                    //increments the number of nodes
                     upCount++;
                 }
             }
@@ -241,6 +241,7 @@ namespace FYP_10_2_18
         //    }
         //}
 
+        //code for GUI to enable second network
         private void enable_2nd_Network(object sender, EventArgs e)
         {
             Boolean b = true;
@@ -260,6 +261,7 @@ namespace FYP_10_2_18
 
         }
 
+        //code for GUI to enable third network
         private void enable_3rd_Network(object sender, EventArgs e)
         {
             Boolean b = true;
@@ -279,6 +281,7 @@ namespace FYP_10_2_18
 
         }
 
+        //code for GUI to enable first network
         private void enable_1st_Network(object sender, EventArgs e)
         {
             Boolean b = true;
@@ -297,6 +300,7 @@ namespace FYP_10_2_18
 
         }
 
+        //function to change the subnet mask if cidr notation has changed
         private void change_SubnetMask(object sender, EventArgs e)
         {
             if (sender == cidr1)
@@ -347,6 +351,7 @@ namespace FYP_10_2_18
             }
         }
 
+        //setting the subnet mask fields for a /24 network
         private void TwoFoursubnet(NumericUpDown oct1, NumericUpDown oct2, NumericUpDown oct3)
         {
             oct1.Value = 255;
@@ -354,6 +359,7 @@ namespace FYP_10_2_18
             oct3.Value = 255;
         }
 
+        //setting the subnet mask fields for a /16 network
         private void OneSixsubnet(NumericUpDown oct1, NumericUpDown oct2, NumericUpDown oct3)
         {
             oct1.Value = 255;
@@ -361,6 +367,7 @@ namespace FYP_10_2_18
             oct3.Value = 0;
         }
 
+        //setting the subnet mask fields for a /15 network
         private void OneFivesubnet(NumericUpDown oct1, NumericUpDown oct2, NumericUpDown oct3)
         {
             oct1.Value = 255;
@@ -368,6 +375,7 @@ namespace FYP_10_2_18
             oct3.Value = 0;
         }
 
+        //function that is used to select the path of the logfile
         private void button1_Click(object sender, EventArgs e)
         {
             using (var fbd = new FolderBrowserDialog())
@@ -385,13 +393,12 @@ namespace FYP_10_2_18
                     rw.Path = path;
                 }
             }
-            //IPNetwork ipnetwork = IPNetwork.Parse("2001:0db8::/64");
-
-            //Trace.Write($"Network : {ipnetwork.Network}");
         }
 
+        //function used to get mac address
         public String GetMacAddress(String ipAddress)
         {
+            //uses the nodes arp table to get mac address
             String macAddress = string.Empty;
             System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
             pProcess.StartInfo.FileName = "arp";
@@ -417,13 +424,14 @@ namespace FYP_10_2_18
             }
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cidr1.ValueMember.ToString() != "/24")
-            {
-                subnet1c.Value = 0;
-            }
-        }
+
+        //private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    if (cidr1.ValueMember.ToString() != "/24")
+        //    {
+        //        subnet1c.Value = 0;
+        //    }
+        //}
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -472,37 +480,33 @@ namespace FYP_10_2_18
             MergeNodes();
         }
 
-        private async void button_click(object sender, EventArgs e)
-        {
 
-            //byte[] buffer = Encoding.ASCII.GetBytes(".");
-            //PingOptions options = new PingOptions(50, true);
-            //AutoResetEvent reset = new AutoResetEvent(false);
-            Ping ping = new Ping();
-            //ping.PingCompleted += new PingCompletedEventHandler(ping_Complete);
+        //function for monitoring a node
+        //private async void button_click(object sender, EventArgs e)
+        //{
 
-            foreach (Node n in List)
-            {
-                var reply = await ping.SendPingAsync(n.Ip);
-                if (reply.Status == IPStatus.Success)
-                {
+        //    //byte[] buffer = Encoding.ASCII.GetBytes(".");
+        //    //PingOptions options = new PingOptions(50, true);
+        //    //AutoResetEvent reset = new AutoResetEvent(false);
+        //    Ping ping = new Ping();
+        //    //ping.PingCompleted += new PingCompletedEventHandler(ping_Complete);
 
-                    Trace.Write(n + " (OK)\n");
-                }
-                else
-                {
-                    Trace.Write(n + " (FAILED)\n");
-                    addError(n);
-                }
-            }
-        }
+        //    foreach (Node n in List)
+        //    {
+        //        var reply = await ping.SendPingAsync(n.Ip);
+        //        if (reply.Status == IPStatus.Success)
+        //        {
 
-        private void Show_Click(object sender, EventArgs e)
-        {
-            Monitor mn = new Monitor();
-            
-            mn.Show();
-        }
+        //            Trace.Write(n + " (OK)\n");
+        //        }
+        //        else
+        //        {
+        //            Trace.Write(n + " (FAILED)\n");
+        //            addError(n);
+        //        }
+        //    }
+        //}
+
 
     }
 

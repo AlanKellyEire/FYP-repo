@@ -87,7 +87,6 @@
             this.En_IP_Net_3 = new System.Windows.Forms.CheckBox();
             this.monitor = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1a)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1b)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1c)).BeginInit();
@@ -878,7 +877,6 @@
             this.monitor.TabIndex = 82;
             this.monitor.Text = "Monitor";
             this.monitor.UseVisualStyleBackColor = true;
-            this.monitor.Click += new System.EventHandler(this.button_click);
             // 
             // dataGridView1
             // 
@@ -888,20 +886,9 @@
             this.dataGridView1.Size = new System.Drawing.Size(1215, 476);
             this.dataGridView1.TabIndex = 72;
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(1233, 65);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 83;
-            this.button2.Text = "Monitor";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Show_Click);
-            // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(1470, 811);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.monitor);
             this.Controls.Add(this.En_IP_Net_3);
             this.Controls.Add(this.En_IP_Net_2);
@@ -1053,7 +1040,6 @@
         private System.Windows.Forms.CheckBox En_IP_Net_3;
         private System.Windows.Forms.Button monitor;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button2;
     }
 }
 

@@ -36,11 +36,6 @@
             this.deleteDBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scanNetworkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.notifcationsSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.emailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loggerSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.notifactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.thresholdsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -126,55 +121,21 @@
             this.scanNetworkToolStripMenuItem.Name = "scanNetworkToolStripMenuItem";
             this.scanNetworkToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.scanNetworkToolStripMenuItem.Text = "Scan Network";
+            this.scanNetworkToolStripMenuItem.Click += new System.EventHandler(this.scanNetworkToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
-            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.notifcationsSettingsToolStripMenuItem,
-            this.emailToolStripMenuItem,
-            this.loggerSettingsToolStripMenuItem,
-            this.notifactionsToolStripMenuItem,
-            this.thresholdsToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.optionsToolStripMenuItem.Text = "Options";
-            // 
-            // notifcationsSettingsToolStripMenuItem
-            // 
-            this.notifcationsSettingsToolStripMenuItem.Name = "notifcationsSettingsToolStripMenuItem";
-            this.notifcationsSettingsToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.notifcationsSettingsToolStripMenuItem.Text = "Monitoring Settings";
-            this.notifcationsSettingsToolStripMenuItem.Click += new System.EventHandler(this.notifcationsSettingsToolStripMenuItem_Click);
-            // 
-            // emailToolStripMenuItem
-            // 
-            this.emailToolStripMenuItem.Name = "emailToolStripMenuItem";
-            this.emailToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.emailToolStripMenuItem.Text = "Email Server Settings";
-            // 
-            // loggerSettingsToolStripMenuItem
-            // 
-            this.loggerSettingsToolStripMenuItem.Name = "loggerSettingsToolStripMenuItem";
-            this.loggerSettingsToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.loggerSettingsToolStripMenuItem.Text = "Logger Settings";
-            // 
-            // notifactionsToolStripMenuItem
-            // 
-            this.notifactionsToolStripMenuItem.Name = "notifactionsToolStripMenuItem";
-            this.notifactionsToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.notifactionsToolStripMenuItem.Text = "Notifications Settings";
-            // 
-            // thresholdsToolStripMenuItem
-            // 
-            this.thresholdsToolStripMenuItem.Name = "thresholdsToolStripMenuItem";
-            this.thresholdsToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.thresholdsToolStripMenuItem.Text = "Thresholds";
+            this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -404,14 +365,9 @@
         private System.Windows.Forms.ToolStripMenuItem deleteDBToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem scanNetworkToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem notifcationsSettingsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem emailToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem loggerSettingsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem notifactionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem thresholdsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem1;
         private System.Windows.Forms.Label AlertsLabel;

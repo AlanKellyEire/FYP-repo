@@ -30,22 +30,22 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.monitorTab = new System.Windows.Forms.TabPage();
-            this.pingIntTextbox = new System.Windows.Forms.TextBox();
+            this.pingIntNumField = new System.Windows.Forms.NumericUpDown();
             this.pingIntLabel = new System.Windows.Forms.Label();
             this.alertsTab = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.testEmailButton = new System.Windows.Forms.Button();
+            this.passwordTextbox = new System.Windows.Forms.TextBox();
+            this.passwordLabel = new System.Windows.Forms.Label();
+            this.tlsSslCombobox = new System.Windows.Forms.ComboBox();
             this.smtpPortNumeric = new System.Windows.Forms.NumericUpDown();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.senderLabel = new System.Windows.Forms.Label();
+            this.usernameTextbox = new System.Windows.Forms.TextBox();
+            this.usernameLabel = new System.Windows.Forms.Label();
+            this.tlsSslLabel = new System.Windows.Forms.Label();
+            this.smtpLabel = new System.Windows.Forms.Label();
+            this.mailServerTextbox = new System.Windows.Forms.TextBox();
+            this.mailServerLB = new System.Windows.Forms.Label();
+            this.subjectTextbox = new System.Windows.Forms.TextBox();
+            this.subjectLabel = new System.Windows.Forms.Label();
             this.emailTab = new System.Windows.Forms.TabPage();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.label5 = new System.Windows.Forms.Label();
@@ -60,20 +60,21 @@
             this.emailRepTextbox1 = new System.Windows.Forms.TextBox();
             this.emailRepLB1 = new System.Windows.Forms.Label();
             this.loggerTab = new System.Windows.Forms.TabPage();
+            this.errorsLogTypeRB = new System.Windows.Forms.RadioButton();
+            this.allLogTypeRB = new System.Windows.Forms.RadioButton();
+            this.logTypeLabel = new System.Windows.Forms.Label();
+            this.logFileNameTextbox = new System.Windows.Forms.TextBox();
+            this.logFileNameLabel = new System.Windows.Forms.Label();
+            this.logPathTextbox = new System.Windows.Forms.TextBox();
+            this.logPathLabel = new System.Windows.Forms.Label();
+            this.loggerEnableRB = new System.Windows.Forms.RadioButton();
+            this.loggerEnLabel = new System.Windows.Forms.Label();
             this.thresholdTab = new System.Windows.Forms.TabPage();
             this.cancelBut = new System.Windows.Forms.Button();
             this.saveBut = new System.Windows.Forms.Button();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.label11 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.label14 = new System.Windows.Forms.Label();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.monitorTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pingIntNumField)).BeginInit();
             this.alertsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.smtpPortNumeric)).BeginInit();
             this.emailTab.SuspendLayout();
@@ -95,7 +96,7 @@
             // 
             // monitorTab
             // 
-            this.monitorTab.Controls.Add(this.pingIntTextbox);
+            this.monitorTab.Controls.Add(this.pingIntNumField);
             this.monitorTab.Controls.Add(this.pingIntLabel);
             this.monitorTab.Location = new System.Drawing.Point(4, 22);
             this.monitorTab.Name = "monitorTab";
@@ -104,12 +105,28 @@
             this.monitorTab.Text = "Monitoring";
             this.monitorTab.UseVisualStyleBackColor = true;
             // 
-            // pingIntTextbox
+            // pingIntNumField
             // 
-            this.pingIntTextbox.Location = new System.Drawing.Point(358, 77);
-            this.pingIntTextbox.Name = "pingIntTextbox";
-            this.pingIntTextbox.Size = new System.Drawing.Size(100, 20);
-            this.pingIntTextbox.TabIndex = 1;
+            this.pingIntNumField.Location = new System.Drawing.Point(343, 77);
+            this.pingIntNumField.Maximum = new decimal(new int[] {
+            3600,
+            0,
+            0,
+            0});
+            this.pingIntNumField.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.pingIntNumField.Name = "pingIntNumField";
+            this.pingIntNumField.Size = new System.Drawing.Size(120, 20);
+            this.pingIntNumField.TabIndex = 1;
+            this.pingIntNumField.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.pingIntNumField.ValueChanged += new System.EventHandler(this.pingIntNumField_ValueChanged);
             // 
             // pingIntLabel
             // 
@@ -122,19 +139,19 @@
             // 
             // alertsTab
             // 
-            this.alertsTab.Controls.Add(this.button1);
-            this.alertsTab.Controls.Add(this.textBox2);
-            this.alertsTab.Controls.Add(this.label6);
-            this.alertsTab.Controls.Add(this.comboBox2);
+            this.alertsTab.Controls.Add(this.testEmailButton);
+            this.alertsTab.Controls.Add(this.passwordTextbox);
+            this.alertsTab.Controls.Add(this.passwordLabel);
+            this.alertsTab.Controls.Add(this.tlsSslCombobox);
             this.alertsTab.Controls.Add(this.smtpPortNumeric);
-            this.alertsTab.Controls.Add(this.textBox1);
-            this.alertsTab.Controls.Add(this.label7);
-            this.alertsTab.Controls.Add(this.label8);
-            this.alertsTab.Controls.Add(this.label9);
-            this.alertsTab.Controls.Add(this.textBox4);
-            this.alertsTab.Controls.Add(this.label10);
-            this.alertsTab.Controls.Add(this.textBox5);
-            this.alertsTab.Controls.Add(this.senderLabel);
+            this.alertsTab.Controls.Add(this.usernameTextbox);
+            this.alertsTab.Controls.Add(this.usernameLabel);
+            this.alertsTab.Controls.Add(this.tlsSslLabel);
+            this.alertsTab.Controls.Add(this.smtpLabel);
+            this.alertsTab.Controls.Add(this.mailServerTextbox);
+            this.alertsTab.Controls.Add(this.mailServerLB);
+            this.alertsTab.Controls.Add(this.subjectTextbox);
+            this.alertsTab.Controls.Add(this.subjectLabel);
             this.alertsTab.Location = new System.Drawing.Point(4, 22);
             this.alertsTab.Name = "alertsTab";
             this.alertsTab.Padding = new System.Windows.Forms.Padding(3);
@@ -143,41 +160,42 @@
             this.alertsTab.Text = "Alerts";
             this.alertsTab.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // testEmailButton
             // 
-            this.button1.Location = new System.Drawing.Point(206, 279);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(212, 23);
-            this.button1.TabIndex = 33;
-            this.button1.Text = "Send Test Email";
-            this.button1.UseVisualStyleBackColor = true;
+            this.testEmailButton.Location = new System.Drawing.Point(206, 279);
+            this.testEmailButton.Name = "testEmailButton";
+            this.testEmailButton.Size = new System.Drawing.Size(212, 23);
+            this.testEmailButton.TabIndex = 33;
+            this.testEmailButton.Text = "Send Test Email";
+            this.testEmailButton.UseVisualStyleBackColor = true;
             // 
-            // textBox2
+            // passwordTextbox
             // 
-            this.textBox2.Location = new System.Drawing.Point(318, 235);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 32;
+            this.passwordTextbox.Location = new System.Drawing.Point(318, 235);
+            this.passwordTextbox.Name = "passwordTextbox";
+            this.passwordTextbox.Size = new System.Drawing.Size(100, 20);
+            this.passwordTextbox.TabIndex = 32;
             // 
-            // label6
+            // passwordLabel
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(203, 242);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(53, 13);
-            this.label6.TabIndex = 31;
-            this.label6.Text = "Password";
+            this.passwordLabel.AutoSize = true;
+            this.passwordLabel.Location = new System.Drawing.Point(203, 242);
+            this.passwordLabel.Name = "passwordLabel";
+            this.passwordLabel.Size = new System.Drawing.Size(53, 13);
+            this.passwordLabel.TabIndex = 31;
+            this.passwordLabel.Text = "Password";
             // 
-            // comboBox2
+            // tlsSslCombobox
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.tlsSslCombobox.DisplayMember = "TLS";
+            this.tlsSslCombobox.FormattingEnabled = true;
+            this.tlsSslCombobox.Items.AddRange(new object[] {
             "TLS",
             "SSL"});
-            this.comboBox2.Location = new System.Drawing.Point(318, 149);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(100, 21);
-            this.comboBox2.TabIndex = 30;
+            this.tlsSslCombobox.Location = new System.Drawing.Point(318, 149);
+            this.tlsSslCombobox.Name = "tlsSslCombobox";
+            this.tlsSslCombobox.Size = new System.Drawing.Size(100, 21);
+            this.tlsSslCombobox.TabIndex = 30;
             // 
             // smtpPortNumeric
             // 
@@ -187,76 +205,86 @@
             0,
             0,
             0});
+            this.smtpPortNumeric.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.smtpPortNumeric.Name = "smtpPortNumeric";
             this.smtpPortNumeric.Size = new System.Drawing.Size(100, 20);
             this.smtpPortNumeric.TabIndex = 28;
             this.smtpPortNumeric.ThousandsSeparator = true;
+            this.smtpPortNumeric.Value = new decimal(new int[] {
+            465,
+            0,
+            0,
+            0});
             // 
-            // textBox1
+            // usernameTextbox
             // 
-            this.textBox1.Location = new System.Drawing.Point(318, 191);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 27;
+            this.usernameTextbox.Location = new System.Drawing.Point(318, 191);
+            this.usernameTextbox.Name = "usernameTextbox";
+            this.usernameTextbox.Size = new System.Drawing.Size(100, 20);
+            this.usernameTextbox.TabIndex = 27;
             // 
-            // label7
+            // usernameLabel
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(203, 198);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(55, 13);
-            this.label7.TabIndex = 26;
-            this.label7.Text = "Username";
+            this.usernameLabel.AutoSize = true;
+            this.usernameLabel.Location = new System.Drawing.Point(203, 198);
+            this.usernameLabel.Name = "usernameLabel";
+            this.usernameLabel.Size = new System.Drawing.Size(55, 13);
+            this.usernameLabel.TabIndex = 26;
+            this.usernameLabel.Text = "Username";
             // 
-            // label8
+            // tlsSslLabel
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(203, 157);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(52, 13);
-            this.label8.TabIndex = 24;
-            this.label8.Text = "TLS/SSL";
+            this.tlsSslLabel.AutoSize = true;
+            this.tlsSslLabel.Location = new System.Drawing.Point(203, 157);
+            this.tlsSslLabel.Name = "tlsSslLabel";
+            this.tlsSslLabel.Size = new System.Drawing.Size(52, 13);
+            this.tlsSslLabel.TabIndex = 24;
+            this.tlsSslLabel.Text = "TLS/SSL";
             // 
-            // label9
+            // smtpLabel
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(203, 118);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(37, 13);
-            this.label9.TabIndex = 22;
-            this.label9.Text = "SMTP";
+            this.smtpLabel.AutoSize = true;
+            this.smtpLabel.Location = new System.Drawing.Point(203, 118);
+            this.smtpLabel.Name = "smtpLabel";
+            this.smtpLabel.Size = new System.Drawing.Size(37, 13);
+            this.smtpLabel.TabIndex = 22;
+            this.smtpLabel.Text = "SMTP";
             // 
-            // textBox4
+            // mailServerTextbox
             // 
-            this.textBox4.Location = new System.Drawing.Point(318, 73);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 20);
-            this.textBox4.TabIndex = 21;
+            this.mailServerTextbox.Location = new System.Drawing.Point(318, 73);
+            this.mailServerTextbox.Name = "mailServerTextbox";
+            this.mailServerTextbox.Size = new System.Drawing.Size(100, 20);
+            this.mailServerTextbox.TabIndex = 21;
             // 
-            // label10
+            // mailServerLB
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(203, 80);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(106, 13);
-            this.label10.TabIndex = 20;
-            this.label10.Text = "Outgoing Mail Server";
+            this.mailServerLB.AutoSize = true;
+            this.mailServerLB.Location = new System.Drawing.Point(203, 80);
+            this.mailServerLB.Name = "mailServerLB";
+            this.mailServerLB.Size = new System.Drawing.Size(106, 13);
+            this.mailServerLB.TabIndex = 20;
+            this.mailServerLB.Text = "Outgoing Mail Server";
             // 
-            // textBox5
+            // subjectTextbox
             // 
-            this.textBox5.Location = new System.Drawing.Point(318, 34);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 20);
-            this.textBox5.TabIndex = 19;
+            this.subjectTextbox.Location = new System.Drawing.Point(318, 34);
+            this.subjectTextbox.Name = "subjectTextbox";
+            this.subjectTextbox.Size = new System.Drawing.Size(100, 20);
+            this.subjectTextbox.TabIndex = 19;
             // 
-            // senderLabel
+            // subjectLabel
             // 
-            this.senderLabel.AutoSize = true;
-            this.senderLabel.Location = new System.Drawing.Point(203, 41);
-            this.senderLabel.Name = "senderLabel";
-            this.senderLabel.Size = new System.Drawing.Size(41, 13);
-            this.senderLabel.TabIndex = 18;
-            this.senderLabel.Text = "Sender";
+            this.subjectLabel.AutoSize = true;
+            this.subjectLabel.Location = new System.Drawing.Point(203, 41);
+            this.subjectLabel.Name = "subjectLabel";
+            this.subjectLabel.Size = new System.Drawing.Size(41, 13);
+            this.subjectLabel.TabIndex = 18;
+            this.subjectLabel.Text = "Sender";
             // 
             // emailTab
             // 
@@ -382,21 +410,104 @@
             // 
             // loggerTab
             // 
-            this.loggerTab.Controls.Add(this.radioButton4);
-            this.loggerTab.Controls.Add(this.radioButton3);
-            this.loggerTab.Controls.Add(this.label14);
-            this.loggerTab.Controls.Add(this.textBox3);
-            this.loggerTab.Controls.Add(this.label12);
-            this.loggerTab.Controls.Add(this.textBox6);
-            this.loggerTab.Controls.Add(this.label13);
-            this.loggerTab.Controls.Add(this.radioButton2);
-            this.loggerTab.Controls.Add(this.label11);
+            this.loggerTab.Controls.Add(this.errorsLogTypeRB);
+            this.loggerTab.Controls.Add(this.allLogTypeRB);
+            this.loggerTab.Controls.Add(this.logTypeLabel);
+            this.loggerTab.Controls.Add(this.logFileNameTextbox);
+            this.loggerTab.Controls.Add(this.logFileNameLabel);
+            this.loggerTab.Controls.Add(this.logPathTextbox);
+            this.loggerTab.Controls.Add(this.logPathLabel);
+            this.loggerTab.Controls.Add(this.loggerEnableRB);
+            this.loggerTab.Controls.Add(this.loggerEnLabel);
             this.loggerTab.Location = new System.Drawing.Point(4, 22);
             this.loggerTab.Name = "loggerTab";
             this.loggerTab.Size = new System.Drawing.Size(790, 353);
             this.loggerTab.TabIndex = 2;
             this.loggerTab.Text = "Logger";
             this.loggerTab.UseVisualStyleBackColor = true;
+            // 
+            // errorsLogTypeRB
+            // 
+            this.errorsLogTypeRB.AutoSize = true;
+            this.errorsLogTypeRB.Location = new System.Drawing.Point(394, 162);
+            this.errorsLogTypeRB.Name = "errorsLogTypeRB";
+            this.errorsLogTypeRB.Size = new System.Drawing.Size(76, 17);
+            this.errorsLogTypeRB.TabIndex = 27;
+            this.errorsLogTypeRB.TabStop = true;
+            this.errorsLogTypeRB.Text = "Errors Only";
+            this.errorsLogTypeRB.UseVisualStyleBackColor = true;
+            // 
+            // allLogTypeRB
+            // 
+            this.allLogTypeRB.AutoSize = true;
+            this.allLogTypeRB.Location = new System.Drawing.Point(318, 162);
+            this.allLogTypeRB.Name = "allLogTypeRB";
+            this.allLogTypeRB.Size = new System.Drawing.Size(36, 17);
+            this.allLogTypeRB.TabIndex = 25;
+            this.allLogTypeRB.TabStop = true;
+            this.allLogTypeRB.Text = "All";
+            this.allLogTypeRB.UseVisualStyleBackColor = true;
+            // 
+            // logTypeLabel
+            // 
+            this.logTypeLabel.AutoSize = true;
+            this.logTypeLabel.Location = new System.Drawing.Point(202, 166);
+            this.logTypeLabel.Name = "logTypeLabel";
+            this.logTypeLabel.Size = new System.Drawing.Size(52, 13);
+            this.logTypeLabel.TabIndex = 24;
+            this.logTypeLabel.Text = "Log Type";
+            // 
+            // logFileNameTextbox
+            // 
+            this.logFileNameTextbox.Location = new System.Drawing.Point(318, 120);
+            this.logFileNameTextbox.Name = "logFileNameTextbox";
+            this.logFileNameTextbox.Size = new System.Drawing.Size(100, 20);
+            this.logFileNameTextbox.TabIndex = 23;
+            // 
+            // logFileNameLabel
+            // 
+            this.logFileNameLabel.AutoSize = true;
+            this.logFileNameLabel.Location = new System.Drawing.Point(203, 127);
+            this.logFileNameLabel.Name = "logFileNameLabel";
+            this.logFileNameLabel.Size = new System.Drawing.Size(75, 13);
+            this.logFileNameLabel.TabIndex = 22;
+            this.logFileNameLabel.Text = "Log File Name";
+            // 
+            // logPathTextbox
+            // 
+            this.logPathTextbox.Location = new System.Drawing.Point(318, 81);
+            this.logPathTextbox.Name = "logPathTextbox";
+            this.logPathTextbox.Size = new System.Drawing.Size(100, 20);
+            this.logPathTextbox.TabIndex = 21;
+            // 
+            // logPathLabel
+            // 
+            this.logPathLabel.AutoSize = true;
+            this.logPathLabel.Location = new System.Drawing.Point(203, 88);
+            this.logPathLabel.Name = "logPathLabel";
+            this.logPathLabel.Size = new System.Drawing.Size(81, 13);
+            this.logPathLabel.TabIndex = 20;
+            this.logPathLabel.Text = "Path to Log File";
+            // 
+            // loggerEnableRB
+            // 
+            this.loggerEnableRB.AutoSize = true;
+            this.loggerEnableRB.Location = new System.Drawing.Point(361, 41);
+            this.loggerEnableRB.Name = "loggerEnableRB";
+            this.loggerEnableRB.Size = new System.Drawing.Size(57, 17);
+            this.loggerEnableRB.TabIndex = 19;
+            this.loggerEnableRB.TabStop = true;
+            this.loggerEnableRB.Text = "enable";
+            this.loggerEnableRB.UseVisualStyleBackColor = true;
+            // 
+            // loggerEnLabel
+            // 
+            this.loggerEnLabel.AutoSize = true;
+            this.loggerEnLabel.Location = new System.Drawing.Point(203, 45);
+            this.loggerEnLabel.Name = "loggerEnLabel";
+            this.loggerEnLabel.Size = new System.Drawing.Size(76, 13);
+            this.loggerEnLabel.TabIndex = 18;
+            this.loggerEnLabel.Text = "Enable Logger";
             // 
             // thresholdTab
             // 
@@ -425,89 +536,7 @@
             this.saveBut.TabIndex = 2;
             this.saveBut.Text = "Save";
             this.saveBut.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(361, 41);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(57, 17);
-            this.radioButton2.TabIndex = 19;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "enable";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(203, 45);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(76, 13);
-            this.label11.TabIndex = 18;
-            this.label11.Text = "Enable Logger";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(318, 120);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 23;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(203, 127);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(75, 13);
-            this.label12.TabIndex = 22;
-            this.label12.Text = "Log File Name";
-            // 
-            // textBox6
-            // 
-            this.textBox6.Location = new System.Drawing.Point(318, 81);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(100, 20);
-            this.textBox6.TabIndex = 21;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(203, 88);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(81, 13);
-            this.label13.TabIndex = 20;
-            this.label13.Text = "Path to Log File";
-            // 
-            // radioButton3
-            // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(318, 162);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(36, 17);
-            this.radioButton3.TabIndex = 25;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "All";
-            this.radioButton3.UseVisualStyleBackColor = true;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(202, 166);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(52, 13);
-            this.label14.TabIndex = 24;
-            this.label14.Text = "Log Type";
-            // 
-            // radioButton4
-            // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(394, 162);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(76, 17);
-            this.radioButton4.TabIndex = 27;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "Errors Only";
-            this.radioButton4.UseVisualStyleBackColor = true;
+            this.saveBut.Click += new System.EventHandler(this.saveBut_Click);
             // 
             // Options
             // 
@@ -522,6 +551,7 @@
             this.tabControl1.ResumeLayout(false);
             this.monitorTab.ResumeLayout(false);
             this.monitorTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pingIntNumField)).EndInit();
             this.alertsTab.ResumeLayout(false);
             this.alertsTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.smtpPortNumeric)).EndInit();
@@ -544,7 +574,6 @@
         private System.Windows.Forms.TabPage thresholdTab;
         private System.Windows.Forms.TabPage monitorTab;
         private System.Windows.Forms.Label pingIntLabel;
-        private System.Windows.Forms.TextBox pingIntTextbox;
         private System.Windows.Forms.TextBox emailRepTextbox4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox emailRepTextbox3;
@@ -557,27 +586,28 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.Label senderLabel;
+        private System.Windows.Forms.TextBox usernameTextbox;
+        private System.Windows.Forms.Label usernameLabel;
+        private System.Windows.Forms.Label tlsSslLabel;
+        private System.Windows.Forms.Label smtpLabel;
+        private System.Windows.Forms.TextBox mailServerTextbox;
+        private System.Windows.Forms.Label mailServerLB;
+        private System.Windows.Forms.TextBox subjectTextbox;
+        private System.Windows.Forms.Label subjectLabel;
         private System.Windows.Forms.NumericUpDown smtpPortNumeric;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.RadioButton radioButton4;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox passwordTextbox;
+        private System.Windows.Forms.Label passwordLabel;
+        private System.Windows.Forms.ComboBox tlsSslCombobox;
+        private System.Windows.Forms.Button testEmailButton;
+        private System.Windows.Forms.RadioButton loggerEnableRB;
+        private System.Windows.Forms.Label loggerEnLabel;
+        private System.Windows.Forms.TextBox logFileNameTextbox;
+        private System.Windows.Forms.Label logFileNameLabel;
+        private System.Windows.Forms.TextBox logPathTextbox;
+        private System.Windows.Forms.Label logPathLabel;
+        private System.Windows.Forms.RadioButton errorsLogTypeRB;
+        private System.Windows.Forms.RadioButton allLogTypeRB;
+        private System.Windows.Forms.Label logTypeLabel;
+        private System.Windows.Forms.NumericUpDown pingIntNumField;
     }
 }

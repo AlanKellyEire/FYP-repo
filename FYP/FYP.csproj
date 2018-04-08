@@ -93,7 +93,9 @@
   <ItemGroup>
     <Compile Include="AlertClass.cs" />
     <Compile Include="DatabaseIO.cs" />
+    <Compile Include="EmailServer.cs" />
     <Compile Include="Error.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="MergeNodes.cs" />
     <Compile Include="Monitor.cs">
       <SubType>Form</SubType>
@@ -112,6 +114,7 @@
       <DependentUpon>Options.cs</DependentUpon>
     </Compile>
     <Compile Include="ReadAndWrite.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Subnet.cs" />
     <Compile Include="Validation.cs" />
     <Compile Include="Form1.cs">

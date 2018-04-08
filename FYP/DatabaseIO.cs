@@ -122,6 +122,7 @@ namespace FYP_10_2_18
 
         public void PopulateErrorListFromDB(ObservableCollection<Error> errorList)
         {
+            countRows("table");
             dbconn = new SQLiteConnection(DataSource);
             dbconn.Open();
 
@@ -166,6 +167,33 @@ namespace FYP_10_2_18
             SQLiteCommand command = new SQLiteCommand(sql, dbconn);
             command.ExecuteNonQuery();
             dbconn.Close();
+        }
+
+        public int countRows(string table)
+        {
+            string sql;
+            int i = 0;
+            dbconn = new SQLiteConnection(DataSource);
+            dbconn.Open();
+            if (table == ErrorTable)
+            {
+                sql = " SELECT COUNT(*) from " + ErrorTable;
+            }
+            else
+            {
+                sql = " SELECT COUNT(*) from " + NodeTable;
+            }
+            SQLiteCommand command = new SQLiteCommand(sql, dbconn);
+            SQLiteDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                i = Int32.Parse(reader[0].ToString());
+            }
+            reader.Close();
+            Trace.Write("\n\n\nnumber of rows = " + i);
+            dbconn.Close();
+
+            return i;
         }
 
         //private void populate_db_Click(object sender, EventArgs e)
