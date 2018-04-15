@@ -190,7 +190,7 @@ namespace FYP_10_2_18
                 i = Int32.Parse(reader[0].ToString());
             }
             reader.Close();
-            Trace.Write("\n\n\nnumber of rows = " + i);
+            Trace.Write("\n\n\nnumber of rows = " + i + "\n");
             dbconn.Close();
 
             return i;

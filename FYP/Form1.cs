@@ -206,6 +206,10 @@ namespace FYP_10_2_18
                     //calls mac address resolution function to get mac address of Node
                     mac = GetMacAddress(ip);
                     //creates and adds node to the nodes list
+                    if(name == "?" && (mac.ToLower().StartsWith("00-22-e5") || mac.ToLower().StartsWith("00-80-74")))
+                    {
+                        name = "Controller";
+                    }
                     Node node = new Node(upCount, name, ip, mac);
                     List.Add(node);
                     //writes host details to log file
