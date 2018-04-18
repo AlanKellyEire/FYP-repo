@@ -109,8 +109,8 @@ namespace FYP_10_2_18
             //DeleteRowsDB();
             dbconn = new SQLiteConnection(DataSource);
             dbconn.Open();
-            DateTime localDate = DateTime.Now;
-            var culture = new CultureInfo("en-GB");
+            //DateTime localDate = DateTime.Now;
+            //var culture = new CultureInfo("en-GB");
            
                 string sql = "insert into " + ErrorTable + " (NodeId, Hostname, Error) values('" + n.Id + "', '" + n.Hostname + "', 'Ping Failed')";
                 SQLiteCommand command = new SQLiteCommand(sql, dbconn);
@@ -122,7 +122,7 @@ namespace FYP_10_2_18
 
         public void PopulateErrorListFromDB(ObservableCollection<Error> errorList)
         {
-            countRows("table");
+            countRows(ErrorTable);
             dbconn = new SQLiteConnection(DataSource);
             dbconn.Open();
 
@@ -188,6 +188,39 @@ namespace FYP_10_2_18
             while (reader.Read())
             {
                 i = Int32.Parse(reader[0].ToString());
+            }
+            reader.Close();
+            Trace.Write("\n\n\nnumber of rows = " + i + "\n");
+            dbconn.Close();
+
+            return i;
+        }
+
+        public int getNodeAlerts(string s)
+        {
+            string sql;
+            int i = 0;
+            dbconn = new SQLiteConnection(DataSource);
+            dbconn.Open();
+                sql = "SELECT * from " + ErrorTable + " where NodeId = " + 6;
+
+
+            SQLiteCommand command = new SQLiteCommand(sql, dbconn);
+            SQLiteDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                Error e = new Error();
+                long id;
+                id = (long)reader["Id"];
+                e.Id = id;
+                id = (long)reader["NodeId"];
+                e.NodeId = id;
+                e.Hostname = reader["Hostname"].ToString();
+                e.ErrorType = reader["Error"].ToString();
+                e.Comment = reader["Comment"].ToString();
+                e.Timestamp = reader["Timestamp"].ToString();
+                Trace.Write(e);
+                Trace.Write("test");
             }
             reader.Close();
             Trace.Write("\n\n\nnumber of rows = " + i + "\n");

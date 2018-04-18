@@ -11,6 +11,7 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace FYP_10_2_18
 {
@@ -20,6 +21,7 @@ namespace FYP_10_2_18
         private ObservableCollection<Error> errorList = new ObservableCollection<Error>();
         private Settings set = new Settings();
         Boolean monitorCompleted = false;
+
         //private DataGrid alertbox = alertsBox;
 
         public Monitor()
@@ -27,22 +29,14 @@ namespace FYP_10_2_18
             InitializeComponent();
             PopulateNodesList();
             PopulateErrorList();
-            //System.Threading.Thread.Sleep(25);
-            BackgroundWorker bw = new BackgroundWorker();
-            bw.DoWork += new DoWorkEventHandler(delegate (object o, DoWorkEventArgs args){
-                BackgroundWorker b = o as BackgroundWorker;
-
-                // do some simple processing for 10 seconds
-                //for (int i = 1; i <= 10; i++)
-                //    {
-                //    // report the progress in percent
-                //    b.ReportProgress(i * 10);
-                //        Thread.Sleep(1000);
-                //    }
+            System.Threading.Thread.Sleep(25);
+            timer1.Start();
+            new Thread(delegate () {
                 Run_Monitor();
+            }).Start();
+            //Monitor_Thread();
+            
 
-                });
-            bw.RunWorkerAsync();
         }
 
         internal ObservableCollection<Node> NodeList { get => nodeList; set => nodeList = value; }
@@ -112,7 +106,6 @@ namespace FYP_10_2_18
                     }
                     monitorCompleted = false;
                 }
-                alertsBox.Refresh();
             }
             
         }
@@ -157,7 +150,7 @@ namespace FYP_10_2_18
 
             bw.RunWorkerAsync();
 
-            alertsBox.Refresh();
+            //alertsBox.Refresh();
         }
 
         private void scanNetworkToolStripMenuItem_Click(object sender, EventArgs e)
@@ -177,6 +170,11 @@ namespace FYP_10_2_18
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Defeat();
+        }
+
+        private void button_Click(object sender, EventArgs e)
+        {
+            monitor();
         }
 
         private void Defeat()
@@ -202,7 +200,7 @@ namespace FYP_10_2_18
 
         private async void monitor()
         {
-            
+            Trace.Write(" (asdgfhjk;khgfsdaf)\n");
             Ping ping = new Ping();
 
             foreach (Node n in NodeList)
@@ -254,5 +252,55 @@ namespace FYP_10_2_18
             PopulateErrorList();
         }
 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            PopulateErrorList();
+            alertsBox.DataSource = null;
+            alertsBox.DataSource = errorList;
+            Trace.Write("Alert grid updated!!\n");
+
+        }
+
+        private void getNodeAlerts(string s)
+        {
+            DatabaseIO db = new DatabaseIO();
+            db.getNodeAlerts(s);
+
+        }
+
+        private void selectedCellsButton_Click(object sender, System.EventArgs e)
+        {
+            Int32 selectedCellCount =
+                nodesBox.GetCellCount(DataGridViewElementStates.Selected);
+            if (selectedCellCount > 0)
+            {
+                if (nodesBox.AreAllCellsSelected(true))
+                {
+                    MessageBox.Show("All cells are selected", "Selected Cells");
+                }
+                else
+                {
+                    System.Text.StringBuilder sb =
+                        new System.Text.StringBuilder();
+
+                    for (int i = 0;
+                        i < selectedCellCount; i++)
+                    {
+                        getNodeAlerts(nodesBox.SelectedCells[i].RowIndex
+                            .ToString());
+                        sb.Append("Row: ");
+                        sb.Append(nodesBox.SelectedCells[i].RowIndex
+                            .ToString());
+                        sb.Append(", Column: ");
+                        sb.Append(nodesBox.SelectedCells[i].ColumnIndex
+                            .ToString());
+                        sb.Append(Environment.NewLine);
+                    }
+
+                    sb.Append("Total: " + selectedCellCount.ToString());
+                    MessageBox.Show(sb.ToString(), "Selected Cells");
+                }
+            }
+        }
     }
 }

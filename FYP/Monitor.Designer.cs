@@ -29,6 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadFromDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,6 +50,9 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.AlertsLabel = new System.Windows.Forms.Label();
             this.nodesBox = new System.Windows.Forms.DataGridView();
+            this.alertsBox = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.idDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.hostnameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ipDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,7 +64,6 @@
             this.ipFourthDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.macFourthDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nodeBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.alertsBox = new System.Windows.Forms.DataGridView();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.hostnameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nodeIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -63,12 +71,11 @@
             this.commentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timestampDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.errorBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nodesBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nodeBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.alertsBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nodeBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -80,7 +87,7 @@
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(991, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1013, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -187,6 +194,14 @@
             // nodesBox
             // 
             this.nodesBox.AutoGenerateColumns = false;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.nodesBox.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.nodesBox.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.nodesBox.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.idDataGridViewTextBoxColumn1,
@@ -200,11 +215,89 @@
             this.ipFourthDataGridViewTextBoxColumn,
             this.macFourthDataGridViewTextBoxColumn});
             this.nodesBox.DataSource = this.nodeBindingSource;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.nodesBox.DefaultCellStyle = dataGridViewCellStyle2;
             this.nodesBox.Location = new System.Drawing.Point(12, 229);
             this.nodesBox.Name = "nodesBox";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.nodesBox.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.nodesBox.RowHeadersVisible = false;
-            this.nodesBox.Size = new System.Drawing.Size(967, 246);
+            this.nodesBox.Size = new System.Drawing.Size(989, 246);
             this.nodesBox.TabIndex = 4;
+            this.nodesBox.Click += new System.EventHandler(this.selectedCellsButton_Click);
+            // 
+            // alertsBox
+            // 
+            this.alertsBox.AllowUserToResizeColumns = false;
+            this.alertsBox.AllowUserToResizeRows = false;
+            this.alertsBox.AutoGenerateColumns = false;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.alertsBox.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.alertsBox.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.alertsBox.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.idDataGridViewTextBoxColumn,
+            this.hostnameDataGridViewTextBoxColumn,
+            this.nodeIdDataGridViewTextBoxColumn,
+            this.errorTypeDataGridViewTextBoxColumn,
+            this.commentDataGridViewTextBoxColumn,
+            this.timestampDataGridViewTextBoxColumn});
+            this.alertsBox.DataSource = this.errorBindingSource;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.alertsBox.DefaultCellStyle = dataGridViewCellStyle5;
+            this.alertsBox.Location = new System.Drawing.Point(12, 44);
+            this.alertsBox.Name = "alertsBox";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.alertsBox.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.alertsBox.RowHeadersVisible = false;
+            this.alertsBox.Size = new System.Drawing.Size(565, 150);
+            this.alertsBox.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.DarkRed;
+            this.label1.Location = new System.Drawing.Point(12, 206);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(60, 20);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Nodes";
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 60000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // idDataGridViewTextBoxColumn1
             // 
@@ -272,26 +365,6 @@
             // 
             this.nodeBindingSource.DataSource = typeof(FYP_10_2_18.Node);
             // 
-            // alertsBox
-            // 
-            this.alertsBox.AllowUserToResizeColumns = false;
-            this.alertsBox.AllowUserToResizeRows = false;
-            this.alertsBox.AutoGenerateColumns = false;
-            this.alertsBox.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.alertsBox.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.idDataGridViewTextBoxColumn,
-            this.hostnameDataGridViewTextBoxColumn,
-            this.nodeIdDataGridViewTextBoxColumn,
-            this.errorTypeDataGridViewTextBoxColumn,
-            this.commentDataGridViewTextBoxColumn,
-            this.timestampDataGridViewTextBoxColumn});
-            this.alertsBox.DataSource = this.errorBindingSource;
-            this.alertsBox.Location = new System.Drawing.Point(12, 44);
-            this.alertsBox.Name = "alertsBox";
-            this.alertsBox.RowHeadersVisible = false;
-            this.alertsBox.Size = new System.Drawing.Size(565, 150);
-            this.alertsBox.TabIndex = 1;
-            // 
             // idDataGridViewTextBoxColumn
             // 
             this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
@@ -336,32 +409,20 @@
             // 
             this.errorBindingSource.DataSource = typeof(FYP_10_2_18.Error);
             // 
-            // label1
+            // listView1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.DarkRed;
-            this.label1.Location = new System.Drawing.Point(12, 206);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 20);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Nodes";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(822, 139);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.listView1.Location = new System.Drawing.Point(583, 80);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(418, 114);
+            this.listView1.TabIndex = 6;
+            this.listView1.UseCompatibleStateImageBehavior = false;
             // 
             // Monitor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(991, 478);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(1013, 478);
+            this.Controls.Add(this.listView1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.nodesBox);
             this.Controls.Add(this.AlertsLabel);
@@ -373,8 +434,8 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nodesBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nodeBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.alertsBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nodeBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -418,6 +479,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn timestampDataGridViewTextBoxColumn;
         private System.Windows.Forms.ToolStripMenuItem mergeRemoveNodesToolStripMenuItem;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ListView listView1;
     }
 }
