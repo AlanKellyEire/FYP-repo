@@ -22,9 +22,7 @@ namespace FYP_10_2_18
         private ObservableCollection<Error> nodeErrorsList = new ObservableCollection<Error>();
         private Settings set = new Settings();
         Boolean monitorCompleted = false;
-
-        //private DataGrid alertbox = alertsBox;
-
+        
         public Monitor()
         {
             InitializeComponent();
@@ -35,9 +33,6 @@ namespace FYP_10_2_18
             new Thread(delegate () {
                 Run_Monitor();
             }).Start();
-            //Monitor_Thread();
-            
-
         }
 
         internal ObservableCollection<Node> NodeList { get => nodeList; set => nodeList = value; }
@@ -56,6 +51,7 @@ namespace FYP_10_2_18
             DatabaseIO db = new DatabaseIO();
 
             db.PopulateErrorListFromDB(errorList);
+            errorList = SortList(errorList);
             alertsBox.DataSource = errorList;
             alertsBox.Refresh();
         }
@@ -93,16 +89,65 @@ namespace FYP_10_2_18
 
                     foreach (Node n in NodeList)
                     {
-                        var reply = await ping.SendPingAsync(n.Ip);
-                        if (reply.Status == IPStatus.Success)
+                        if (n.MonitorEnabled)
                         {
+                            var reply = await ping.SendPingAsync(n.Ip);
+                            if (reply.Status == IPStatus.Success)
+                            {
 
-                            Trace.Write(n + " (OK)\n");
-                        }
-                        else
-                        {
-                            Trace.Write(n + " (FAILED)\n");
-                            addError(n);
+                                Trace.Write(n.Hostname + ", " + n.Ip + " (OK)\n");
+                            }
+                            else
+                            {
+                                Trace.Write(n.Hostname + ", " + n.Ip + " (FAILED)\n");
+                                addError(n, 1);
+                                n.MonitorEnabled = false;
+                            }
+                            if (n.IpSecondary.Length > 1)
+                            {
+                                var replySec = await ping.SendPingAsync(n.IpSecondary);
+                                if (replySec.Status == IPStatus.Success)
+                                {
+
+                                    Trace.Write(n.Hostname + ", " + n.IpSecondary + " (OK)\n");
+                                }
+                                else
+                                {
+                                    Trace.Write(n.Hostname + ", " + n.IpSecondary + " (FAILED)\n");
+                                    addError(n, 2);
+                                    n.MonitorEnabled = false;
+                                }
+                            }
+                            if (n.IpThird.Length > 1)
+                            {
+                                var replyThird = await ping.SendPingAsync(n.IpThird);
+                                if (replyThird.Status == IPStatus.Success)
+                                {
+
+                                    Trace.Write(n.Hostname + ", " + n.IpThird + " (OK)\n");
+                                }
+                                else
+                                {
+                                    Trace.Write(n.Hostname + ", " + n.IpThird + " (FAILED)\n");
+                                    addError(n, 3);
+                                    n.MonitorEnabled = false;
+                                }
+                            }
+                            if (n.IpSecondary.Length > 1)
+                            {
+                                var replyFourth = await ping.SendPingAsync(n.IpFourth);
+                                if (replyFourth.Status == IPStatus.Success)
+                                {
+
+                                    Trace.Write(n.Hostname + ", " + n.IpFourth + " (OK)\n");
+                                }
+                                else
+                                {
+                                    Trace.Write(n.Hostname + ", " + n.IpFourth + " (FAILED)\n");
+                                    addError(n, 4);
+                                    n.MonitorEnabled = false;
+                                }
+                            }
                         }
                     }
                     monitorCompleted = false;
@@ -111,48 +156,50 @@ namespace FYP_10_2_18
             
         }
 
-        private void Monitor_Thread()
+        private ObservableCollection<Error> SortList(ObservableCollection<Error> list)
         {
-            BackgroundWorker bw = new BackgroundWorker();
+            ObservableCollection<Error> tempList = new ObservableCollection<Error>();
 
-            // this allows our worker to report progress during work
-            bw.WorkerReportsProgress = true;
-
-            // what to do in the background thread
-            bw.DoWork += new DoWorkEventHandler(
-            delegate (object o, DoWorkEventArgs args)
+            for(int i = 1; i < list.Count; i++)
             {
-                BackgroundWorker b = o as BackgroundWorker;
+                tempList.Add(list[list.Count - i]);
+            }
 
-                // do some simple processing for 10 seconds
-                //for (int i = 1; i <= 10; i++)
-                //    {
-                //    // report the progress in percent
-                //    b.ReportProgress(i * 10);
-                //        Thread.Sleep(1000);
-                //    }
-                monitor();
-
-            });
-
-            // what to do when progress changed (update the progress bar for example)
-            bw.ProgressChanged += new ProgressChangedEventHandler(
-            delegate (object o, ProgressChangedEventArgs args)
-            {
-                label1.Text = string.Format("{0}% Completed", args.ProgressPercentage);
-            });
-
-            // what to do when worker completes its task (notify the user)
-            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(
-            delegate (object o, RunWorkerCompletedEventArgs args)
-            {
-                monitorCompleted = false;
-            });
-
-            bw.RunWorkerAsync();
-
-            //alertsBox.Refresh();
+            return tempList;
         }
+
+        //private void Monitor_Thread()
+        //{
+        //    BackgroundWorker bw = new BackgroundWorker();
+
+        //    // this allows our worker to report progress during work
+        //    bw.WorkerReportsProgress = true;
+
+        //    // what to do in the background thread
+        //    bw.DoWork += new DoWorkEventHandler(
+        //    delegate (object o, DoWorkEventArgs args)
+        //    {
+        //        BackgroundWorker b = o as BackgroundWorker;
+        //        monitor();
+
+        //    });
+
+        //    // what to do when progress changed (update the progress bar for example)
+        //    bw.ProgressChanged += new ProgressChangedEventHandler(
+        //    delegate (object o, ProgressChangedEventArgs args)
+        //    {
+        //        label1.Text = string.Format("{0}% Completed", args.ProgressPercentage);
+        //    });
+
+        //    // what to do when worker completes its task (notify the user)
+        //    bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(
+        //    delegate (object o, RunWorkerCompletedEventArgs args)
+        //    {
+        //        monitorCompleted = false;
+        //    });
+
+        //    bw.RunWorkerAsync();
+        //}
 
         private void scanNetworkToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -173,10 +220,10 @@ namespace FYP_10_2_18
             Defeat();
         }
 
-        private void button_Click(object sender, EventArgs e)
-        {
-            monitor();
-        }
+        //private void button_Click(object sender, EventArgs e)
+        //{
+        //    monitor();
+        //}
 
         private void Defeat()
         {
@@ -199,32 +246,32 @@ namespace FYP_10_2_18
             
         }
 
-        private async void monitor()
-        {
-            Trace.Write(" (asdgfhjk;khgfsdaf)\n");
-            Ping ping = new Ping();
+        //private async void monitor()
+        //{
+        //    Trace.Write(" (asdgfhjk;khgfsdaf)\n");
+        //    Ping ping = new Ping();
 
-            foreach (Node n in NodeList)
-            {
-                var reply = await ping.SendPingAsync(n.Ip);
-                if (reply.Status == IPStatus.Success)
-                {
+        //    foreach (Node n in NodeList)
+        //    {
+        //        var reply = await ping.SendPingAsync(n.Ip);
+        //        if (reply.Status == IPStatus.Success)
+        //        {
 
-                    Trace.Write(n + " (OK)\n");
-                }
-                else
-                {
-                    Trace.Write(n + " (FAILED)\n");
-                    addError(n);
-                }
-            }
-        }
+        //            Trace.Write(n + " (OK)\n");
+        //        }
+        //        else
+        //        {
+        //            Trace.Write(n + " (FAILED)\n");
+        //            addError(n);
+        //        }
+        //    }
+        //}
 
-        private void addError(Node n)
+        private void addError(Node n, int i)
         {
             DatabaseIO db = new DatabaseIO();
 
-            db.WriteErrorToDB(n);
+            db.WriteErrorToDB(n, i);
 
         }
 
@@ -253,6 +300,7 @@ namespace FYP_10_2_18
             PopulateErrorList();
         }
 
+        // updates the 
         private void timer1_Tick(object sender, EventArgs e)
         {
             PopulateErrorList();
@@ -262,13 +310,15 @@ namespace FYP_10_2_18
 
         }
 
+        //populates the nodeerrorbox
         private void getNodeAlerts(string s)
         {
             DatabaseIO db = new DatabaseIO();
-            nodeErrorsList = db.getNodeAlerts(s);
+            nodeErrorsList = SortList(db.getNodeAlerts(s));
 
         }
 
+        //gets the row selected from the nodelistbox
         private void selectedCellsButton_Click(object sender, System.EventArgs e)
         {
             Int32 selectedCellCount =
@@ -281,34 +331,29 @@ namespace FYP_10_2_18
                 }
                 else
                 {
-                    System.Text.StringBuilder sb =
-                        new System.Text.StringBuilder();
+                    int row = nodesBox.CurrentCell.RowIndex;
+                        string sqlSearchRow = (row + 1) + "";
+                        getNodeAlerts(sqlSearchRow);
 
-                    for (int i = 0;
-                        i < selectedCellCount; i++)
-                    {
-                        int row = nodesBox.SelectedCells[i].RowIndex + 1;
-                        getNodeAlerts(row.ToString());
-                        Trace.Write("row = " + row + "\n");
-                        sb.Append("Row: ");
-                        sb.Append(nodesBox.SelectedCells[i].RowIndex
-                            .ToString());
-                        sb.Append(", Column: ");
-                        sb.Append(nodesBox.SelectedCells[i].ColumnIndex
-                            .ToString());
-                        sb.Append(Environment.NewLine);
-                    }
-
-                    for(int i = 0; i < nodeErrorsList.Count; i++)
-                    {
-                        Trace.Write(nodeErrorsList[i].ToString() + "\n");
-
-                    }
                     nodeAlertBox.DataSource = null;
                     nodeAlertBox.DataSource = nodeErrorsList;
+                    nodeErrorsLB.Text = nodeList[row].Hostname.ToString();
+                    Trace.Write("node monitoring = " + nodeList[row].MonitorEnabled);
+                    monitoringCB.Checked = nodeList[row].MonitorEnabled;
+                }
+            }
+        }
 
-                    sb.Append("Total: " + selectedCellCount.ToString());
-                    MessageBox.Show(sb.ToString(), "Selected Cells");
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if(nodeErrorsLB.Text != "")
+            {
+                for(int i = 0; i<nodeList.Count; i++)
+                {
+                    if (nodeErrorsLB.Text.Equals(nodeList[i].Hostname))
+                    {
+                        nodeList[i].MonitorEnabled = true;
+                    }
                 }
             }
         }

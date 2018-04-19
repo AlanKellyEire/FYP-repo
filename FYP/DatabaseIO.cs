@@ -105,15 +105,32 @@ namespace FYP_10_2_18
             dbconn.Close();
         }
 
-        public void WriteErrorToDB(Node n)
+        public void WriteErrorToDB(Node n, int IpId)
         {
             //DeleteRowsDB();
             dbconn = new SQLiteConnection(DataSource);
             dbconn.Open();
             //DateTime localDate = DateTime.Now;
             //var culture = new CultureInfo("en-GB");
-           
-                string sql = "insert into " + ErrorTable + " (Ip, NodeId, Hostname, Error) values('" + n.Ip + "', '" + n.Id + "', '" + n.Hostname + "', 'Ping Failed')";
+            string ip;
+           if(IpId == 1)
+            {
+                ip = n.Ip;
+            }
+           else if (IpId == 2)
+            {
+                ip = n.IpSecondary;
+            }
+            else if (IpId == 3)
+            {
+                ip = n.IpThird;
+            }
+           else
+            {
+                ip = n.IpFourth;
+            }
+
+            string sql = "insert into " + ErrorTable + " (Ip, NodeId, Hostname, Error) values('" + ip + "', '" + n.Id + "', '" + n.Hostname + "', 'Ping Failed')";
                 SQLiteCommand command = new SQLiteCommand(sql, dbconn);
                 command.ExecuteNonQuery();
 

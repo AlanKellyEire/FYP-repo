@@ -18,11 +18,12 @@ namespace FYP_10_2_18
         private string macThird;
         private string ipFourth;
         private string macFourth;
+        private Boolean monitorEnabled = true;
 
         public Node(int id, string name, string ip, string mac)
         {
             this.Id = id;
-            this.hostname = name;
+            this.Hostname = name;
             this.Ip = ip;
             this.Mac = mac;
         }
@@ -41,6 +42,7 @@ namespace FYP_10_2_18
         public string MacThird { get => macThird; set => macThird = value; }
         public string IpFourth { get => ipFourth; set => ipFourth = value; }
         public string MacFourth { get => macFourth; set => macFourth = value; }
+        public bool MonitorEnabled { get => monitorEnabled; set => monitorEnabled = value; }
 
         public override string ToString()
         {
