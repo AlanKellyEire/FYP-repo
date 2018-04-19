@@ -53,6 +53,8 @@
             this.alertsBox = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.nodeAlertBox = new System.Windows.Forms.DataGridView();
+            this.errorBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.idDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.hostnameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ipDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -64,19 +66,27 @@
             this.ipFourthDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.macFourthDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nodeBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.errorBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.errorBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.ipDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.errorTypeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.commentDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timestampDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.hostnameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ipDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nodeIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.errorTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.commentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timestampDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.errorBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.listView1 = new System.Windows.Forms.ListView();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nodesBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.alertsBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nodeAlertBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nodeBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorBindingSource2)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -255,11 +265,12 @@
             this.alertsBox.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.idDataGridViewTextBoxColumn,
             this.hostnameDataGridViewTextBoxColumn,
+            this.ipDataGridViewTextBoxColumn2,
             this.nodeIdDataGridViewTextBoxColumn,
             this.errorTypeDataGridViewTextBoxColumn,
             this.commentDataGridViewTextBoxColumn,
             this.timestampDataGridViewTextBoxColumn});
-            this.alertsBox.DataSource = this.errorBindingSource;
+            this.alertsBox.DataSource = this.errorBindingSource2;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -298,6 +309,26 @@
             this.timer1.Enabled = true;
             this.timer1.Interval = 60000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // nodeAlertBox
+            // 
+            this.nodeAlertBox.AutoGenerateColumns = false;
+            this.nodeAlertBox.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.nodeAlertBox.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ipDataGridViewTextBoxColumn1,
+            this.errorTypeDataGridViewTextBoxColumn1,
+            this.commentDataGridViewTextBoxColumn1,
+            this.timestampDataGridViewTextBoxColumn1});
+            this.nodeAlertBox.DataSource = this.errorBindingSource2;
+            this.nodeAlertBox.Location = new System.Drawing.Point(583, 90);
+            this.nodeAlertBox.Name = "nodeAlertBox";
+            this.nodeAlertBox.RowHeadersVisible = false;
+            this.nodeAlertBox.Size = new System.Drawing.Size(418, 104);
+            this.nodeAlertBox.TabIndex = 6;
+            // 
+            // errorBindingSource1
+            // 
+            this.errorBindingSource1.DataSource = typeof(FYP_10_2_18.Error);
             // 
             // idDataGridViewTextBoxColumn1
             // 
@@ -365,13 +396,43 @@
             // 
             this.nodeBindingSource.DataSource = typeof(FYP_10_2_18.Node);
             // 
+            // errorBindingSource
+            // 
+            this.errorBindingSource.DataSource = typeof(FYP_10_2_18.Error);
+            // 
+            // errorBindingSource2
+            // 
+            this.errorBindingSource2.DataSource = typeof(FYP_10_2_18.Error);
+            // 
+            // ipDataGridViewTextBoxColumn1
+            // 
+            this.ipDataGridViewTextBoxColumn1.DataPropertyName = "Ip";
+            this.ipDataGridViewTextBoxColumn1.HeaderText = "Ip";
+            this.ipDataGridViewTextBoxColumn1.Name = "ipDataGridViewTextBoxColumn1";
+            // 
+            // errorTypeDataGridViewTextBoxColumn1
+            // 
+            this.errorTypeDataGridViewTextBoxColumn1.DataPropertyName = "ErrorType";
+            this.errorTypeDataGridViewTextBoxColumn1.HeaderText = "ErrorType";
+            this.errorTypeDataGridViewTextBoxColumn1.Name = "errorTypeDataGridViewTextBoxColumn1";
+            // 
+            // commentDataGridViewTextBoxColumn1
+            // 
+            this.commentDataGridViewTextBoxColumn1.DataPropertyName = "Comment";
+            this.commentDataGridViewTextBoxColumn1.HeaderText = "Comment";
+            this.commentDataGridViewTextBoxColumn1.Name = "commentDataGridViewTextBoxColumn1";
+            // 
+            // timestampDataGridViewTextBoxColumn1
+            // 
+            this.timestampDataGridViewTextBoxColumn1.DataPropertyName = "Timestamp";
+            this.timestampDataGridViewTextBoxColumn1.HeaderText = "Timestamp";
+            this.timestampDataGridViewTextBoxColumn1.Name = "timestampDataGridViewTextBoxColumn1";
+            // 
             // idDataGridViewTextBoxColumn
             // 
             this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
             this.idDataGridViewTextBoxColumn.HeaderText = "Id";
             this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.ReadOnly = true;
-            this.idDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.idDataGridViewTextBoxColumn.Width = 30;
             // 
             // hostnameDataGridViewTextBoxColumn
@@ -379,13 +440,19 @@
             this.hostnameDataGridViewTextBoxColumn.DataPropertyName = "Hostname";
             this.hostnameDataGridViewTextBoxColumn.HeaderText = "Hostname";
             this.hostnameDataGridViewTextBoxColumn.Name = "hostnameDataGridViewTextBoxColumn";
-            this.hostnameDataGridViewTextBoxColumn.Width = 130;
+            // 
+            // ipDataGridViewTextBoxColumn2
+            // 
+            this.ipDataGridViewTextBoxColumn2.DataPropertyName = "Ip";
+            this.ipDataGridViewTextBoxColumn2.HeaderText = "Ip";
+            this.ipDataGridViewTextBoxColumn2.Name = "ipDataGridViewTextBoxColumn2";
             // 
             // nodeIdDataGridViewTextBoxColumn
             // 
             this.nodeIdDataGridViewTextBoxColumn.DataPropertyName = "NodeId";
             this.nodeIdDataGridViewTextBoxColumn.HeaderText = "NodeId";
             this.nodeIdDataGridViewTextBoxColumn.Name = "nodeIdDataGridViewTextBoxColumn";
+            this.nodeIdDataGridViewTextBoxColumn.Width = 30;
             // 
             // errorTypeDataGridViewTextBoxColumn
             // 
@@ -405,24 +472,12 @@
             this.timestampDataGridViewTextBoxColumn.HeaderText = "Timestamp";
             this.timestampDataGridViewTextBoxColumn.Name = "timestampDataGridViewTextBoxColumn";
             // 
-            // errorBindingSource
-            // 
-            this.errorBindingSource.DataSource = typeof(FYP_10_2_18.Error);
-            // 
-            // listView1
-            // 
-            this.listView1.Location = new System.Drawing.Point(583, 80);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(418, 114);
-            this.listView1.TabIndex = 6;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            // 
             // Monitor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1013, 478);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.nodeAlertBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.nodesBox);
             this.Controls.Add(this.AlertsLabel);
@@ -435,8 +490,11 @@
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nodesBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.alertsBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nodeAlertBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nodeBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorBindingSource2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -471,15 +529,22 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn macThirdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ipFourthDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn macFourthDataGridViewTextBoxColumn;
+        private System.Windows.Forms.ToolStripMenuItem mergeRemoveNodesToolStripMenuItem;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.DataGridView nodeAlertBox;
+        private System.Windows.Forms.BindingSource errorBindingSource1;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn hostnameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ipDataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn nodeIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn errorTypeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn commentDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn timestampDataGridViewTextBoxColumn;
-        private System.Windows.Forms.ToolStripMenuItem mergeRemoveNodesToolStripMenuItem;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.BindingSource errorBindingSource2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ipDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn errorTypeDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn commentDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn timestampDataGridViewTextBoxColumn1;
     }
 }

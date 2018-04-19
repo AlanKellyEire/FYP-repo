@@ -19,6 +19,7 @@ namespace FYP_10_2_18
     {
         private ObservableCollection<Node> nodeList;
         private ObservableCollection<Error> errorList = new ObservableCollection<Error>();
+        private ObservableCollection<Error> nodeErrorsList = new ObservableCollection<Error>();
         private Settings set = new Settings();
         Boolean monitorCompleted = false;
 
@@ -264,7 +265,7 @@ namespace FYP_10_2_18
         private void getNodeAlerts(string s)
         {
             DatabaseIO db = new DatabaseIO();
-            db.getNodeAlerts(s);
+            nodeErrorsList = db.getNodeAlerts(s);
 
         }
 
@@ -286,8 +287,9 @@ namespace FYP_10_2_18
                     for (int i = 0;
                         i < selectedCellCount; i++)
                     {
-                        getNodeAlerts(nodesBox.SelectedCells[i].RowIndex
-                            .ToString());
+                        int row = nodesBox.SelectedCells[i].RowIndex + 1;
+                        getNodeAlerts(row.ToString());
+                        Trace.Write("row = " + row + "\n");
                         sb.Append("Row: ");
                         sb.Append(nodesBox.SelectedCells[i].RowIndex
                             .ToString());
@@ -296,6 +298,14 @@ namespace FYP_10_2_18
                             .ToString());
                         sb.Append(Environment.NewLine);
                     }
+
+                    for(int i = 0; i < nodeErrorsList.Count; i++)
+                    {
+                        Trace.Write(nodeErrorsList[i].ToString() + "\n");
+
+                    }
+                    nodeAlertBox.DataSource = null;
+                    nodeAlertBox.DataSource = nodeErrorsList;
 
                     sb.Append("Total: " + selectedCellCount.ToString());
                     MessageBox.Show(sb.ToString(), "Selected Cells");

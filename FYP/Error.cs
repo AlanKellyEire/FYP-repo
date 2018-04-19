@@ -15,14 +15,16 @@ namespace FYP_10_2_18
         private string errorType;
         private string comment;
         private string timestamp;
+        private string ip;
 
-        public Error(int errorId, int idOfNode, string hostN, string issue, string time)
+        public Error(int errorId, int idOfNode, string hostN, string issue, string time, string errorIp)
         {
             Id = errorId;
             NodeId = idOfNode;
             Hostname = hostN;
             ErrorType = issue;
-            timestamp = time;
+            Timestamp = time;
+            Ip = errorIp;
         }
 
         public Error()
@@ -36,5 +38,11 @@ namespace FYP_10_2_18
         public string ErrorType { get => errorType; set => errorType = value; }
         public string Comment { get => comment; set => comment = value; }
         public string Timestamp { get => timestamp; set => timestamp = value; }
+        public string Ip { get => ip; set => ip = value; }
+
+        public override string ToString()
+        {
+            return Id + ", " + Hostname + ", " + NodeId + ", " + ErrorType + ", " + Comment + ", " + Timestamp;
+        }
     }
 }

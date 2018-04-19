@@ -21,6 +21,7 @@ namespace FYP_10_2_18
         private const string NodeTable = "NodeRow";
         private const string ErrorTable = "ErrorsTable";
         private ObservableCollection<Node> nodeList = new ObservableCollection<Node>();
+        private ObservableCollection<Error> nodeErrorsList = new ObservableCollection<Error>();
 
         private void PopulateListFromDB()
         {
@@ -112,10 +113,9 @@ namespace FYP_10_2_18
             //DateTime localDate = DateTime.Now;
             //var culture = new CultureInfo("en-GB");
            
-                string sql = "insert into " + ErrorTable + " (NodeId, Hostname, Error) values('" + n.Id + "', '" + n.Hostname + "', 'Ping Failed')";
+                string sql = "insert into " + ErrorTable + " (Ip, NodeId, Hostname, Error) values('" + n.Ip + "', '" + n.Id + "', '" + n.Hostname + "', 'Ping Failed')";
                 SQLiteCommand command = new SQLiteCommand(sql, dbconn);
                 command.ExecuteNonQuery();
-            
 
             dbconn.Close();
         }
@@ -143,6 +143,7 @@ namespace FYP_10_2_18
                 e.ErrorType = reader["Error"].ToString();
                 e.Comment = reader["Comment"].ToString();
                 e.Timestamp = reader["Timestamp"].ToString();
+                e.Ip = reader["Ip"].ToString();
                 errorList.Add(e);
             }
             dbconn.Close();
@@ -196,14 +197,13 @@ namespace FYP_10_2_18
             return i;
         }
 
-        public int getNodeAlerts(string s)
+        public void PopulateNodeAlertListFromDB(string s)
         {
             string sql;
             int i = 0;
             dbconn = new SQLiteConnection(DataSource);
             dbconn.Open();
-                sql = "SELECT * from " + ErrorTable + " where NodeId = " + 6;
-
+                sql = "SELECT * from " + ErrorTable + " where NodeId = " + s;
 
             SQLiteCommand command = new SQLiteCommand(sql, dbconn);
             SQLiteDataReader reader = command.ExecuteReader();
@@ -219,14 +219,18 @@ namespace FYP_10_2_18
                 e.ErrorType = reader["Error"].ToString();
                 e.Comment = reader["Comment"].ToString();
                 e.Timestamp = reader["Timestamp"].ToString();
-                Trace.Write(e);
-                Trace.Write("test");
+                e.Ip = reader["Ip"].ToString();
+                nodeErrorsList.Add(e);
             }
             reader.Close();
-            Trace.Write("\n\n\nnumber of rows = " + i + "\n");
             dbconn.Close();
+            
+        }
 
-            return i;
+        public ObservableCollection<Error> getNodeAlerts(string s)
+        {
+            PopulateNodeAlertListFromDB(s);
+            return nodeErrorsList;
         }
 
         //private void populate_db_Click(object sender, EventArgs e)
