@@ -43,5 +43,19 @@ namespace FYP_10_2_18
         public bool Tls { get => tls; set => tls = value; }
         public string Username { get => username; set => username = value; }
         public string Password { get => password; set => password = value; }
+
+        //public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        //{
+        //    //You can use any custom name for your name-value pair. But make sure you
+        //    // read the values with the same name. For ex:- If you write EmpId as "EmployeeId"
+        //    // then you should read the same with "EmployeeId"
+        //    info.AddValue("subject", subject);
+        //    info.AddValue("outGoingMailServer", outGoingMailServer);
+        //    info.AddValue("port", port);
+        //    info.AddValue("tls", tls);
+        //    info.AddValue("username", username);
+        //    info.AddValue("password", password);
+
+        //}
     }
 }

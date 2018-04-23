@@ -21,6 +21,7 @@ namespace FYP_10_2_18
             this.Filename = logFileName;
             this.LogType = loggingType;
         }
+
         public Logger()
         {
 

@@ -46,7 +46,7 @@ namespace FYP_10_2_18
 
         public override string ToString()
         {
-            return id + ", " + hostname + ", " + ip + ", " + mac;
+            return id + ", " + hostname + ", " + ip + ", " + mac + ", " + ipSecondary + ", " + macSecondary + ", " + ipThird + ", " + macThird + ", " + ipFourth + ", " + macFourth;
     }
     }  
 }

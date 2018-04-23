@@ -32,6 +32,7 @@ namespace FYP_10_2_18
             serverSettings = (EmailServer)info.GetValue("serverSettings", typeof(EmailServer));
             loggerEnabled = (Boolean)info.GetValue("loggerEnabled", typeof(Boolean));
             emailEnabled = (Boolean)info.GetValue("emailEnabled", typeof(Boolean));
+            serverSettings.ToString();
         }
 
         public int PingInterval { get => pingInterval; set => pingInterval = value; }
@@ -51,7 +52,8 @@ namespace FYP_10_2_18
             info.AddValue("logSettings", logSettings);
             info.AddValue("loggerEnabled", loggerEnabled);
             info.AddValue("emailEnabled", emailEnabled);
-
+            info.AddValue("serverSettings", serverSettings);
+            serverSettings.ToString();
         }
     }
 }

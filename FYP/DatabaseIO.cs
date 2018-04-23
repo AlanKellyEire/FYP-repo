@@ -187,6 +187,18 @@ namespace FYP_10_2_18
             dbconn.Close();
         }
 
+        public void addNodeToDB(Node l)
+        {
+            dbconn = new SQLiteConnection(DataSource);
+            dbconn.Open();
+
+                string sql = "insert into " + NodeTable + " (hostname, ip, mac, Ip_Sec, Mac_Sec, Ip_Third, Mac_Third, Ip_Fourth, Mac_Fourth) values('" + l.Hostname + "', '" + l.Ip + "', '" + l.Mac + "', '" + l.IpSecondary + "', '" + l.MacSecondary + "', '" + l.IpThird + "', '" + l.MacThird + "', '" + l.IpFourth + "', '" + l.MacFourth + "')";
+                SQLiteCommand command = new SQLiteCommand(sql, dbconn);
+                command.ExecuteNonQuery();
+
+            dbconn.Close();
+        }
+
         public int countRows(string table)
         {
             string sql;

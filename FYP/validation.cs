@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,7 +10,50 @@ namespace FYP_10_2_18
 {
     class Validation
     {
+        //validates email address
+        public bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
+        //checks if email server iput is valid
+        public bool IsValidDomainName(string name)
+        {
+            return Uri.CheckHostName(name) != UriHostNameType.Unknown;
+        }
+
+        public bool ValidSMTP(string hostName)
+        {
+            bool valid = false;
+            try
+            {
+                TcpClient smtpTest = new TcpClient();
+                smtpTest.Connect(hostName, 25);
+                if (smtpTest.Connected)
+                {
+                    NetworkStream ns = smtpTest.GetStream();
+                    StreamReader sr = new StreamReader(ns);
+                    if (sr.ReadLine().Contains("220"))
+                    {
+                        valid = true;
+                    }
+                    smtpTest.Close();
+                }
+            }
+            catch
+            {
+
+            }
+            return valid;
+        }
 
         /*
         private void ValIp(TextBox tbox)

@@ -53,14 +53,10 @@ namespace FYP_10_2_18
             Stream stream = File.Open("settingsSerial.osl", FileMode.Open);
             BinaryFormatter bformatter = new BinaryFormatter();
 
-            Console.WriteLine("\nReading Employee Information");
+            //Console.WriteLine("\nReading Employee Information");
             set = (Settings)bformatter.Deserialize(stream);
             stream.Close();
-
-            Console.WriteLine("Employee Id: {0}", set.PingInterval.ToString());
-            Console.WriteLine("Employee Name: {0}", set.Emails[2].ToString());
-            Console.WriteLine("Employee Name: {0}", set.LogSettings.Path);
-            Console.WriteLine("Employee enabled: {0}", set.LoggerEnabled);
+            
             loadSettings(set);
         }
 
@@ -69,6 +65,20 @@ namespace FYP_10_2_18
             //ping tab
             pingIntNumField.Value = settings.PingInterval;
 
+            //email server
+            subjectTextbox.Text = settings.ServerSettings.Subject;
+            mailServerTextbox.Text = settings.ServerSettings.OutGoingMailServer;
+            smtpPortNumeric.Value = settings.ServerSettings.Port;
+            if (settings.ServerSettings.Tls)
+            {
+                tlsSslCombobox.SelectedIndex = 0;
+            }
+            else
+            {
+                tlsSslCombobox.SelectedIndex = 1;
+            }
+            usernameTextbox.Text = settings.ServerSettings.Username;
+            passwordTextbox.Text = settings.ServerSettings.Password;
 
             //emails tab
             if (settings.EmailEnabled) {
@@ -97,16 +107,39 @@ namespace FYP_10_2_18
 
         private void saveBut_Click(object sender, EventArgs e)
         {
+            saveSerial();
+        }
+
+        public void saveSerial()
+        {
+            if (!ValEmail(emailRepTextbox1.Text.ToString()))
+            {
+                DialogResult result = MessageBox.Show("Please Enter a Vaild email address", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!ValEmail(emailRepTextbox2.Text.ToString()))
+            {
+                DialogResult result = MessageBox.Show("Please Enter a Vaild email address for 2", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            //if (!ValWebsite(mailServerTextbox.Text.ToString()))
+            //{
+            //    DialogResult result = MessageBox.Show("Please Enter a Vaild website", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
+
+            Trace.Write("\n\n\n\n\n\n  test \n\n\n\n\n\n\n");
             Boolean b = false;
 
-            Trace.Write("ping interval = "  + set.PingInterval);
+            //ping interval
             set.PingInterval = Int32.Parse(pingIntNumField.Value.ToString());
-            Trace.Write("ping interval = " + set.PingInterval);
 
+            //email server settings
             set.ServerSettings.Subject = subjectTextbox.Text.ToString();
             set.ServerSettings.OutGoingMailServer = mailServerTextbox.Text.ToString();
             set.ServerSettings.Port = (ushort)smtpPortNumeric.Value;
-            if(tlsSslCombobox.Text == "TLS")
+            if (tlsSslCombobox.Text == "TLS")
             {
                 b = true;
             }
@@ -115,6 +148,8 @@ namespace FYP_10_2_18
             set.ServerSettings.Password = passwordTextbox.Text.ToString();
 
             Trace.Write(set.ServerSettings.ToString());
+
+            //logger settings
             b = false;
             set.LogSettings.Path = logPathTextbox.Text.ToString();
             set.LogSettings.Filename = logFileNameTextbox.Text.ToString();
@@ -130,7 +165,8 @@ namespace FYP_10_2_18
             set.Emails[3] = emailRepTextbox4.Text.ToString();
             set.Emails[4] = emailRepTextbox5.Text.ToString();
 
-            if (loggerEnableCheck.Checked) {
+            if (loggerEnableCheck.Checked)
+            {
                 set.LoggerEnabled = true;
             }
             else
@@ -152,6 +188,25 @@ namespace FYP_10_2_18
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void testEmailButton_Click(object sender, EventArgs e)
+        {
+            saveSerial();
+            Email em = new Email();
+            em.sendTest(set);
+        }
+
+        public Boolean ValEmail(string email)
+        {
+            Validation val = new Validation();
+            return val.IsValidEmail(email);
+        }
+
+        public Boolean ValWebsite(string website)
+        {
+            Validation val = new Validation();
+            return val.IsValidDomainName(website);
         }
     }
 }

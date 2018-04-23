@@ -93,6 +93,7 @@
   <ItemGroup>
     <Compile Include="AlertClass.cs" />
     <Compile Include="DatabaseIO.cs" />
+    <Compile Include="Email.cs" />
     <Compile Include="EmailServer.cs" />
     <Compile Include="Error.cs" />
     <Compile Include="Logger.cs" />

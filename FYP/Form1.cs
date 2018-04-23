@@ -493,6 +493,7 @@ namespace FYP_10_2_18
             DeleteRows();
             AddToDB();
             this.sender.PopulateNodesList();
+            this.sender.ScannerEnabled = false;
             //this.sender.
         }
 

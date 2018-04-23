@@ -12,6 +12,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace FYP_10_2_18
 {
@@ -22,7 +24,8 @@ namespace FYP_10_2_18
         private ObservableCollection<Error> nodeErrorsList = new ObservableCollection<Error>();
         private Settings set = new Settings();
         Boolean monitorCompleted = false;
-        
+        Boolean scannerEnabled = false;
+
         public Monitor()
         {
             InitializeComponent();
@@ -30,12 +33,30 @@ namespace FYP_10_2_18
             PopulateErrorList();
             System.Threading.Thread.Sleep(25);
             timer1.Start();
-            new Thread(delegate () {
-                Run_Monitor();
-            }).Start();
+            
+            
+            Stream stream = File.Open("settingsSerial.osl", FileMode.Open);
+            BinaryFormatter bformatter = new BinaryFormatter();
+
+            //Console.WriteLine("\nReading Employee Information");
+            set = (Settings)bformatter.Deserialize(stream);
+            stream.Close();
+            Trace.Write(set.PingInterval);
+            timer2.Interval = (set.PingInterval * 1000);
+            timer2.Start();
+            //new Thread(delegate () {
+            //    Run_Monitor();
+            //}).Start();
+
+            for(int i = 0; i < alertsBox.ColumnCount; i++)
+            {
+                alertsBox.Columns[i].ReadOnly = true;
+            }
+            alertsBox.Columns[4].ReadOnly = false;
         }
 
         internal ObservableCollection<Node> NodeList { get => nodeList; set => nodeList = value; }
+        public bool ScannerEnabled { get => scannerEnabled; set => scannerEnabled = value; }
 
         public void PopulateNodesList()
         {
@@ -52,6 +73,7 @@ namespace FYP_10_2_18
 
             db.PopulateErrorListFromDB(errorList);
             errorList = SortList(errorList);
+            alertsBox.DataSource = null;
             alertsBox.DataSource = errorList;
             alertsBox.Refresh();
         }
@@ -80,10 +102,10 @@ namespace FYP_10_2_18
 
         private async void Run_Monitor()
         {
-            while (true)
-            {
-                if (!monitorCompleted)
+            
+                if (!monitorCompleted && !ScannerEnabled)
                 {
+                    Trace.Write("running monitor \n");
                     monitorCompleted = true;
                     Ping ping = new Ping();
 
@@ -152,7 +174,7 @@ namespace FYP_10_2_18
                     }
                     monitorCompleted = false;
                 }
-            }
+            
             
         }
 
@@ -204,7 +226,7 @@ namespace FYP_10_2_18
         private void scanNetworkToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form1 scanner = new Form1(this);
-
+            scannerEnabled = true;
             scanner.Show();
         }
 
@@ -270,8 +292,13 @@ namespace FYP_10_2_18
         private void addError(Node n, int i)
         {
             DatabaseIO db = new DatabaseIO();
-
             db.WriteErrorToDB(n, i);
+            if (set.EmailEnabled)
+            {
+                //Settings set = new Settings();
+                Email mail = new Email();
+                mail.sendEmail(set, n, i);
+            }
 
         }
 
@@ -310,6 +337,13 @@ namespace FYP_10_2_18
 
         }
 
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            new Thread(delegate () {
+                Run_Monitor();
+            }).Start();
+        }
+
         //populates the nodeerrorbox
         private void getNodeAlerts(string s)
         {
@@ -339,7 +373,17 @@ namespace FYP_10_2_18
                     nodeAlertBox.DataSource = nodeErrorsList;
                     nodeErrorsLB.Text = nodeList[row].Hostname.ToString();
                     Trace.Write("node monitoring = " + nodeList[row].MonitorEnabled);
+                    monitoringCB.Visible = true;
+                    colourTB.Visible = true;
                     monitoringCB.Checked = nodeList[row].MonitorEnabled;
+                    if (monitoringCB.Checked)
+                    {
+                        colourTB.BackColor = Color.Green; 
+                    }
+                    else
+                    {
+                        colourTB.BackColor = Color.Red;
+                    }
                 }
             }
         }
@@ -350,12 +394,50 @@ namespace FYP_10_2_18
             {
                 for(int i = 0; i<nodeList.Count; i++)
                 {
-                    if (nodeErrorsLB.Text.Equals(nodeList[i].Hostname))
+                    if (nodeErrorsLB.Text.Equals(nodeList[i].Hostname) && monitoringCB.Checked)
                     {
                         nodeList[i].MonitorEnabled = true;
+                        colourTB.BackColor = Color.Green;
+                    }
+                    else if (nodeErrorsLB.Text.Equals(nodeList[i].Hostname) && !monitoringCB.Checked)
+                    {
+                        nodeList[i].MonitorEnabled = false;
+                        colourTB.BackColor = Color.Red;
                     }
                 }
             }
         }
+
+        private void alertsBox_CellValueChanged(object sender, DataGridViewCellEventArgs e) {
+
+            ObservableCollection<Error> temperrorlist = new ObservableCollection<Error>();
+
+            for(int i = 0; i < alertsBox.RowCount; i++)
+            {               
+            }
+
+        }
+
+        private void deleteErrorsDBToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DatabaseIO db = new DatabaseIO();
+            db.DeleteErrorsDB();
+            
+            PopulateErrorList();
+            
+            alertsBox.Refresh();
+        }
+
+        private void deleteNodesDBToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DatabaseIO db = new DatabaseIO();
+            db.DeleteRowsDB();
+
+
+            PopulateNodesList();
+
+            nodesBox.Refresh();
+        }
+
     }
 }

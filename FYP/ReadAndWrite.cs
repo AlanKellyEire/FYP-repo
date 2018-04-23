@@ -16,6 +16,7 @@ using System.Net.Sockets;
 using System.Globalization;
 using System.Collections.ObjectModel;
 
+
 namespace FYP_10_2_18
 {
     class ReadAndWrite
@@ -56,7 +57,7 @@ namespace FYP_10_2_18
         {
             DateTime localDate = DateTime.Now;
             var culture = new CultureInfo("en-GB");
-            if (startFinish)
+            if (!startFinish)
             {
                 writeToFile("Scan started at " + localDate.ToString(culture));
                 startFinish = false;
@@ -68,5 +69,7 @@ namespace FYP_10_2_18
             }
 
         }
-    }
+
+
+}
 }

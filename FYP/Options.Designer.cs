@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.monitorTab = new System.Windows.Forms.TabPage();
             this.pingIntNumField = new System.Windows.Forms.NumericUpDown();
@@ -72,6 +73,7 @@
             this.thresholdTab = new System.Windows.Forms.TabPage();
             this.cancelBut = new System.Windows.Forms.Button();
             this.saveBut = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tabControl1.SuspendLayout();
             this.monitorTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pingIntNumField)).BeginInit();
@@ -168,6 +170,7 @@
             this.testEmailButton.TabIndex = 33;
             this.testEmailButton.Text = "Send Test Email";
             this.testEmailButton.UseVisualStyleBackColor = true;
+            this.testEmailButton.Click += new System.EventHandler(this.testEmailButton_Click);
             // 
             // passwordTextbox
             // 
@@ -175,6 +178,7 @@
             this.passwordTextbox.Name = "passwordTextbox";
             this.passwordTextbox.Size = new System.Drawing.Size(100, 20);
             this.passwordTextbox.TabIndex = 32;
+            this.passwordTextbox.UseSystemPasswordChar = true;
             // 
             // passwordLabel
             // 
@@ -188,6 +192,7 @@
             // tlsSslCombobox
             // 
             this.tlsSslCombobox.DisplayMember = "TLS";
+            this.tlsSslCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tlsSslCombobox.FormattingEnabled = true;
             this.tlsSslCombobox.Items.AddRange(new object[] {
             "TLS",
@@ -536,6 +541,11 @@
             this.saveBut.UseVisualStyleBackColor = true;
             this.saveBut.Click += new System.EventHandler(this.saveBut_Click);
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -608,5 +618,6 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox emailEnableCheck;
         private System.Windows.Forms.CheckBox loggerEnableCheck;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }

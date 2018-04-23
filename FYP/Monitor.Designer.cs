@@ -56,6 +56,12 @@
             this.nodeAlertBox = new System.Windows.Forms.DataGridView();
             this.nodeErrorsLB = new System.Windows.Forms.Label();
             this.monitoringCB = new System.Windows.Forms.CheckBox();
+            this.colourTB = new System.Windows.Forms.TextBox();
+            this.deleteErrorsDBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteNodesDBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addNodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteNodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.ipDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.commentDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timestampDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -117,7 +123,9 @@
             // 
             this.loadFromDatabaseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loadFromDBToolStripMenuItem,
-            this.deleteDBToolStripMenuItem});
+            this.deleteDBToolStripMenuItem,
+            this.addNodeToolStripMenuItem,
+            this.deleteNodeToolStripMenuItem});
             this.loadFromDatabaseToolStripMenuItem.Name = "loadFromDatabaseToolStripMenuItem";
             this.loadFromDatabaseToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.loadFromDatabaseToolStripMenuItem.Text = "Database";
@@ -131,6 +139,9 @@
             // 
             // deleteDBToolStripMenuItem
             // 
+            this.deleteDBToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteErrorsDBToolStripMenuItem,
+            this.deleteNodesDBToolStripMenuItem});
             this.deleteDBToolStripMenuItem.Name = "deleteDBToolStripMenuItem";
             this.deleteDBToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.deleteDBToolStripMenuItem.Text = "Delete DB";
@@ -204,6 +215,7 @@
             // 
             // nodesBox
             // 
+            this.nodesBox.AllowUserToResizeRows = false;
             this.nodesBox.AutoGenerateColumns = false;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -237,6 +249,7 @@
             this.nodesBox.Location = new System.Drawing.Point(12, 229);
             this.nodesBox.MultiSelect = false;
             this.nodesBox.Name = "nodesBox";
+            this.nodesBox.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -296,6 +309,7 @@
             this.alertsBox.RowHeadersVisible = false;
             this.alertsBox.Size = new System.Drawing.Size(565, 150);
             this.alertsBox.TabIndex = 1;
+            this.alertsBox.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.alertsBox_CellValueChanged);
             // 
             // label1
             // 
@@ -349,7 +363,48 @@
             this.monitoringCB.TabIndex = 8;
             this.monitoringCB.Text = "Monitoring";
             this.monitoringCB.UseVisualStyleBackColor = true;
+            this.monitoringCB.Visible = false;
             this.monitoringCB.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // colourTB
+            // 
+            this.colourTB.Location = new System.Drawing.Point(874, 42);
+            this.colourTB.Name = "colourTB";
+            this.colourTB.Size = new System.Drawing.Size(19, 20);
+            this.colourTB.TabIndex = 9;
+            this.colourTB.Visible = false;
+            // 
+            // deleteErrorsDBToolStripMenuItem
+            // 
+            this.deleteErrorsDBToolStripMenuItem.Name = "deleteErrorsDBToolStripMenuItem";
+            this.deleteErrorsDBToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.deleteErrorsDBToolStripMenuItem.Text = "Delete Errors DB";
+            this.deleteErrorsDBToolStripMenuItem.Click += new System.EventHandler(this.deleteErrorsDBToolStripMenuItem_Click);
+            // 
+            // deleteNodesDBToolStripMenuItem
+            // 
+            this.deleteNodesDBToolStripMenuItem.Name = "deleteNodesDBToolStripMenuItem";
+            this.deleteNodesDBToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.deleteNodesDBToolStripMenuItem.Text = "Delete Nodes DB";
+            this.deleteNodesDBToolStripMenuItem.Click += new System.EventHandler(this.deleteNodesDBToolStripMenuItem_Click);
+            // 
+            // addNodeToolStripMenuItem
+            // 
+            this.addNodeToolStripMenuItem.Name = "addNodeToolStripMenuItem";
+            this.addNodeToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.addNodeToolStripMenuItem.Text = "Add Node";
+            // 
+            // deleteNodeToolStripMenuItem
+            // 
+            this.deleteNodeToolStripMenuItem.Name = "deleteNodeToolStripMenuItem";
+            this.deleteNodeToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.deleteNodeToolStripMenuItem.Text = "Delete Node";
+            // 
+            // timer2
+            // 
+            this.timer2.Enabled = true;
+            this.timer2.Interval = 60000;
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
             // ipDataGridViewTextBoxColumn1
             // 
@@ -386,6 +441,7 @@
             this.idDataGridViewTextBoxColumn1.DataPropertyName = "Id";
             this.idDataGridViewTextBoxColumn1.HeaderText = "Id";
             this.idDataGridViewTextBoxColumn1.Name = "idDataGridViewTextBoxColumn1";
+            this.idDataGridViewTextBoxColumn1.ReadOnly = true;
             this.idDataGridViewTextBoxColumn1.Width = 30;
             // 
             // hostnameDataGridViewTextBoxColumn1
@@ -393,6 +449,7 @@
             this.hostnameDataGridViewTextBoxColumn1.DataPropertyName = "Hostname";
             this.hostnameDataGridViewTextBoxColumn1.HeaderText = "Hostname";
             this.hostnameDataGridViewTextBoxColumn1.Name = "hostnameDataGridViewTextBoxColumn1";
+            this.hostnameDataGridViewTextBoxColumn1.ReadOnly = true;
             this.hostnameDataGridViewTextBoxColumn1.Width = 130;
             // 
             // ipDataGridViewTextBoxColumn
@@ -400,48 +457,56 @@
             this.ipDataGridViewTextBoxColumn.DataPropertyName = "Ip";
             this.ipDataGridViewTextBoxColumn.HeaderText = "Ip";
             this.ipDataGridViewTextBoxColumn.Name = "ipDataGridViewTextBoxColumn";
+            this.ipDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // macDataGridViewTextBoxColumn
             // 
             this.macDataGridViewTextBoxColumn.DataPropertyName = "Mac";
             this.macDataGridViewTextBoxColumn.HeaderText = "Mac";
             this.macDataGridViewTextBoxColumn.Name = "macDataGridViewTextBoxColumn";
+            this.macDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // ipSecondaryDataGridViewTextBoxColumn
             // 
             this.ipSecondaryDataGridViewTextBoxColumn.DataPropertyName = "IpSecondary";
             this.ipSecondaryDataGridViewTextBoxColumn.HeaderText = "IpSecondary";
             this.ipSecondaryDataGridViewTextBoxColumn.Name = "ipSecondaryDataGridViewTextBoxColumn";
+            this.ipSecondaryDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // macSecondaryDataGridViewTextBoxColumn
             // 
             this.macSecondaryDataGridViewTextBoxColumn.DataPropertyName = "MacSecondary";
             this.macSecondaryDataGridViewTextBoxColumn.HeaderText = "MacSecondary";
             this.macSecondaryDataGridViewTextBoxColumn.Name = "macSecondaryDataGridViewTextBoxColumn";
+            this.macSecondaryDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // ipThirdDataGridViewTextBoxColumn
             // 
             this.ipThirdDataGridViewTextBoxColumn.DataPropertyName = "IpThird";
             this.ipThirdDataGridViewTextBoxColumn.HeaderText = "IpThird";
             this.ipThirdDataGridViewTextBoxColumn.Name = "ipThirdDataGridViewTextBoxColumn";
+            this.ipThirdDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // macThirdDataGridViewTextBoxColumn
             // 
             this.macThirdDataGridViewTextBoxColumn.DataPropertyName = "MacThird";
             this.macThirdDataGridViewTextBoxColumn.HeaderText = "MacThird";
             this.macThirdDataGridViewTextBoxColumn.Name = "macThirdDataGridViewTextBoxColumn";
+            this.macThirdDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // ipFourthDataGridViewTextBoxColumn
             // 
             this.ipFourthDataGridViewTextBoxColumn.DataPropertyName = "IpFourth";
             this.ipFourthDataGridViewTextBoxColumn.HeaderText = "IpFourth";
             this.ipFourthDataGridViewTextBoxColumn.Name = "ipFourthDataGridViewTextBoxColumn";
+            this.ipFourthDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // macFourthDataGridViewTextBoxColumn
             // 
             this.macFourthDataGridViewTextBoxColumn.DataPropertyName = "MacFourth";
             this.macFourthDataGridViewTextBoxColumn.HeaderText = "MacFourth";
             this.macFourthDataGridViewTextBoxColumn.Name = "macFourthDataGridViewTextBoxColumn";
+            this.macFourthDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // nodeBindingSource
             // 
@@ -452,6 +517,7 @@
             this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
             this.idDataGridViewTextBoxColumn.HeaderText = "Id";
             this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
             this.idDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             this.idDataGridViewTextBoxColumn.Width = 30;
             // 
@@ -460,18 +526,21 @@
             this.hostnameDataGridViewTextBoxColumn.DataPropertyName = "Hostname";
             this.hostnameDataGridViewTextBoxColumn.HeaderText = "Hostname";
             this.hostnameDataGridViewTextBoxColumn.Name = "hostnameDataGridViewTextBoxColumn";
+            this.hostnameDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // ipDataGridViewTextBoxColumn2
             // 
             this.ipDataGridViewTextBoxColumn2.DataPropertyName = "Ip";
             this.ipDataGridViewTextBoxColumn2.HeaderText = "Ip";
             this.ipDataGridViewTextBoxColumn2.Name = "ipDataGridViewTextBoxColumn2";
+            this.ipDataGridViewTextBoxColumn2.ReadOnly = true;
             // 
             // errorTypeDataGridViewTextBoxColumn
             // 
             this.errorTypeDataGridViewTextBoxColumn.DataPropertyName = "ErrorType";
             this.errorTypeDataGridViewTextBoxColumn.HeaderText = "ErrorType";
             this.errorTypeDataGridViewTextBoxColumn.Name = "errorTypeDataGridViewTextBoxColumn";
+            this.errorTypeDataGridViewTextBoxColumn.ReadOnly = true;
             this.errorTypeDataGridViewTextBoxColumn.Width = 80;
             // 
             // commentDataGridViewTextBoxColumn
@@ -479,12 +548,14 @@
             this.commentDataGridViewTextBoxColumn.DataPropertyName = "Comment";
             this.commentDataGridViewTextBoxColumn.HeaderText = "Comment";
             this.commentDataGridViewTextBoxColumn.Name = "commentDataGridViewTextBoxColumn";
+            this.commentDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // timestampDataGridViewTextBoxColumn
             // 
             this.timestampDataGridViewTextBoxColumn.DataPropertyName = "Timestamp";
             this.timestampDataGridViewTextBoxColumn.HeaderText = "Timestamp";
             this.timestampDataGridViewTextBoxColumn.Name = "timestampDataGridViewTextBoxColumn";
+            this.timestampDataGridViewTextBoxColumn.ReadOnly = true;
             this.timestampDataGridViewTextBoxColumn.Width = 125;
             // 
             // errorBindingSource1
@@ -500,6 +571,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1013, 478);
+            this.Controls.Add(this.colourTB);
             this.Controls.Add(this.monitoringCB);
             this.Controls.Add(this.nodeErrorsLB);
             this.Controls.Add(this.nodeAlertBox);
@@ -572,5 +644,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn errorTypeDataGridViewTextBoxColumn1;
         private System.Windows.Forms.Label nodeErrorsLB;
         private System.Windows.Forms.CheckBox monitoringCB;
+        private System.Windows.Forms.TextBox colourTB;
+        private System.Windows.Forms.ToolStripMenuItem deleteErrorsDBToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteNodesDBToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addNodeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteNodeToolStripMenuItem;
+        private System.Windows.Forms.Timer timer2;
     }
 }
