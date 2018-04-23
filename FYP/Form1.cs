@@ -52,17 +52,20 @@ namespace FYP_10_2_18
                 if (En_IP_Net_1.Checked)
                 {
                     ipBase = netIp1a.Value.ToString() + "." + netIp1b.Value.ToString() + "." + netIp1c.Value.ToString() + "." + netIp1d.Value.ToString();
+
                     ScanNetwork(ipBase, cidr1.Text, Int32.Parse(netIp1b.Value.ToString()));
                 }
                 if (En_IP_Net_2.Checked)
                 {
                     ipBase = netIp2a.Value.ToString() + "." + netIp2b.Value.ToString() + "." + netIp2c.Value.ToString() + "." + netIp2d.Value.ToString();
                     ScanNetwork(ipBase, cidr2.Text, Int32.Parse(netIp2b.Value.ToString()));
+             
                 }
                 if (En_IP_Net_3.Checked)
                 {
                     ipBase = netIp3a.Value.ToString() + "." + netIp3b.Value.ToString() + "." + netIp3c.Value.ToString() + "." + netIp3d.Value.ToString();
                     ScanNetwork(ipBase, cidr3.Text, Int32.Parse(netIp3b.Value.ToString()));
+
                 }
 
                 //prompt window telling user that scan is complete

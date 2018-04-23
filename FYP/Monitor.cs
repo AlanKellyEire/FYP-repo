@@ -268,27 +268,6 @@ namespace FYP_10_2_18
             
         }
 
-        //private async void monitor()
-        //{
-        //    Trace.Write(" (asdgfhjk;khgfsdaf)\n");
-        //    Ping ping = new Ping();
-
-        //    foreach (Node n in NodeList)
-        //    {
-        //        var reply = await ping.SendPingAsync(n.Ip);
-        //        if (reply.Status == IPStatus.Success)
-        //        {
-
-        //            Trace.Write(n + " (OK)\n");
-        //        }
-        //        else
-        //        {
-        //            Trace.Write(n + " (FAILED)\n");
-        //            addError(n);
-        //        }
-        //    }
-        //}
-
         private void addError(Node n, int i)
         {
             DatabaseIO db = new DatabaseIO();
@@ -337,6 +316,7 @@ namespace FYP_10_2_18
 
         }
 
+        //timer that runs every 
         private void timer2_Tick(object sender, EventArgs e)
         {
             new Thread(delegate () {
@@ -352,7 +332,7 @@ namespace FYP_10_2_18
 
         }
 
-        //gets the row selected from the nodelistbox
+        //gets the row selected from the nodelistbox and populates the top left section of the monitoring window
         private void selectedCellsButton_Click(object sender, System.EventArgs e)
         {
             Int32 selectedCellCount =
@@ -372,7 +352,6 @@ namespace FYP_10_2_18
                     nodeAlertBox.DataSource = null;
                     nodeAlertBox.DataSource = nodeErrorsList;
                     nodeErrorsLB.Text = nodeList[row].Hostname.ToString();
-                    Trace.Write("node monitoring = " + nodeList[row].MonitorEnabled);
                     monitoringCB.Visible = true;
                     colourTB.Visible = true;
                     monitoringCB.Checked = nodeList[row].MonitorEnabled;
@@ -388,6 +367,7 @@ namespace FYP_10_2_18
             }
         }
 
+        //changes the checkbox value when clicked
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if(nodeErrorsLB.Text != "")
@@ -408,16 +388,7 @@ namespace FYP_10_2_18
             }
         }
 
-        private void alertsBox_CellValueChanged(object sender, DataGridViewCellEventArgs e) {
-
-            ObservableCollection<Error> temperrorlist = new ObservableCollection<Error>();
-
-            for(int i = 0; i < alertsBox.RowCount; i++)
-            {               
-            }
-
-        }
-
+        //used to delete error database
         private void deleteErrorsDBToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DatabaseIO db = new DatabaseIO();
@@ -428,6 +399,7 @@ namespace FYP_10_2_18
             alertsBox.Refresh();
         }
 
+        //used to delete node database
         private void deleteNodesDBToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DatabaseIO db = new DatabaseIO();
@@ -439,5 +411,11 @@ namespace FYP_10_2_18
             nodesBox.Refresh();
         }
 
+        private void addNodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Add_Node add = new Add_Node(this);
+            add.Show();
+
+        }
     }
 }
