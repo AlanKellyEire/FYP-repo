@@ -155,7 +155,7 @@ namespace FYP_10_2_18
                                     n.MonitorEnabled = false;
                                 }
                             }
-                            if (n.IpSecondary.Length > 1)
+                            if (n.IpFourth.Length > 1)
                             {
                                 var replyFourth = await ping.SendPingAsync(n.IpFourth);
                                 if (replyFourth.Status == IPStatus.Success)
@@ -416,6 +416,25 @@ namespace FYP_10_2_18
             Add_Node add = new Add_Node(this);
             add.Show();
 
+        }
+
+        private void deleteNodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Delete_Node delete = new Delete_Node(this);
+            delete.Show();
+        }
+
+        private void alertsBox_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            Int32 selectedCellCount =
+        alertsBox.GetCellCount(DataGridViewElementStates.Selected);
+            DataGridViewRow selectedRow = alertsBox.Rows[alertsBox.CurrentRow.Index];
+
+
+
+            Trace.Write("SELCETED CELL = " + selectedCellCount);
+
+            Trace.Write("SELCETED row = " + selectedRow);
         }
     }
 }

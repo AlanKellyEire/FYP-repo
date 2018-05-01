@@ -77,8 +77,8 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.nodeAlertBox = new System.Windows.Forms.DataGridView();
             this.ipDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.commentDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timestampDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.commentDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.errorTypeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nodeErrorsLB = new System.Windows.Forms.Label();
             this.monitoringCB = new System.Windows.Forms.CheckBox();
@@ -127,13 +127,13 @@
             this.addNodeToolStripMenuItem,
             this.deleteNodeToolStripMenuItem});
             this.loadFromDatabaseToolStripMenuItem.Name = "loadFromDatabaseToolStripMenuItem";
-            this.loadFromDatabaseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadFromDatabaseToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.loadFromDatabaseToolStripMenuItem.Text = "Database";
             // 
             // loadFromDBToolStripMenuItem
             // 
             this.loadFromDBToolStripMenuItem.Name = "loadFromDBToolStripMenuItem";
-            this.loadFromDBToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadFromDBToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.loadFromDBToolStripMenuItem.Text = "Load From DB";
             this.loadFromDBToolStripMenuItem.Click += new System.EventHandler(this.loadFromDBToolStripMenuItem_Click);
             // 
@@ -143,7 +143,7 @@
             this.deleteErrorsDBToolStripMenuItem,
             this.deleteNodesDBToolStripMenuItem});
             this.deleteDBToolStripMenuItem.Name = "deleteDBToolStripMenuItem";
-            this.deleteDBToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteDBToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.deleteDBToolStripMenuItem.Text = "Delete DB";
             this.deleteDBToolStripMenuItem.Click += new System.EventHandler(this.deleteDBToolStripMenuItem_Click);
             // 
@@ -164,34 +164,35 @@
             // addNodeToolStripMenuItem
             // 
             this.addNodeToolStripMenuItem.Name = "addNodeToolStripMenuItem";
-            this.addNodeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addNodeToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.addNodeToolStripMenuItem.Text = "Add Node";
             this.addNodeToolStripMenuItem.Click += new System.EventHandler(this.addNodeToolStripMenuItem_Click);
             // 
             // deleteNodeToolStripMenuItem
             // 
             this.deleteNodeToolStripMenuItem.Name = "deleteNodeToolStripMenuItem";
-            this.deleteNodeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteNodeToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.deleteNodeToolStripMenuItem.Text = "Delete Node";
+            this.deleteNodeToolStripMenuItem.Click += new System.EventHandler(this.deleteNodeToolStripMenuItem_Click);
             // 
             // scanNetworkToolStripMenuItem
             // 
             this.scanNetworkToolStripMenuItem.Name = "scanNetworkToolStripMenuItem";
-            this.scanNetworkToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.scanNetworkToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.scanNetworkToolStripMenuItem.Text = "Scan Network";
             this.scanNetworkToolStripMenuItem.Click += new System.EventHandler(this.scanNetworkToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.optionsToolStripMenuItem.Text = "Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -412,6 +413,7 @@
             this.alertsBox.RowHeadersVisible = false;
             this.alertsBox.Size = new System.Drawing.Size(565, 150);
             this.alertsBox.TabIndex = 1;
+            this.alertsBox.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.alertsBox_CellEndEdit);
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -486,14 +488,14 @@
             this.nodeAlertBox.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.nodeAlertBox.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ipDataGridViewTextBoxColumn1,
-            this.commentDataGridViewTextBoxColumn1,
             this.timestampDataGridViewTextBoxColumn1,
+            this.commentDataGridViewTextBoxColumn1,
             this.errorTypeDataGridViewTextBoxColumn1});
             this.nodeAlertBox.DataSource = this.errorBindingSource2;
-            this.nodeAlertBox.Location = new System.Drawing.Point(583, 90);
+            this.nodeAlertBox.Location = new System.Drawing.Point(583, 44);
             this.nodeAlertBox.Name = "nodeAlertBox";
             this.nodeAlertBox.RowHeadersVisible = false;
-            this.nodeAlertBox.Size = new System.Drawing.Size(418, 104);
+            this.nodeAlertBox.Size = new System.Drawing.Size(418, 150);
             this.nodeAlertBox.TabIndex = 6;
             // 
             // ipDataGridViewTextBoxColumn1
@@ -503,18 +505,19 @@
             this.ipDataGridViewTextBoxColumn1.Name = "ipDataGridViewTextBoxColumn1";
             this.ipDataGridViewTextBoxColumn1.Width = 130;
             // 
+            // timestampDataGridViewTextBoxColumn1
+            // 
+            this.timestampDataGridViewTextBoxColumn1.DataPropertyName = "Timestamp";
+            this.timestampDataGridViewTextBoxColumn1.HeaderText = "Timestamp";
+            this.timestampDataGridViewTextBoxColumn1.Name = "timestampDataGridViewTextBoxColumn1";
+            this.timestampDataGridViewTextBoxColumn1.Width = 130;
+            // 
             // commentDataGridViewTextBoxColumn1
             // 
             this.commentDataGridViewTextBoxColumn1.DataPropertyName = "Comment";
             this.commentDataGridViewTextBoxColumn1.HeaderText = "Comment";
             this.commentDataGridViewTextBoxColumn1.Name = "commentDataGridViewTextBoxColumn1";
             this.commentDataGridViewTextBoxColumn1.Width = 150;
-            // 
-            // timestampDataGridViewTextBoxColumn1
-            // 
-            this.timestampDataGridViewTextBoxColumn1.DataPropertyName = "Timestamp";
-            this.timestampDataGridViewTextBoxColumn1.HeaderText = "Timestamp";
-            this.timestampDataGridViewTextBoxColumn1.Name = "timestampDataGridViewTextBoxColumn1";
             // 
             // errorTypeDataGridViewTextBoxColumn1
             // 
@@ -527,7 +530,7 @@
             this.nodeErrorsLB.AutoSize = true;
             this.nodeErrorsLB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nodeErrorsLB.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.nodeErrorsLB.Location = new System.Drawing.Point(583, 24);
+            this.nodeErrorsLB.Location = new System.Drawing.Point(579, 24);
             this.nodeErrorsLB.Name = "nodeErrorsLB";
             this.nodeErrorsLB.Size = new System.Drawing.Size(0, 20);
             this.nodeErrorsLB.TabIndex = 7;
@@ -535,7 +538,7 @@
             // monitoringCB
             // 
             this.monitoringCB.AutoSize = true;
-            this.monitoringCB.Location = new System.Drawing.Point(909, 44);
+            this.monitoringCB.Location = new System.Drawing.Point(908, 28);
             this.monitoringCB.Name = "monitoringCB";
             this.monitoringCB.Size = new System.Drawing.Size(75, 17);
             this.monitoringCB.TabIndex = 8;
@@ -546,9 +549,9 @@
             // 
             // colourTB
             // 
-            this.colourTB.Location = new System.Drawing.Point(874, 42);
+            this.colourTB.Location = new System.Drawing.Point(882, 24);
             this.colourTB.Name = "colourTB";
-            this.colourTB.Size = new System.Drawing.Size(19, 20);
+            this.colourTB.Size = new System.Drawing.Size(20, 20);
             this.colourTB.TabIndex = 9;
             this.colourTB.Visible = false;
             // 
@@ -638,10 +641,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn errorTypeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn commentDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn timestampDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ipDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn commentDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn timestampDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn errorTypeDataGridViewTextBoxColumn1;
         private System.Windows.Forms.Label nodeErrorsLB;
         private System.Windows.Forms.CheckBox monitoringCB;
         private System.Windows.Forms.TextBox colourTB;
@@ -650,5 +649,9 @@
         private System.Windows.Forms.ToolStripMenuItem addNodeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteNodeToolStripMenuItem;
         private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ipDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn timestampDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn commentDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn errorTypeDataGridViewTextBoxColumn1;
     }
 }

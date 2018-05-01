@@ -71,6 +71,7 @@
             this.adddSecMacLB = new System.Windows.Forms.Label();
             this.AddFourthMacLB = new System.Windows.Forms.Label();
             this.addNodeBT = new System.Windows.Forms.Button();
+            this.cancelBT = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1d)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1c)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.netIp1b)).BeginInit();
@@ -537,11 +538,22 @@
             this.addNodeBT.UseVisualStyleBackColor = true;
             this.addNodeBT.Click += new System.EventHandler(this.addNodeBT_Click);
             // 
+            // cancelBT
+            // 
+            this.cancelBT.Location = new System.Drawing.Point(473, 70);
+            this.cancelBT.Name = "cancelBT";
+            this.cancelBT.Size = new System.Drawing.Size(75, 23);
+            this.cancelBT.TabIndex = 64;
+            this.cancelBT.Text = "Cancel";
+            this.cancelBT.UseVisualStyleBackColor = true;
+            this.cancelBT.Click += new System.EventHandler(this.cancel_Click);
+            // 
             // Add_Node
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(633, 287);
+            this.Controls.Add(this.cancelBT);
             this.Controls.Add(this.addNodeBT);
             this.Controls.Add(this.AddFourthMacLB);
             this.Controls.Add(this.addFourthIpLB);
@@ -653,5 +665,6 @@
         private System.Windows.Forms.Label adddSecMacLB;
         private System.Windows.Forms.Label AddFourthMacLB;
         private System.Windows.Forms.Button addNodeBT;
+        private System.Windows.Forms.Button cancelBT;
     }
 }

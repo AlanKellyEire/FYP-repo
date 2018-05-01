@@ -226,6 +226,18 @@ namespace FYP_10_2_18
             return i;
         }
 
+        public void DeleteNode(string s)
+        {
+            dbconn = new SQLiteConnection(DataSource);
+            dbconn.Open();
+
+            string sql = "DELETE FROM " + NodeTable + " WHERE hostname = '" + s + "';";
+            SQLiteCommand command = new SQLiteCommand(sql, dbconn);
+            command.ExecuteNonQuery();
+
+            dbconn.Close();
+        }
+
         public void PopulateNodeAlertListFromDB(string s)
         {
             string sql;

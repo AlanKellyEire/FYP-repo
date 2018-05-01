@@ -66,5 +66,10 @@ namespace FYP_10_2_18
 
 
         }
+
+        private void cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

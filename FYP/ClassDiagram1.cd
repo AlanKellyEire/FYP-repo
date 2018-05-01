@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FYP_10_2_18.DatabaseIO">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEEAACAAEAAAAhISAEAABCACAAABAAAACAgAAAAAEQA=</HashCode>
+      <FileName>DatabaseIO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FYP_10_2_18.Email">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAIAgAAAAAA=</HashCode>
+      <FileName>Email.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FYP_10_2_18.EmailServer">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAYAAAAGACAAAAAgCBAAAAhQAABA=</HashCode>
+      <FileName>EmailServer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FYP_10_2_18.Error">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAEAAIAAAAGAAACAAAAAiACAAAgAgAgAAAAIgA=</HashCode>
+      <FileName>Error.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FYP_10_2_18.Form1">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>/4gSxgBQeyAg5FwAgICCdQALACgMAEIAAEMAAIILADI=</HashCode>
+      <FileName>Form1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FYP_10_2_18.Logger">
+    <Position X="1.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAABAAAAAQAIAAAICAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Logger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FYP_10_2_18.MergeNodes">
+    <Position X="3.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAQAAAAAACAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>MergeNodes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FYP_10_2_18.Node">
+    <Position X="1.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACFAACQBYAAkAGAAEAAAABAAAAABAAABAwAAIQIgA=</HashCode>
+      <FileName>Node.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FYP_10_2_18.Options">
+    <Position X="4.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BQoCBAAAjSMCKBEBIASFLABiIBQgAkAkoQQACClAJVA=</HashCode>
+      <FileName>Options.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FYP_10_2_18.Program">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FYP_10_2_18.ReadAndWrite">
+    <Position X="7.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAQAIAAAQCAAAAEAAAAAAAACAABAAAAAA=</HashCode>
+      <FileName>ReadAndWrite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FYP_10_2_18.Settings">
+    <Position X="7.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAgAAAAACAAAAAgAEAAAAAgIEAAACBAAAAAAAAAIAA=</HashCode>
+      <FileName>Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FYP_10_2_18.Subnet">
+    <Position X="4.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAAABAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Subnet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FYP_10_2_18.Validation">
+    <Position X="6.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAg=</HashCode>
+      <FileName>Validation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
