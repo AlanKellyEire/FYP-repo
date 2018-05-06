@@ -121,7 +121,7 @@ namespace FYP_10_2_18
                             }
                             else
                             {
-                                Trace.Write(n.Hostname + ", " + n.Ip + " (FAILED)\n");
+                                Trace.Write(DateTime.Now.ToString() + " - " + n.Hostname + ", " + n.Ip + " (Ping FAILED)\n");
                                 addError(n, 1);
                                 n.MonitorEnabled = false;
                             }
@@ -430,7 +430,7 @@ namespace FYP_10_2_18
         alertsBox.GetCellCount(DataGridViewElementStates.Selected);
             DataGridViewRow selectedRow = alertsBox.Rows[alertsBox.CurrentRow.Index];
 
-
+            Trace.Write(selectedRow.Cells[0].Value.ToString());
 
             Trace.Write("SELCETED CELL = " + selectedCellCount);
 

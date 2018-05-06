@@ -878,7 +878,7 @@
             // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(1470, 811);
+            this.ClientSize = new System.Drawing.Size(1240, 811);
             this.Controls.Add(this.En_IP_Net_3);
             this.Controls.Add(this.En_IP_Net_2);
             this.Controls.Add(this.En_IP_Net_1);

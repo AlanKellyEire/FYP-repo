@@ -287,9 +287,9 @@
             this.subjectLabel.AutoSize = true;
             this.subjectLabel.Location = new System.Drawing.Point(203, 41);
             this.subjectLabel.Name = "subjectLabel";
-            this.subjectLabel.Size = new System.Drawing.Size(41, 13);
+            this.subjectLabel.Size = new System.Drawing.Size(43, 13);
             this.subjectLabel.TabIndex = 18;
-            this.subjectLabel.Text = "Sender";
+            this.subjectLabel.Text = "Subject";
             // 
             // emailTab
             // 

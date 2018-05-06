@@ -82,7 +82,7 @@ namespace FYP_10_2_18
 
             //emails tab
             if (settings.EmailEnabled) {
-                emailEnableCheck.Enabled = true;
+                emailEnableCheck.Checked = true;
             }
             emailRepTextbox1.Text = settings.Emails[0];
             emailRepTextbox2.Text = settings.Emails[1];
@@ -208,5 +208,7 @@ namespace FYP_10_2_18
             Validation val = new Validation();
             return val.IsValidDomainName(website);
         }
+
+
     }
 }

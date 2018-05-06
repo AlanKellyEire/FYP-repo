@@ -95,14 +95,20 @@ namespace FYP_10_2_18
 
             ip = (ipAdd == 1) ? n.Ip : (ipAdd == 2) ? n.IpSecondary : (ipAdd == 3) ? n.IpThird : n.IpFourth;
 
-            string message = "Nic with IP of " + ip + " on Node " + n.Hostname + " is unreachable\n"; 
+            string message = "Nic with IP of " + ip + " on Node " + n.Hostname + " is unreachable\n";
+            Validation val = new Validation();
 
-            MailMessage mm = new MailMessage(set.ServerSettings.Username, set.ServerSettings.Username, set.ServerSettings.Subject.ToString(), message);
-            mm.BodyEncoding = UTF8Encoding.UTF8;
-            mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+            for (int i = 0; i < set.Emails.Length; i++)
+            {
+                if (val.IsValidEmail(set.Emails[i].ToString()))
+                {
+                    MailMessage mm = new MailMessage(set.ServerSettings.Username, set.Emails[i].ToString(), set.ServerSettings.Subject.ToString(), message);
+                    mm.BodyEncoding = UTF8Encoding.UTF8;
+                    mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
 
-            client.Send(mm);
-
+                    client.Send(mm);
+                }
+            }
         }
     }
 }
