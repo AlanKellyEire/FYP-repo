@@ -33,8 +33,8 @@ namespace FYP_10_2_18
             PopulateErrorList();
             System.Threading.Thread.Sleep(25);
             timer1.Start();
-            
-            
+
+
             Stream stream = File.Open("settingsSerial.osl", FileMode.Open);
             BinaryFormatter bformatter = new BinaryFormatter();
 
@@ -48,7 +48,7 @@ namespace FYP_10_2_18
             //    Run_Monitor();
             //}).Start();
 
-            for(int i = 0; i < alertsBox.ColumnCount; i++)
+            for (int i = 0; i < alertsBox.ColumnCount; i++)
             {
                 alertsBox.Columns[i].ReadOnly = true;
             }
@@ -102,126 +102,131 @@ namespace FYP_10_2_18
 
         private async void Run_Monitor()
         {
-            
-                if (!monitorCompleted && !ScannerEnabled)
-                {
-                    Trace.Write("running monitor \n");
-                    monitorCompleted = true;
-                    Ping ping = new Ping();
 
-                    foreach (Node n in NodeList)
+            List<string> logList = new List<string>();
+            if (!monitorCompleted && !ScannerEnabled)
+            {
+                Trace.Write("running monitor \n");
+                logList.Add(DateTime.Now.ToString() + ": running monitor \n");
+                monitorCompleted = true;
+                Ping ping = new Ping();
+
+                foreach (Node n in NodeList)
+                {
+                    if (n.MonitorEnabled)
                     {
-                        if (n.MonitorEnabled)
+                        var reply = await ping.SendPingAsync(n.Ip);
+                        if (reply.Status == IPStatus.Success)
                         {
-                            var reply = await ping.SendPingAsync(n.Ip);
-                            if (reply.Status == IPStatus.Success)
+
+                            Trace.Write(n.Hostname + ", " + n.Ip + " (OK)\n");
+                            if (set.LogSettings.LogTypeAll)
+                            {
+                                logList.Add(logString(n, 0));
+                            }
+                        }
+                        else
+                        {
+                            Trace.Write(DateTime.Now.ToString() + " - " + n.Hostname + ", " + n.Ip + " (Ping FAILED)\n");
+                            logList.Add(logString(n, 1));
+                            addError(n, 1);
+                            n.MonitorEnabled = false;
+                        }
+                        if (n.IpSecondary.Length > 1)
+                        {
+                            var replySec = await ping.SendPingAsync(n.IpSecondary);
+                            if (replySec.Status == IPStatus.Success)
                             {
 
-                                Trace.Write(n.Hostname + ", " + n.Ip + " (OK)\n");
+                                Trace.Write(n.Hostname + ", " + n.IpSecondary + " (OK)\n");
+                                if (set.LogSettings.LogTypeAll)
+                                {
+                                    logList.Add(logString(n, 0));
+                                }
                             }
                             else
                             {
-                                Trace.Write(DateTime.Now.ToString() + " - " + n.Hostname + ", " + n.Ip + " (Ping FAILED)\n");
-                                addError(n, 1);
+                                Trace.Write(n.Hostname + ", " + n.IpSecondary + " (FAILED)\n");
+                                logList.Add(logString(n, 1));
+                                addError(n, 2);
                                 n.MonitorEnabled = false;
                             }
-                            if (n.IpSecondary.Length > 1)
+                        }
+                        if (n.IpThird.Length > 1)
+                        {
+                            var replyThird = await ping.SendPingAsync(n.IpThird);
+                            if (replyThird.Status == IPStatus.Success)
                             {
-                                var replySec = await ping.SendPingAsync(n.IpSecondary);
-                                if (replySec.Status == IPStatus.Success)
-                                {
 
-                                    Trace.Write(n.Hostname + ", " + n.IpSecondary + " (OK)\n");
-                                }
-                                else
+                                Trace.Write(n.Hostname + ", " + n.IpThird + " (OK)\n");
+                                if (set.LogSettings.LogTypeAll)
                                 {
-                                    Trace.Write(n.Hostname + ", " + n.IpSecondary + " (FAILED)\n");
-                                    addError(n, 2);
-                                    n.MonitorEnabled = false;
+                                    logList.Add(logString(n, 0));
                                 }
                             }
-                            if (n.IpThird.Length > 1)
+                            else
                             {
-                                var replyThird = await ping.SendPingAsync(n.IpThird);
-                                if (replyThird.Status == IPStatus.Success)
+                                Trace.Write(n.Hostname + ", " + n.IpThird + " (FAILED)\n");
+                                logList.Add(logString(n, 1));
+                                addError(n, 3);
+                                n.MonitorEnabled = false;
+                            }
+                        }
+                        if (n.IpFourth.Length > 1)
+                        {
+                            var replyFourth = await ping.SendPingAsync(n.IpFourth);
+                            if (replyFourth.Status == IPStatus.Success)
+                            {
+                                Trace.Write(n.Hostname + ", " + n.IpFourth + " (OK)\n");
+                                if (set.LogSettings.LogTypeAll)
                                 {
-
-                                    Trace.Write(n.Hostname + ", " + n.IpThird + " (OK)\n");
-                                }
-                                else
-                                {
-                                    Trace.Write(n.Hostname + ", " + n.IpThird + " (FAILED)\n");
-                                    addError(n, 3);
-                                    n.MonitorEnabled = false;
+                                    logList.Add(logString(n, 0));
                                 }
                             }
-                            if (n.IpFourth.Length > 1)
+                            else
                             {
-                                var replyFourth = await ping.SendPingAsync(n.IpFourth);
-                                if (replyFourth.Status == IPStatus.Success)
-                                {
+                                Trace.Write(n.Hostname + ", " + n.IpFourth + " (FAILED)\n");
 
-                                    Trace.Write(n.Hostname + ", " + n.IpFourth + " (OK)\n");
-                                }
-                                else
-                                {
-                                    Trace.Write(n.Hostname + ", " + n.IpFourth + " (FAILED)\n");
-                                    addError(n, 4);
-                                    n.MonitorEnabled = false;
-                                }
+                                logList.Add(logString(n, 1));
+
+                                addError(n, 4);
+                                n.MonitorEnabled = false;
                             }
                         }
                     }
-                    monitorCompleted = false;
                 }
-            
-            
+                monitorCompleted = false;
+            }
+            if (set.LoggerEnabled)
+            {
+                ReadAndWrite rw = new ReadAndWrite(set.LogSettings.Path, set.LogSettings.Filename);
+                rw.writeList(logList);
+            }
+        }
+
+        private string logString(Node n, int error)
+        {
+            if (error == 1)
+            {
+                return DateTime.Now.ToString() + ": " + n.Hostname + ", " + n.Ip + " (Ping FAILED)\n";
+            }
+            else
+            {
+                return DateTime.Now.ToString() + ": " + n.Hostname + ", " + n.Ip + " (OK)\n";
+            }
         }
 
         private ObservableCollection<Error> SortList(ObservableCollection<Error> list)
         {
             ObservableCollection<Error> tempList = new ObservableCollection<Error>();
 
-            for(int i = 1; i < list.Count; i++)
+            for (int i = 1; i < list.Count; i++)
             {
                 tempList.Add(list[list.Count - i]);
             }
 
             return tempList;
         }
-
-        //private void Monitor_Thread()
-        //{
-        //    BackgroundWorker bw = new BackgroundWorker();
-
-        //    // this allows our worker to report progress during work
-        //    bw.WorkerReportsProgress = true;
-
-        //    // what to do in the background thread
-        //    bw.DoWork += new DoWorkEventHandler(
-        //    delegate (object o, DoWorkEventArgs args)
-        //    {
-        //        BackgroundWorker b = o as BackgroundWorker;
-        //        monitor();
-
-        //    });
-
-        //    // what to do when progress changed (update the progress bar for example)
-        //    bw.ProgressChanged += new ProgressChangedEventHandler(
-        //    delegate (object o, ProgressChangedEventArgs args)
-        //    {
-        //        label1.Text = string.Format("{0}% Completed", args.ProgressPercentage);
-        //    });
-
-        //    // what to do when worker completes its task (notify the user)
-        //    bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(
-        //    delegate (object o, RunWorkerCompletedEventArgs args)
-        //    {
-        //        monitorCompleted = false;
-        //    });
-
-        //    bw.RunWorkerAsync();
-        //}
 
         private void scanNetworkToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -265,7 +270,7 @@ namespace FYP_10_2_18
             {
                 //code for Cancel
             }
-            
+
         }
 
         private void addError(Node n, int i)
@@ -319,7 +324,9 @@ namespace FYP_10_2_18
         //timer that runs every 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            new Thread(delegate () {
+            timer2.Interval = (set.PingInterval * 1000);
+            new Thread(delegate ()
+            {
                 Run_Monitor();
             }).Start();
         }
@@ -346,8 +353,8 @@ namespace FYP_10_2_18
                 else
                 {
                     int row = nodesBox.CurrentCell.RowIndex;
-                        string sqlSearchRow = (row + 1) + "";
-                        getNodeAlerts(sqlSearchRow);
+                    string sqlSearchRow = (row + 1) + "";
+                    getNodeAlerts(sqlSearchRow);
 
                     nodeAlertBox.DataSource = null;
                     nodeAlertBox.DataSource = nodeErrorsList;
@@ -357,7 +364,7 @@ namespace FYP_10_2_18
                     monitoringCB.Checked = nodeList[row].MonitorEnabled;
                     if (monitoringCB.Checked)
                     {
-                        colourTB.BackColor = Color.Green; 
+                        colourTB.BackColor = Color.Green;
                     }
                     else
                     {
@@ -370,9 +377,9 @@ namespace FYP_10_2_18
         //changes the checkbox value when clicked
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if(nodeErrorsLB.Text != "")
+            if (nodeErrorsLB.Text != "")
             {
-                for(int i = 0; i<nodeList.Count; i++)
+                for (int i = 0; i < nodeList.Count; i++)
                 {
                     if (nodeErrorsLB.Text.Equals(nodeList[i].Hostname) && monitoringCB.Checked)
                     {
@@ -393,9 +400,9 @@ namespace FYP_10_2_18
         {
             DatabaseIO db = new DatabaseIO();
             db.DeleteErrorsDB();
-            
+
             PopulateErrorList();
-            
+
             alertsBox.Refresh();
         }
 

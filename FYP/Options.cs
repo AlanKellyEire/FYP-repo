@@ -98,9 +98,13 @@ namespace FYP_10_2_18
             logPathTextbox.Text = settings.LogSettings.Path;
             logFileNameTextbox.Text = settings.LogSettings.Filename;
             //log
-            if (settings.LogSettings.LogType)
+            if (settings.LogSettings.LogTypeAll)
             {
-                loggerEnableCheck.Enabled = true;
+                allLogTypeRB.Checked = true;
+            }
+            else
+            {
+                errorsLogTypeRB.Checked = true;
             }
 
         }
@@ -153,11 +157,11 @@ namespace FYP_10_2_18
             b = false;
             set.LogSettings.Path = logPathTextbox.Text.ToString();
             set.LogSettings.Filename = logFileNameTextbox.Text.ToString();
-            if (allLogTypeRB.Enabled)
+            if (allLogTypeRB.Checked)
             {
                 b = true;
             }
-            set.LogSettings.LogType = b;
+            set.LogSettings.LogTypeAll = b;
 
             set.Emails[0] = emailRepTextbox1.Text.ToString();
             set.Emails[1] = emailRepTextbox2.Text.ToString();
@@ -209,6 +213,29 @@ namespace FYP_10_2_18
             return val.IsValidDomainName(website);
         }
 
+        private void logPathTextbox_TextChanged(object sender, EventArgs e)
+        {
+           
+        }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+ using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    string[] files = Directory.GetFiles(fbd.SelectedPath);
+
+                    Trace.Write(fbd.SelectedPath);
+                    set.LogSettings.Path = fbd.SelectedPath;
+                    Trace.Write(set.LogSettings.Path);
+                    logPathTextbox.Text = set.LogSettings.Path;
+                    //rw.Path = path;
+                }
+            }
+        }
     }
 }

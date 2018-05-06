@@ -13,13 +13,13 @@ namespace FYP_10_2_18
     {
         private string path = "";
         private string filename = "";
-        private Boolean logType;
+        private Boolean logTypeAll;
 
         public Logger(string pathToFile, string logFileName, Boolean loggingType)
         {
             this.Path = pathToFile;
             this.Filename = logFileName;
-            this.LogType = loggingType;
+            this.LogTypeAll = loggingType;
         }
 
         public Logger()
@@ -29,6 +29,6 @@ namespace FYP_10_2_18
         
         public string Path { get => path; set => path = value; }
         public string Filename { get => filename; set => filename = value; }
-        public bool LogType { get => logType; set => logType = value; }
+        public bool LogTypeAll { get => logTypeAll; set => logTypeAll = value; }
     }
 }
