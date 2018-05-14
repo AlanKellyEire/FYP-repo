@@ -23,7 +23,11 @@ namespace FYP_10_2_18
                 bool name = ExistsHostname(arrayList[i].Hostname.ToLower().ToString(), temp, i);
                 Trace.Write(i + " node ip =" + arrayList[i].Ip.ToLower().ToString() + "\n");
 
-                if (!name)
+                if(arrayList[i].Hostname.ToLower().ToString() == "?")
+                {
+                    temp.Add(arrayList[i]);
+                }
+                else if (!name)
                 {
                     temp.Add(arrayList[i]);
                 }

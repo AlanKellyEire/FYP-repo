@@ -274,6 +274,18 @@ namespace FYP_10_2_18
             return nodeErrorsList;
         }
 
+        public void updateErrorComment(string s, string comment)
+        {
+            string sql;
+            dbconn = new SQLiteConnection(DataSource);
+            dbconn.Open();
+            sql = "Update " + ErrorTable + " set comment = '" + comment + "' where id = " + s ;
+            SQLiteCommand command = new SQLiteCommand(sql, dbconn);
+            command.ExecuteNonQuery();
+
+            dbconn.Close();
+        }
+
         //private void populate_db_Click(object sender, EventArgs e)
         //{
         //    List<string> dblist = new List<string>();

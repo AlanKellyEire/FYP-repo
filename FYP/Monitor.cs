@@ -22,6 +22,7 @@ namespace FYP_10_2_18
         private ObservableCollection<Node> nodeList;
         private ObservableCollection<Error> errorList = new ObservableCollection<Error>();
         private ObservableCollection<Error> nodeErrorsList = new ObservableCollection<Error>();
+        private ObservableCollection<Node> searchNodeList;
         private Settings set = new Settings();
         Boolean monitorCompleted = false;
         Boolean scannerEnabled = false;
@@ -33,7 +34,6 @@ namespace FYP_10_2_18
             PopulateErrorList();
             System.Threading.Thread.Sleep(25);
             timer1.Start();
-
 
             Stream stream = File.Open("settingsSerial.osl", FileMode.Open);
             BinaryFormatter bformatter = new BinaryFormatter();
@@ -72,6 +72,7 @@ namespace FYP_10_2_18
             DatabaseIO db = new DatabaseIO();
 
             db.PopulateErrorListFromDB(errorList);
+            
             errorList = SortList(errorList);
             alertsBox.DataSource = null;
             alertsBox.DataSource = errorList;
@@ -220,7 +221,7 @@ namespace FYP_10_2_18
         {
             ObservableCollection<Error> tempList = new ObservableCollection<Error>();
 
-            for (int i = 1; i < list.Count; i++)
+            for (int i = 1; i <= list.Count; i++)
             {
                 tempList.Add(list[list.Count - i]);
             }
@@ -331,10 +332,11 @@ namespace FYP_10_2_18
             }).Start();
         }
 
-        //populates the nodeerrorbox
+        //populates the nodeerroralert for one node
         private void getNodeAlerts(string s)
         {
             DatabaseIO db = new DatabaseIO();
+            
             nodeErrorsList = SortList(db.getNodeAlerts(s));
 
         }
@@ -400,9 +402,9 @@ namespace FYP_10_2_18
         {
             DatabaseIO db = new DatabaseIO();
             db.DeleteErrorsDB();
-
+            errorList.Clear();
             PopulateErrorList();
-
+            
             alertsBox.Refresh();
         }
 
@@ -411,7 +413,7 @@ namespace FYP_10_2_18
         {
             DatabaseIO db = new DatabaseIO();
             db.DeleteRowsDB();
-
+            nodeList.Clear();
 
             PopulateNodesList();
 
@@ -438,10 +440,133 @@ namespace FYP_10_2_18
             DataGridViewRow selectedRow = alertsBox.Rows[alertsBox.CurrentRow.Index];
 
             Trace.Write(selectedRow.Cells[0].Value.ToString());
-
+            DatabaseIO db = new DatabaseIO();
+            db.updateErrorComment(selectedRow.Cells[0].Value.ToString(), selectedRow.Cells[4].Value.ToString());
             Trace.Write("SELCETED CELL = " + selectedCellCount);
 
             Trace.Write("SELCETED row = " + selectedRow);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (searchTB.Text.Count() > 0)
+            {
+                searchNodeList = new ObservableCollection<Node>();
+                //if (Char.IsLetter(searchTB.Text.First()))
+                //{
+                if (IpCheck(searchTB.Text.ToString()))
+                    {
+                    Trace.Write("entered if");
+                    for (int i = 0; i < nodeList.Count; i++)
+                    {
+
+                        if (nodeList[i].Ip.ToString().Contains(searchTB.Text.ToString()))
+                        {
+                            searchNodeList.Add(nodeList[i]);
+                        }
+                        else if (nodeList[i].IpSecondary.ToString().Contains(searchTB.Text.ToString()))
+                        {
+                            searchNodeList.Add(nodeList[i]);
+                        }
+                        else if (nodeList[i].IpThird.ToString().Contains(searchTB.Text.ToString()))
+                        {
+                            searchNodeList.Add(nodeList[i]);
+                        }
+                        else if (nodeList[i].IpFourth.ToString().Contains(searchTB.Text.ToString()))
+                        {
+                            searchNodeList.Add(nodeList[i]);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < nodeList.Count; i++)
+                    {
+
+                        if (nodeList[i].Hostname.ToLower().Contains(searchTB.Text.ToString().ToLower()))
+                        {
+                            searchNodeList.Add(nodeList[i]);
+                        }
+                        if (nodeList[i].Mac.ToLower().Contains(searchTB.Text.ToString().ToLower()))
+                        {
+                            searchNodeList.Add(nodeList[i]);
+                        }
+                        if (nodeList[i].MacSecondary.ToLower().Contains(searchTB.Text.ToString().ToLower()))
+                        {
+                            searchNodeList.Add(nodeList[i]);
+                        }
+                        if (nodeList[i].MacThird.ToLower().Contains(searchTB.Text.ToString().ToLower()))
+                        {
+                            searchNodeList.Add(nodeList[i]);
+                        }
+                        if (nodeList[i].MacFourth.ToLower().Contains(searchTB.Text.ToString().ToLower()))
+                        {
+                            searchNodeList.Add(nodeList[i]);
+                        }
+                    }
+                }
+                nodesBox.DataSource = searchNodeList;
+                nodesBox.Refresh();
+            }
+            else {
+                PopulateNodesList();
+            }
+        }
+
+        private Boolean IpCheck(string ip)
+        {
+            if (ip.Count() <= 16)
+            {
+                Trace.Write(ip.Count());
+                for (int i = 0; i < ip.Count(); i++)
+                {
+                    if (ip[i] != '.'&& !char.IsNumber(ip[i]))
+                    {
+                        Boolean b = ip[i] != '.';
+                        Trace.Write("char = " + ip[i] + " result =" + !char.IsNumber(ip[i]));
+                        Trace.Write("is char = . = " + ip[i] + " result =" + b);
+                        return false;
+                    }
+                }
+                //if (ip[i] == '.' )
+                //    {
+                //        Trace.Write("char = " + ip[i] + " result =" + !char.IsNumber(ip[i]));
+                //    }
+                //    else if (char.IsNumber(ip[i]))
+                //    {
+                //        Trace.Write("is char = . = " + ip[i] + " result =" + b);
+                //    }
+                //    else
+                //    {
+                //        Trace.Write("returning flase");
+                //        return false;
+                //    }
+                //}
+            }
+            else
+            {
+                Trace.Write("returning else flase");
+                return false;
+            }
+            Trace.Write("returning true");
+            return true;
+        }
+
+        private void saveNodeListToCSVToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            ReadAndWrite rw = new ReadAndWrite(path, "NodeListCSV");
+            rw.writeList(nodeList);
+            DialogResult result = MessageBox.Show("List Exported to file called NodeListCSV.txt on Desktop", "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void saveErrorListToCSVToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            ReadAndWrite rw = new ReadAndWrite(path, "ErrorListCSV");
+            rw.writeList(errorList);
+            DialogResult result = MessageBox.Show("List Exported to file called ErrorListCSV.txt on Desktop", "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
         }
     }
 }

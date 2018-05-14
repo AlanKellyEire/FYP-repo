@@ -61,6 +61,23 @@ namespace FYP_10_2_18
             }
         }
 
+
+        public void writeList(ObservableCollection<Node> list)
+        {
+            for (int i = 0; i < list.Count(); i++)
+            {
+                writeToFile(list[i].ToString());
+            }
+        }
+
+        public void writeList(ObservableCollection<Error> list)
+        {
+            for (int i = 0; i < list.Count(); i++)
+            {
+                writeToFile(list[i].ToString());
+            }
+        }
+
         public void writeTime()
         {
             DateTime localDate = DateTime.Now;

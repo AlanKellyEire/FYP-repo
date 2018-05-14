@@ -47,26 +47,54 @@ namespace FYP_10_2_18
         {
             string To = set.ServerSettings.Username;
             string From = set.ServerSettings.Username;
-            string Subject = "Test exchange email Subject.";
+            //string Subject = "Test exchange email Subject.";
             string Body = "Test Email Body.";
 
-            // create the email message
-            MailMessage completeMessage = new MailMessage(From, To, Subject, Body);
+            //// create the email message
+            //MailMessage completeMessage = new MailMessage(From, To, Subject, Body);
 
-            // create smtp client at mail server location
-            SmtpClient client = new SmtpClient(set.ServerSettings.OutGoingMailServer);
+            //// create smtp client at mail server location
+            //SmtpClient client = new SmtpClient(set.ServerSettings.OutGoingMailServer);
 
-            // add credentials
-            client.UseDefaultCredentials = true;
+            //// add credentials
+            //client.UseDefaultCredentials = true;
 
-            try
+            //try
+            //{
+            //    // send message
+            //    client.Send(completeMessage);
+            //}
+            //catch (Exception)
+            //{
+            //    throw;
+            //}
+
+            Validation val = new Validation();
+
+            for (int i = 0; i < set.Emails.Length; i++)
             {
-                // send message
-                client.Send(completeMessage);
-            }
-            catch (Exception)
-            {
-                throw;
+                if (val.IsValidEmail(set.Emails[i].ToString()))
+                {
+
+                    // create the email message
+                    MailMessage completeMessage = new MailMessage(From, set.Emails[i].ToString(), set.ServerSettings.Subject.ToString(), Body);
+
+                    // create smtp client at mail server location
+                    SmtpClient client = new SmtpClient(set.ServerSettings.OutGoingMailServer);
+
+                    // add credentials
+                    client.UseDefaultCredentials = true;
+
+                    try
+                    {
+                        // send message
+                        client.Send(completeMessage);
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
             }
         }
 

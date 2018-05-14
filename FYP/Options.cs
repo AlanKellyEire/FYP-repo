@@ -237,5 +237,12 @@ namespace FYP_10_2_18
                 }
             }
         }
+
+        private void sendExchange_Click(object sender, EventArgs e)
+        {
+            saveSerial();
+            Email em = new Email();
+            em.sendEmailExchange(set);
+        }
     }
 }
